@@ -50,6 +50,7 @@ img{
 }
 .ocultar{
     display: none;
+    
 }
 .botones-cerrar{
     font-size: 3rem;
@@ -165,13 +166,14 @@ img{
 }
 .logo h2, .navegacion a {
   color: var(--azul);
+  text-decoration: none;
   
   
 }
 .logo h2{
     font-size: 2rem;
     /*Esto aumentará el tamaño de la letra en un 20% sin afectar el tamaño del div */
-    transform: scale(1.9);
+    transform: scale(2.9);
     
     
 }
@@ -424,8 +426,9 @@ Este el div separador
      
 }
 
+/* Seccion Separador2*/
 .separador2 {
-    background-image: url('../img/unchef.jpg');
+    background-image: url(../img/unchef.jpg);
     background-attachment: fixed;
     background-size: cover;
     background-position: center center;
@@ -434,28 +437,84 @@ Este el div separador
     position: relative;
     z-index: 2;
     width: 100%;
-    height: 600px; /* Ajusta la altura según tus necesidades */
-    padding: 4rem 0;
-    align-items: center;
-    justify-content: center;
+    padding: 2rem 0;
   }
+  
+  .separador2 .formulario-contacto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .separador2 .informacion-contacto,
+  .separador2 .container {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .separador2 .informacion-contacto h3,
+  .separador2 .informacion-contacto p {
+    text-align: left;
+  }
+  
+  .separador2 .redes-sociales {
+    text-align: left;
+  }
+  
+  /* Estilos para pantallas grandes */
+  @media screen and (min-width: 992px) {
+    .separador2 .formulario-contacto {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    
+    .separador2 .informacion-contacto {
+      flex: 0 0 50%;
+    }
+    
+    .separador2 .container {
+      flex: 0 0 50%;
+    }
+    
+    .separador2 .formulario-contacto .form-floating {
+      width: 100%;
+    }
+  }
+  
+  /*Final de seccion Separador 2*/
 
-.price {
+  /*Seccion Price*/
+  #priceSection {
     background: url(../img/86261947792.jpg) no-repeat center;
     background-attachment: fixed;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: 500px;
-    /* Ajusta la altura según tus necesidades */
-    padding: 5rem 0;
-    align-items: center;
+    display: flex;
     justify-content: center;
- 
+    align-items: center;
+    text-align: center;
+    height: 500px; /* Ajusta la altura según tus necesidades */
 }
+#priceSection .texto-encabezado {
+    max-width: 100%;
+    padding: 20px;
+  }
+  
+  #priceSection .texto-encabezado h2 {
+    font-size: 100px;
+  }
+  
+  #priceSection .texto-encabezado p {
+    font-size: 4rem;
+  }
+  
+  #priceSection .botones {
+    display: inline-block;
+    margin-top: 20px;
+  }
+
+  /* FinalSeccion Price*/
 
 
 .separador::before{
@@ -534,14 +593,11 @@ Este el div separador
     font-size: 2rem;
     
 }
-
+/*formulario contacto*/
 .formulario-contacto{
     padding: 5rem 0;
 }
 
-
-
-/*formulario contacto*/
 @media(min-width: 768px) {
     .formulario-contacto{
         display: flex;
