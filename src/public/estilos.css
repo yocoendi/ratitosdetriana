@@ -410,21 +410,76 @@ video{
 Este el div separador
 */
 
-.separador{
-    background-image: url('../img/brindis-cerveza.png');
+/*Seccion Separador*/
+
+#separadorSection {
+    background: url(../img/brindis.png) no-repeat center;
     background-attachment: fixed;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: 500px; /* Ajusta la altura según tus necesidades */
-    padding: 5rem 0;
-    align-items: center;
+    display: flex;
     justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 500px; /* Ajusta la altura según tus necesidades */
      
 }
+#separadorSection .texto-encabezado {
+    max-width: 100%;
+    padding: 20px;
+  }
+  
+  #separadorSection .texto-encabezado h2 {
+    color: #70683c;
+    font-size: 100px;
+  }
+  
+  #separadorSection .texto-encabezado p {
+    font-size: 4rem;
+    color: #70683c;
+  }
+  
+  #separadorSection .botones {
+    display: inline-block;
+    margin-top: 20px;
+  }
+
+  /*Final de Seccion Separador*/
+
+
+  /*Seccion Price*/
+  #priceSection {
+    background: url(../img/86261947792.jpg) no-repeat center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 500px; /* Ajusta la altura según tus necesidades */
+}
+#priceSection .texto-encabezado {
+    max-width: 100%;
+    padding: 20px;
+  }
+  
+  #priceSection .texto-encabezado h2 {
+    font-size: 100px;
+  }
+  
+  #priceSection .texto-encabezado p {
+    font-size: 4rem;
+  }
+  
+  #priceSection .botones {
+    display: inline-block;
+    margin-top: 20px;
+  }
+
+  /* FinalSeccion Price*/
 
 /* Seccion Separador2*/
 .separador2 {
