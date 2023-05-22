@@ -344,18 +344,27 @@ video{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+
     
 }
 .botones-platos button{
     flex: 0 0 calc(50% - 1rem);
     padding: 1rem 3rem;
     justify-content: center;
+    margin-right: 1rem;
+}
+.botones-platos button:last-child {
+  margin-right: 0; /* No se aplica margen al último botón */
 }
 @media(min-width: 768px) {
     .botones-platos{
-        display: inline-block;
+        display: flex;
+        justify-content: center;
+        align-items:center;
     }
     .botones-platos button{
+     justify-content: center;
         flex: unset;
     }
 }
