@@ -59,6 +59,10 @@ app.get('/registro', (req, res) => {
     res.render('registro')
 })
 
+app.get('/suscribirse', (req, res) => {
+    res.render('suscribirse')
+})
+
 app.get('/visita', (req, res) => {
     req.session.usuario = "Jorge";
     req.session.rol = "Administrador";

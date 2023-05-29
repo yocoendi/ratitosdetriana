@@ -54,7 +54,7 @@ router.post('/suscribirse', async (req, res) => {
     const email = req.body.email;
     pool1.query('INSERT INTO Users SET ?', { name: name, surname: surname, email: email})
         .then(() => {
-            res.send('Usuario insertado correctamente')
+            res.send('Suscripción correcta')
         })
         .catch((error) => {
             console.log(error)
