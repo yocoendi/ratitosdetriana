@@ -758,21 +758,12 @@ Este el div separador
 .redes-pie{
     text-align: center;
 }
-.info input[type="email"]{
-    font-family: var(--parrafos);
-    display: inline-block;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: 5px;
-    outline: none;
-    width: 100%;
-}
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
 
-.info input[type="submit"]{
-    padding: .5rem 2rem;
-    font-size: 1.8rem;
-    border-radius: 0;
-}
 .footer{
     text-align: center;
     background-color: var(--oscuro);
