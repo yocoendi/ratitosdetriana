@@ -7,7 +7,7 @@ const btntmariscos = document.querySelector('.mariscos');
 const btnguisos = document.querySelector('.guisos');
 const btnchacinas = document.querySelector('.chacinas');
 const btnPostres = document.querySelector('.postres');
-const contenedorPlatos = document.querySelector('.platos');
+const contenedorPlatos = document.querySelector('.platos-container');
 document.addEventListener('DOMContentLoaded',()=>{
     eventos();
     platos();
