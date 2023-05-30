@@ -385,9 +385,12 @@ video{
 }
 .plato h2{
     text-align: center;
+    padding: 1rem;
+    color: #f50910;
 }
 .plato p{
     font-size: 1.8rem;
+
 }
 .precio{
     display: flex;
@@ -396,15 +399,10 @@ video{
 .precio p{
     font-weight: bold;
     font-size: 2rem;
+    color: #f50910;
+   
 }
-.precio button{
-    padding:1rem;
-    border-radius: 5px;
-    border: none;
-    background-color: var(--rojo);
-    color: var(--blanco);
-    height: 3.8rem;
-}
+
 
 /*
 Este el div separador
