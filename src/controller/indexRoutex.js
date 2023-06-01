@@ -15,8 +15,8 @@ export const vistaSuscribirse = (req, res) => {
 }
 
 
-export const vistaSidebar = (req, res) => {
-    res.render('sidebar', {title: 'Sidebar'})
+export const vistaDashboard = (req, res) => {
+    res.render('dashboard', {title: 'Dashboard'})
 }
 
 

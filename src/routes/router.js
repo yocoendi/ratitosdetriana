@@ -1,6 +1,6 @@
 import express from 'express';
 import { pool1 } from '../db.js';
-import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, vistaSidebar, postMetodo } from '../controller/indexRoutex.js';
+import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, vistaDashboard, postMetodo } from '../controller/indexRoutex.js';
 import { PrismaClient } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 
@@ -11,7 +11,7 @@ router.get('/', vistaHome);
 router.get('/login', vistaLogin);
 router.get('/registro', vistaRegistro);
 router.get('/suscribirse', vistaSuscribirse);
-router.get("/sidebar", vistaSidebar);
+router.get("/dashboard", vistaDashboard);
 router.post('/', postMetodo);
 
 router.post('/auth', async (req, res) => {
@@ -23,13 +23,13 @@ router.post('/auth', async (req, res) => {
       if (results.length === 0 || !(await bcryptjs.compare(pass, results[0].pass))) {
         res.status(401).send('Usuario o contraseña incorrectos');
       } else {
-        res.render('sidebar'); // Renderizar la vista sidebar.ejs
+        res.render('dashboard'); // Renderizar la vista sidebar.ejs
       }
     } else {
       res.status(400).send('Faltan campos obligatorios');
     }
   } catch (error) {
-    res.status(500).send('Error en el servidor');
+    res.status(500).send('Error de conexion con el servidor');
   }
 });
 
