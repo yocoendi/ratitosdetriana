@@ -11,10 +11,6 @@ export const vistaRegistro = (req, res) => {
 }
 
 
-export const vistaSidebar = (req, res) => {
-    res.render('sidebar', {title: 'Sidebar'})
-}
-
 
 export const postMetodo = async (req, res) => {
     const [result] = await pool1.query('SELECT 1+1 as result')
