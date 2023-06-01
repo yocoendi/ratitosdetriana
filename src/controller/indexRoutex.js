@@ -10,6 +10,14 @@ export const vistaRegistro = (req, res) => {
     res.render('registro', {title: 'Registro'})
 }
 
+export const vistaSuscribirse = (req, res) => {
+    res.render('suscribirse', {title: 'Suscribirse'})
+}
+
+
+export const vistaSidebar = (req, res) => {
+    res.render('sidebar', {title: 'Sidebar'})
+}
 
 
 export const postMetodo = async (req, res) => {
