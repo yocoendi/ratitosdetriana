@@ -30,15 +30,7 @@ a:hover {
 .btn-search {
  background-color: var(--light) !important;
 }
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary:hover,
-button.btn-primary:focus,
-button.btn-primary:active,
-button.btn-primary:hover {
-    background-color: var(--primary) !important; /* Aquí puedes cambiar el color de fondo a tu preferencia */
-    border: var(--primary) !important;
-  }
+
 .btn-primary {
    background-color: var(--primary) !important;
 }
@@ -71,3 +63,12 @@ height: 100vh;
 padding-bottom: 5rem;
 
 }
+.stat {
+
+  border-right: 1px solid var(--grey);
+}
+
+.chart-container {
+  height: 400px; /* Ajusta la altura según tus necesidades */
+}
+
