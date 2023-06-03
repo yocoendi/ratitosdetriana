@@ -69,7 +69,6 @@ padding-bottom: 5rem;
 }
 
 .chart-container {
-  height: 400px; /* Ajusta la altura según tus necesidades */
+  width: 50%; /* Establece el ancho deseado */
 }
-
 
