@@ -7,7 +7,7 @@ import nodemailer from 'nodemailer';
 import multer from 'multer'; // Importar multer
 
 const router = express.Router();
-const upload = multer({ dest: 'uploads/' }); // Configurar multer para manejar la carga de archivos
+const upload = multer({ dest: 'src/uploads/' }); // Configurar multer para manejar la carga de archivos
 
 // Crear nuestras rutas para las diferentes páginas
 router.get('/', vistaHome);
@@ -100,7 +100,7 @@ router.post('/cv', upload.single('file'), async (req, res) => {
       text: message, // Cuerpo del correo electrónico
       attachments: [
         {
-          filename: file.originalname, // Nombre del archivo adjunto
+           filename: file.originalname, // Nombre del archivo adjunto
           content: file.buffer // Contenido del archivo adjunto
         }
       ]
@@ -116,6 +116,7 @@ router.post('/cv', upload.single('file'), async (req, res) => {
         res.status(200).send('Correo electrónico enviado con éxito');
       }
     });
+    
   } catch (error) {
     console.log(error);
     res.status(500).send('Error en el servidor');

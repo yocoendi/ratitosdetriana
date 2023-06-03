@@ -72,8 +72,4 @@ padding-bottom: 5rem;
   height: 400px; /* Ajusta la altura según tus necesidades */
 }
 
-.form-legend {
-  font-size: 24px; /* Tamaño de fuente deseado */
-  color: var(--light) !important; ; /* Color de texto deseado */
-}
 

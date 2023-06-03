@@ -82,4 +82,8 @@ body {
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
 }
+::placeholder {
+  color: black; /* Color del placeholder */
+  opacity: 0.6; /* Opacidad del placeholder */
+}
 
