@@ -22,7 +22,7 @@ router.post('/auth', async (req, res) => {
     const user = req.body.user;
     const pass = req.body.pass;
     if (user && pass) {
-      const [results] = await pool1.query('SELECT * from Users where user = ?', [user]);
+      const [results] = await pool1.query('SELECT * from admin where username = ?', [usename]);
       if (results.length === 0 || !(await bcryptjs.compare(pass, results[0].pass))) {
         res.status(401).send('Usuario o contraseña incorrectos');
       } else {
@@ -38,13 +38,12 @@ router.post('/auth', async (req, res) => {
 
 router.post('/registro', async (req, res) => {
   try {
-    const name = req.body.name;
-    const surname = req.body.surname;
-    const user = req.body.user;
+    const username = req.body.username;
+    const restaurantId = req.body.restaurantId;
     const email = req.body.email;
-    const pass = req.body.pass;
+    const pass = req.body.password;
     const passwordHash = await bcryptjs.hash(pass, 8);
-    await pool1.query('INSERT INTO Users SET ?', { name, surname, email, pass: passwordHash, user });
+    await pool1.query('INSERT INTO admin SET ?', { username, restaurantId, email, password: passwordHash});
     res.status(200).send('Usuario insertado correctamente');
   } catch (error) {
     console.log(error);
@@ -57,8 +56,8 @@ router.post('/suscribirse', async (req, res) => {
     const name = req.body.name;
     const surname = req.body.surname;
     const email = req.body.email;
-    await pool1.query('INSERT INTO Users SET ?', { name, surname, email });
-    res.status(200).send('Suscripción correcta');
+    await pool1.query('INSERT INTO cliente SET ?', { name, surname, email });
+    res.status(200).send('Suscripción correcta, en breve recibirá noticias nuestras');
   } catch (error) {
     console.log(error);
     res.status(500).send('Error en el servidor');

@@ -7,11 +7,73 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
-  Userid   Int      @id @default(autoincrement())
-  name     String?  @db.VarChar(255)
-  surname  String?  @db.VarChar(255)
-  email    String?  @db.VarChar(255)
-  pass     String?  @db.VarChar(255)
-  user     String?  @db.VarChar(255)
+model Restaurant {
+  id          Int          @id @default(autoincrement())
+  name        String
+  address     String
+  city        String
+  state       String
+  zipCode     String
+  phone       String
+  email       String
+  website     String?
+  empleados   Empleados[]
+  proveedores Proveedores[]
+  facturas    Facturas[]
+  administradores Admin[]
+}
+
+model Empleados {
+  id           Int        @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  position     String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId Int
+}
+
+model Proveedores {
+  id           Int        @id @default(autoincrement())
+  name         String
+  address      String
+  city         String
+  state        String
+  zipCode      String
+  phone        String
+  email        String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId Int
+  facturas     Facturas[]
+}
+
+model Facturas {
+  id             Int          @id @default(autoincrement())
+  facturaNumber  String
+  date           DateTime     @default(now())
+  total          Float
+  proveedores    Proveedores  @relation(fields: [proveedorId], references: [id])
+  proveedorId     Int
+  restaurant     Restaurant   @relation(fields: [restaurantId], references: [id])
+  restaurantId   Int
+}
+
+model Admin {
+  id          Int        @id @default(autoincrement())
+  email       String
+  username    String
+  password    String
+  restaurant  Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId Int
+}
+
+model Cliente {
+  id        Int     @id @default(autoincrement())
+  name      String
+  surname   String
+  email     String
+  phone     String?
+  address   String?
+  city      String?
+  state     String?
+  zipCode   String?
 }
