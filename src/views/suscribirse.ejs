@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.108.0">
-  <title>Heroes · Bootstrap v5.3</title>
+  <title>Ratitos Suscripción</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/heroes/">
 
@@ -18,7 +18,7 @@
         /* Agrega el siguiente estilo CSS para establecer la imagen de fondo */
         body {
       height: 100%;
-      background-image: url('../img/portada.jpg');
+      background-image: url('../img/funciones.jpg');
       background-size: cover;
       background-repeat: no-repeat;
     }
@@ -28,6 +28,26 @@
       flex-direction: column;
       justify-content: center;
     }
+    .text-custom {
+      color: rgb(226, 223, 22);
+}
+
+h1.display-4 {
+  margin-top: 60px; /* Ajusta el valor según tus necesidades */
+}
+
+p.fs-4 {
+  margin-top: 20px; /* Ajusta el valor según tus necesidades */
+}
+
+form.p-4 {
+  margin-top: 60px; /* Ajusta el valor según tus necesidades */
+}
+
+.logo-img {
+  width: 200px; /* Ajusta el tamaño del logo según tus necesidades */
+}
+
     .bd-placeholder-img {
       font-size: 1.125rem;
       text-anchor: middle;
@@ -95,12 +115,13 @@
 
 
     <div class="b-example-divider"></div>
-
+    <main class="d-flex align-items-center vh-100">
     <div class="container col-xl-10 col-xxl-8 px-4 py-5">
       <div class="row align-items-center g-lg-5 py-5">
         <div class="col-lg-7 text-center text-lg-start">
-          <h1 class="display-4 fw-bold lh-1 mb-3">Vertically centered hero sign-up form</h1>
-          <p class="col-lg-10 fs-4">Below is an example form built entirely with Bootstrap’s form controls. Each
+            <img src="../img/logo-portada-1.png" alt="Logo" class="logo-img">
+          <h1 class="display-4 fw-bold lh-1 mb-3 text-custom">Vertically centered hero sign-up form</h1>
+          <p class="col-lg-10 fs-4 text-custom">Below is an example form built entirely with Bootstrap’s form controls. Each
             required form group has a validation state that can be triggered by attempting to submit the form without
             completing it.</p>
         </div>
@@ -130,6 +151,7 @@
         </div>
       </div>
     </div>
+</div>
 
   </main>
 
