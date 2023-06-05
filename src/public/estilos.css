@@ -456,7 +456,7 @@ Este el div separador
 
   /*Seccion Price*/
   #priceSection {
-    background-image: url(../img/mojama.jpg);
+    background: url(../img/86261947792.jpg) no-repeat center;
     background-attachment: fixed;
     background-size: cover;
     background-position: center center;
