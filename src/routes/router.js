@@ -19,11 +19,11 @@ router.post('/', postMetodo);
 
 router.post('/auth', async (req, res) => {
   try {
-    const user = req.body.user;
-    const pass = req.body.pass;
+    const user = req.body.username;
+    const pass = req.body.password;
     if (user && pass) {
-      const [results] = await pool1.query('SELECT * from admin where username = ?', [usename]);
-      if (results.length === 0 || !(await bcryptjs.compare(pass, results[0].pass))) {
+      const [results] = await pool1.query('SELECT * from admin where username = ?', [user]);
+      if (results.length === 0 || !(await bcryptjs.compare(pass, results[0].password))) {
         res.status(401).send('Usuario o contraseña incorrectos');
       } else {
         res.render('dashboard'); // Renderizar la vista sidebar.ejs
