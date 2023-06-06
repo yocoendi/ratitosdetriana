@@ -9,6 +9,7 @@ import { pool1 } from './db.js';
 import dotenv from 'dotenv';
 import bodyParser from "body-parser";
 
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Crear variable para llamar express
@@ -31,6 +32,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+
+
 
 // Crear el servidor
 const port = process.env.PORT || 2000;
@@ -63,9 +66,6 @@ app.get('/suscribirse', (req, res) => {
     res.render('suscribirse')
 })
 
-app.get('/dashboard', (req, res) => {
-    res.render('dashboard')
-})
 
 app.get('/visita', (req, res) => {
     req.session.usuario = "Jorge";
