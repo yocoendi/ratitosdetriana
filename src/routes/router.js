@@ -56,13 +56,22 @@ router.post('/suscribirse', async (req, res) => {
     const name = req.body.name;
     const surname = req.body.surname;
     const email = req.body.email;
+
+    // Verificar si el correo electrónico ya existe en la base de datos
+    const [existingUser] = await pool1.query('SELECT * FROM cliente WHERE email = ?', [email]);
+    if (existingUser.length > 0) {
+      return res.status(400).send('El correo electrónico ya está registrado');
+    }
+
+    // Insertar el nuevo cliente en la base de datos
     await pool1.query('INSERT INTO cliente SET ?', { name, surname, email });
-    res.status(200).send('Suscripción correcta, en breve recibirá noticias nuestras');
+    return res.status(200).send('Suscripción correcta, en breve recibirá noticias nuestras');
   } catch (error) {
     console.log(error);
-    res.status(500).send('Error en el servidor');
+    return res.status(500).send('Error en el servidor');
   }
 });
+
 
 router.post('/cv', upload.single('file'), async (req, res) => {
   try {
