@@ -475,11 +475,12 @@ Este el div separador
     color: white;
   }
 
-  /*Final de Seccion Separador*/
+  /*Final de Seccion Separador */
 
+  
 
   /*Seccion Price*/
-  #priceSection {
+  .price {
     background: url(../img/86261947792.jpg) no-repeat center;
     background-attachment: fixed;
     background-size: cover;
@@ -489,32 +490,9 @@ Este el div separador
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 500px; /* Ajusta la altura según tus necesidades */
+    height: 350px; /* Ajusta la altura según tus necesidades */
 }
-#priceSection .texto-encabezado {
-    max-width: 100%;
-    padding: 20px;
-  }
-  
-  #priceSection .texto-encabezado h2 {
-    font-size: 100px;
-  }
-  
-  #priceSection .texto-encabezado p {
-    font-size: 4rem;
-  }
-  
-  #priceSection .botones {
-    display: inline-block;
-    margin-top: 20px;
-  }
 
-  .logonuevo {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-  }
 
   /* FinalSeccion Price*/
 
