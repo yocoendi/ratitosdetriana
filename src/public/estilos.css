@@ -509,6 +509,13 @@ Este el div separador
     margin-top: 20px;
   }
 
+  .logonuevo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
   /* FinalSeccion Price*/
 
 /* Seccion Separador2*/
