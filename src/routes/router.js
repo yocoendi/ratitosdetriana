@@ -36,13 +36,7 @@ router.post('/auth', async (req, res) => {
   }
 });
 
-router.get('/dashboard', (req, res) => {
-  if (req.session.usuario && req.session.rol) {
-    res.render('dashboard');
-  } else {
-    res.send('<script>alert("Debes iniciar sesión para acceder al panel de control"); window.location.href="/login";</script>');
-  }
-});
+
 
 router.post('/registro', async (req, res) => {
   try {

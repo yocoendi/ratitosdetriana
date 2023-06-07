@@ -66,6 +66,15 @@ app.get('/suscribirse', (req, res) => {
     res.render('suscribirse')
 })
 
+app.get('/dashboard', (req, res) => {
+    if (req.session.usuario && req.session.rol) {
+      res.render('dashboard');
+    } else {
+      res.render('login')
+      //res.send('<script>alert("Debes iniciar sesión para acceder al panel de control"); window.location.href="/login";</script>');
+    }
+  });
+
 
 app.get('/visita', (req, res) => {
     req.session.usuario = "Jorge";
