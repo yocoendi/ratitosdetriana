@@ -9,6 +9,7 @@ import { pool1 } from './db.js';
 import dotenv from 'dotenv';
 import bodyParser from "body-parser";
 
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Crear variable para llamar express
@@ -31,6 +32,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+
+
 
 // Crear el servidor
 const port = process.env.PORT || 2000;
@@ -55,6 +58,10 @@ app.get('/login', (req, res) => {
     res.render('login')
 })
 
+app.get('/gallery', (req, res) => {
+  res.render('gallery')
+})
+
 app.get('/registro', (req, res) => {
     res.render('registro')
 })
@@ -64,8 +71,24 @@ app.get('/suscribirse', (req, res) => {
 })
 
 app.get('/dashboard', (req, res) => {
-    res.render('dashboard')
-})
+    if (req.session.usuario && req.session.rol) {
+      res.render('dashboard');
+    } else {
+      res.render('login')
+    }
+  });
+
+  app.get('/logout', (req, res) => {
+    // Destruir la sesión
+    req.session.destroy(err => {
+      if (err) {
+        console.error('Error al destruir la sesión:', err);
+      } else {
+        res.redirect('/');
+      }
+    });
+  });
+  
 
 app.get('/visita', (req, res) => {
     req.session.usuario = "Jorge";
