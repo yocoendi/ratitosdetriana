@@ -74,6 +74,17 @@ app.get('/dashboard', (req, res) => {
     }
   });
 
+  app.get('/logout', (req, res) => {
+    // Destruir la sesión
+    req.session.destroy(err => {
+      if (err) {
+        console.error('Error al destruir la sesión:', err);
+      } else {
+        res.redirect('/');
+      }
+    });
+  });
+  
 
 app.get('/visita', (req, res) => {
     req.session.usuario = "Jorge";

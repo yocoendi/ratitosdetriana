@@ -1,6 +1,7 @@
 :root{
     --verde:#00A149;
-    --azul: midnightblue;
+    --azul: #191970;
+    --azulclaro:rgb(19, 92, 202);
     --blanco:#fff;
     --rojo:#881014;
     --oscuro:#000;
@@ -107,6 +108,9 @@ img{
     justify-content: center;
 }
 
+.botones-verde:hover {
+    color: white;
+  }
 @media(min-width: 768px) {
     .botones{
         font-size: 2.2rem;
@@ -127,18 +131,19 @@ img{
     text-decoration: none;
 }
 .botones-rojo{
-    background-color: var(--rojo);
+    background-color: var(--azul);
     font-weight: bold;
     display: inline-block;
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
 .botones-rojo:hover{
-    background-color: var(--verde);
+    background-color: var(--azulclaro);
     text-decoration: none;
+    color: white;
 }
 .botones-verde{
-    background-color: var(--verde);
+    background-color: var(--azul);
     border: none;
     display: inline-block;
     margin-bottom: 6rem;
@@ -146,7 +151,7 @@ img{
     
 }
 .botones-verde:hover{
-    background-color: var(--rojo);
+    background-color: var(--azulclaro);
     text-decoration: none;
 }
  /*encabezado*/

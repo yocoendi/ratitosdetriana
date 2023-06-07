@@ -1,6 +1,6 @@
 import express from 'express';
 import { pool1 } from '../db.js';
-import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, vistaDashboard, postMetodo } from '../controller/indexRoutex.js';
+import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaLogout } from '../controller/indexRoutex.js';
 import { PrismaClient } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';
@@ -14,7 +14,6 @@ router.get('/', vistaHome);
 router.get('/login', vistaLogin);
 router.get('/registro', vistaRegistro);
 router.get('/suscribirse', vistaSuscribirse);
-
 router.post('/', postMetodo);
 
 router.post('/auth', async (req, res) => {

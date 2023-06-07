@@ -19,6 +19,9 @@ export const vistaDashboard = (req, res) => {
     res.render('dashboard', {title: 'Dashboard'})
 }
 
+export const vistaLogout = (req, res) => {
+    res.render('logout', {title: 'Logout'})
+}
 
 export const postMetodo = async (req, res) => {
     const [result] = await pool1.query('SELECT 1+1 as result')
