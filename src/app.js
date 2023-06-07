@@ -71,7 +71,6 @@ app.get('/dashboard', (req, res) => {
       res.render('dashboard');
     } else {
       res.render('login')
-      //res.send('<script>alert("Debes iniciar sesión para acceder al panel de control"); window.location.href="/login";</script>');
     }
   });
 
