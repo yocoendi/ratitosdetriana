@@ -1,6 +1,6 @@
 import express from 'express';
 import { pool1 } from '../db.js';
-import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaLogout } from '../controller/indexRoutex.js';
+import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaGallery } from '../controller/indexRoutex.js';
 import { PrismaClient } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';
@@ -14,7 +14,9 @@ router.get('/', vistaHome);
 router.get('/login', vistaLogin);
 router.get('/registro', vistaRegistro);
 router.get('/suscribirse', vistaSuscribirse);
+router.get('/gallery', vistaGallery);
 router.post('/', postMetodo);
+
 
 router.post('/auth', async (req, res) => {
   try {
@@ -34,7 +36,6 @@ router.post('/auth', async (req, res) => {
     res.send('<script>alert("Error de conexión con el servidor"); window.location.href="/login";</script>');
   }
 });
-
 
 
 router.post('/registro', async (req, res) => {
@@ -141,13 +142,6 @@ router.post('/cv', upload.single('file'), async (req, res) => {
     return res.send('<script>alert("Error en el servidor"); window.location.href="/";</script>');
   }
 });
-
-// Manejo de errores
-router.use((err, req, res, next) => {
-  console.error(err); // Imprime el error en la consola para fines de depuración
-  res.status(500).send('Error en el servidor'); // Responde con un mensaje genérico de error
-});
-
 
 
 export default router;

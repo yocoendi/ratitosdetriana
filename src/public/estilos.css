@@ -1,7 +1,9 @@
 :root{
     --verde:#00A149;
     --azul: #191970;
-    --azulclaro:rgb(19, 92, 202);
+    --azulclaro:rgb(38, 107, 211);
+    --evento:#70683c;
+    --eventohover: #d3bc39;
     --blanco:#fff;
     --rojo:#881014;
     --oscuro:#000;
@@ -144,6 +146,19 @@ img{
 }
 .botones-verde{
     background-color: var(--azul);
+    border: none;
+    display: inline-block;
+    margin-bottom: 6rem;
+    font-family: var(--parrafos);
+    
+}
+.botones-evento:hover{
+    background-color: var(--eventohover);
+    text-decoration: none;
+}
+
+.botones-evento{
+    background-color: var(--evento);
     border: none;
     display: inline-block;
     margin-bottom: 6rem;
@@ -399,10 +414,11 @@ video{
 .plato h2{
     text-align: center;
     padding: 1rem;
-    color: #f50910;
+    color: var(--azul);
 }
 .plato p{
     font-size: 1.8rem;
+    color: var(--azul);
 
 }
 .precio{
@@ -412,7 +428,7 @@ video{
 .precio p{
     font-weight: bold;
     font-size: 2rem;
-    color: #f50910;
+    color: var(--azul);
    
 }
 
@@ -456,6 +472,7 @@ Este el div separador
   #separadorSection .botones {
     display: inline-block;
     margin-top: 20px;
+    color: white;
   }
 
   /*Final de Seccion Separador*/

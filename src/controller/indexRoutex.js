@@ -14,11 +14,13 @@ export const vistaSuscribirse = (req, res) => {
     res.render('suscribirse', {title: 'Suscribirse'})
 }
 
-
 export const vistaDashboard = (req, res) => {
     res.render('dashboard', {title: 'Dashboard'})
 }
 
+export const vistaGallery = (req, res) => {
+    res.render('gallery', {title: 'Gallery'})
+}
 export const vistaLogout = (req, res) => {
     res.render('logout', {title: 'Logout'})
 }

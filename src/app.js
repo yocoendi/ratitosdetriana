@@ -58,6 +58,10 @@ app.get('/login', (req, res) => {
     res.render('login')
 })
 
+app.get('/gallery', (req, res) => {
+  res.render('gallery')
+})
+
 app.get('/registro', (req, res) => {
     res.render('registro')
 })
