@@ -19,15 +19,15 @@
       <div class="container px-5 my-5">
         <form action="/cv" method="POST" enctype="multipart/form-data">
           <fieldset>
-            <legend class="form-legend" style="color: white;">Envianos tu CV</legend>
+            <legend class="form-legend" style="color: white;">Envianos tu CV </legend>
             <div class="form-floating mb-3">
-              <input class="form-control" id="emailAddress" type="email" name="emailAddress" placeholder="Email Address" required />
-              <label for="emailAddress">Email Address</label>
+              <input class="form-control" id="floatingInput" type="email" name="emailAddress" placeholder="Email Address"/>
+              <label for="floatingInput">Email Address</label>
               <div class="invalid-feedback">Please enter a valid email address.</div>
             </div>
             <div class="form-floating mb-3">
-              <textarea class="form-control" id="message" name="message" placeholder="Message" style="height: 10rem;" required></textarea>
-              <label for="message">Message</label>
+              <textarea class="form-control" id="floatingInput" name="message" placeholder="Message" style="height: 10rem;" required></textarea>
+              <label for="floatingInput">Message</label>
               <div class="invalid-feedback">Please enter a message.</div>
             </div>
             <div class="form-floating mb-3">
@@ -36,7 +36,7 @@
             </div>
             <div class="d-none" id="submitSuccessMessage">
               <div class="text-center mb-3">
-                <div class="fw-bolder" style="color: white;">Form submission successful!</div>
+                <div class="fw-bolder">Form submission successful!</div>
               </div>
             </div>
             <div class="d-none" id="submitErrorMessage">

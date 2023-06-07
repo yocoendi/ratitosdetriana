@@ -24,8 +24,8 @@ async function getAdmin() {
 }
 
 
-getEmpleados();
-getAdmin();
+//getEmpleados();
+//getAdmin();
 
 // Cierra la conexión de Prisma al finalizar
 //prisma.$disconnect();
