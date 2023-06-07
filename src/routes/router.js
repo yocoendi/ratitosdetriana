@@ -1,6 +1,6 @@
 import express from 'express';
 import { pool1 } from '../db.js';
-import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaGallery } from '../controller/indexRoutex.js';
+import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaGallery, vistaEmpleados } from '../controller/indexRoutex.js';
 import { PrismaClient } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';
@@ -8,58 +8,108 @@ import multer from 'multer'; // Importar multer
 
 const router = express.Router();
 const upload = multer({ dest: 'src/uploads/' }); // Configurar multer para manejar la carga de archivos
+const prisma = new PrismaClient(); //Instancias prisma para 
+
+// Aquí puedes utilizar el cliente de Prisma para realizar operaciones en la base de datos
+
+// Ejemplo de consulta de empleados
+async function getEmpleados() {
+  const empleados = await prisma.empleados.findMany();
+  console.log(empleados);
+}
+
+async function getAdmin() {
+  const admin = await prisma.admin.findMany();
+  console.log(admin);
+}
+
+
+getEmpleados();
+getAdmin();
+
+// Cierra la conexión de Prisma al finalizar
+//prisma.$disconnect();
+
 
 // Crear nuestras rutas para las diferentes páginas
 router.get('/', vistaHome);
 router.get('/login', vistaLogin);
 router.get('/registro', vistaRegistro);
+router.get('/empleados', vistaEmpleados);
 router.get('/suscribirse', vistaSuscribirse);
 router.get('/gallery', vistaGallery);
 router.post('/', postMetodo);
 
 
+
 router.post('/auth', async (req, res) => {
   try {
-    const user = req.body.username;
-    const pass = req.body.password;
-    if (user && pass) {
-      const [results] = await pool1.query('SELECT * from admin where username = ?', [user]);
-      if (results.length === 0 || !(await bcryptjs.compare(pass, results[0].password))) {
-        res.send('<script>alert("Usuario o contraseña incorrectos"); window.location.href="/login";</script>');
+    const username = req.body.username;
+    const password = req.body.password;
+
+    if (username && password) {
+      // Buscar al usuario en la base de datos utilizando Prisma
+      const admin = await prisma.admin.findUnique({
+        where: {
+          username: username,
+        },
+      });
+
+      if (!admin || !(await bcryptjs.compare(password, admin.password))) {
+        // Usuario o contraseña incorrectos
+        return res.send('<script>alert("Usuario o contraseña incorrectos"); window.location.href="/login";</script>');
       } else {
+        // Autenticación exitosa, redirigir al dashboard
         res.render('dashboard');
       }
     } else {
+      // Faltan campos obligatorios
       res.send('<script>alert("Faltan campos obligatorios"); window.location.href="/login";</script>');
     }
   } catch (error) {
+    // Error de conexión con el servidor
     res.send('<script>alert("Error de conexión con el servidor"); window.location.href="/login";</script>');
   }
 });
-
 
 router.post('/registro', async (req, res) => {
   try {
     const username = req.body.username;
     const restaurantId = req.body.restaurantId;
     const email = req.body.email;
-    const pass = req.body.password;
-    const passwordHash = await bcryptjs.hash(pass, 8);
+    const password = req.body.password;
+    const passwordHash = await bcryptjs.hash(password, 8);
 
-    // Verificar si el nombre de usuario ya está registrado
-    const [existingUsername] = await pool1.query('SELECT * FROM admin WHERE username = ?', [username]);
-    if (existingUsername.length > 0) {
+    // Verificar si el nombre de usuario ya está registrado utilizando Prisma
+    const existingUsername = await prisma.admin.findUnique({
+      where: {
+        username: username,
+      },
+    });
+    if (existingUsername) {
       return res.send('<script>alert("El nombre de usuario ya está registrado"); window.location.href="/registro";</script>');
     }
 
-    // Verificar si el correo electrónico ya está registrado
-    const [existingEmail] = await pool1.query('SELECT * FROM admin WHERE email = ?', [email]);
-    if (existingEmail.length > 0) {
+    // Verificar si el correo electrónico ya está registrado utilizando Prisma
+    const existingEmail = await prisma.admin.findUnique({
+      where: {
+        email: email,
+      },
+    });
+    if (existingEmail) {
       return res.send('<script>alert("El correo electrónico ya está registrado"); window.location.href="/registro";</script>');
     }
 
-    // Insertar el nuevo usuario en la base de datos
-    await pool1.query('INSERT INTO admin SET ?', { username, restaurantId, email, password: passwordHash });
+    // Insertar el nuevo usuario en la base de datos utilizando Prisma
+    await prisma.admin.create({
+      data: {
+        username: username,
+        restaurantId: restaurantId,
+        email: email,
+        password: passwordHash,
+      },
+    });
+
     res.send('<script>alert("Usuario insertado correctamente"); window.location.href="/login";</script>');
   } catch (error) {
     console.log(error);
@@ -67,6 +117,42 @@ router.post('/registro', async (req, res) => {
   }
 });
 
+router.post('/empleados', async (req, res) => {
+  try {
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const position = req.body.position;
+    const restaurantId = parseInt(req.body.restaurantId); // Convertir a número entero
+
+    // Verificar si el empleado ya está registrado
+    const existingEmployee = await prisma.empleados.findFirst({
+      where: {
+        firstName: firstName,
+        lastName: lastName
+      }
+    });
+    if (existingEmployee) {
+      return res.send('<script>alert("El empleado ya está registrado"); window.location.href="/empleados";</script>');
+    }
+
+    // Insertar el nuevo empleado en la base de datos
+    await prisma.empleados.create({
+      data: {
+        firstName: firstName,
+        lastName: lastName,
+        position: position,
+        restaurant: {
+          connect: { id: restaurantId }
+        }
+      }
+    });
+
+    res.send('<script>alert("Empleado insertado correctamente"); window.location.href="/empleados";</script>');
+  } catch (error) {
+    console.log(error);
+    res.send('<script>alert("Error en el servidor"); window.location.href="/empleados";</script>');
+  }
+});
 
 router.post('/suscribirse', async (req, res) => {
   try {
@@ -74,21 +160,31 @@ router.post('/suscribirse', async (req, res) => {
     const surname = req.body.surname;
     const email = req.body.email;
 
-    // Verificar si el correo electrónico ya existe en la base de datos
-    const [existingUser] = await pool1.query('SELECT * FROM cliente WHERE email = ?', [email]);
-    if (existingUser.length > 0) {
+    // Verificar si el correo electrónico ya existe en la base de datos utilizando Prisma
+    const existingUser = await prisma.cliente.findUnique({
+      where: {
+        email: email,
+      },
+    });
+    if (existingUser) {
       return res.send('<script>alert("El correo electrónico ya está registrado"); window.location.href="/suscribirse";</script>');
     }
 
-    // Insertar el nuevo cliente en la base de datos
-    await pool1.query('INSERT INTO cliente SET ?', { name, surname, email });
+    // Insertar el nuevo cliente en la base de datos utilizando Prisma
+    await prisma.cliente.create({
+      data: {
+        name: name,
+        surname: surname,
+        email: email,
+      },
+    });
+
     return res.send('<script>alert("Suscripción correcta, en breve recibirá noticias nuestras"); window.location.href="/";</script>');
   } catch (error) {
     console.log(error);
     return res.send('<script>alert("Error en el servidor"); window.location.href="/suscribirse";</script>');
   }
 });
-
 
 router.post('/cv', upload.single('file'), async (req, res) => {
   try {

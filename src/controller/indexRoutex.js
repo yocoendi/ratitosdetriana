@@ -10,6 +10,10 @@ export const vistaRegistro = (req, res) => {
     res.render('registro', {title: 'Registro'})
 }
 
+export const vistaEmpleados = (req, res) => {
+    res.render('empleados', {title: 'Empleados'})
+}
+
 export const vistaSuscribirse = (req, res) => {
     res.render('suscribirse', {title: 'Suscribirse'})
 }

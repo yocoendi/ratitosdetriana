@@ -65,6 +65,9 @@ app.get('/gallery', (req, res) => {
 app.get('/registro', (req, res) => {
     res.render('registro')
 })
+app.get('/empleados', (req, res) => {
+  res.render('empleados')
+})
 
 app.get('/suscribirse', (req, res) => {
     res.render('suscribirse')
