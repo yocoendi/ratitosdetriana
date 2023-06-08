@@ -1,6 +1,6 @@
 import express from 'express';
 import { pool1 } from '../db.js';
-import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaGallery, vistaEmpleados } from '../controller/indexRoutex.js';
+import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes} from '../controller/indexRoutex.js';
 import { PrismaClient } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';
@@ -28,10 +28,16 @@ async function getClientes() {
   console.log(clientes);
 }
 
+async function getRestaurantes() {
+  const restaurant = await prisma.restaurant.findMany();
+  console.log(restaurant);
+}
+
 
 //getEmpleados();
 //getAdmin();
 //getClientes()
+//getRestaurantes()
 
 // Cierra la conexión de Prisma al finalizar
 //prisma.$disconnect();
@@ -44,6 +50,7 @@ router.get('/registro', vistaRegistro);
 router.get('/empleados', vistaEmpleados);
 router.get('/suscribirse', vistaSuscribirse);
 router.get('/gallery', vistaGallery);
+router.get('/restaurantes', vistaRestaurantes);
 router.post('/', postMetodo);
 
 
@@ -114,6 +121,54 @@ router.post('/registro', async (req, res) => {
   } catch (error) {
     console.log(error);
     res.send('<script>alert("Error en el servidor"); window.location.href="/registro";</script>');
+  }
+});
+
+router.post('/restaurantes', async (req, res) => {
+  try {
+    const {
+      name,
+      address,
+      city,
+      state,
+      zipCode,
+      phone,
+      email,
+      website
+    } = req.body;
+
+    const restaurantId = parseInt(req.body.restaurantId); // Convertir a número entero
+
+    // Verificar si el restaurante ya existe
+    const existingRestaurant = await prisma.restaurant.findUnique({
+      where: {
+        restaurantId: restaurantId,
+      },
+    });
+
+    if (existingRestaurant) {
+      return res.send('<script>alert("El Restaurante ya está registrado"); window.location.href="/registro";</script>');
+    }
+
+    // Crear un nuevo restaurante en la base de datos
+    const newRestaurant = await prisma.restaurant.create({
+      data: {
+        restaurantId: restaurantId,
+        name: name,
+        address: address,
+        city: city,
+        state: state,
+        zipCode: zipCode,
+        phone: phone,
+        email: email,
+        website: website,
+      },
+    });
+
+    res.send('<script>alert("Restaurante insertado correctamente"); window.location.href="/empleados";</script>');
+  } catch (error) {
+    console.log(error);
+    res.send('<script>alert("Error en el servidor"); window.location.href="/empleados";</script>');
   }
 });
 

@@ -25,6 +25,11 @@ export const vistaDashboard = (req, res) => {
 export const vistaGallery = (req, res) => {
     res.render('gallery', {title: 'Gallery'})
 }
+
+export const vistaRestaurantes = (req, res) => {
+    res.render('restaurantes', {title: 'Restaurantes'})
+}
+
 export const vistaLogout = (req, res) => {
     res.render('logout', {title: 'Logout'})
 }

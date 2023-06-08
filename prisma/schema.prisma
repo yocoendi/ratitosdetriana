@@ -9,13 +9,14 @@ datasource db {
 
 model Restaurant {
   id          Int          @id @default(autoincrement())
+  restaurantId Int         @unique
   name        String
-  address     String
-  city        String
-  state       String
-  zipCode     String
-  phone       String
-  email       String
+  address     String?
+  city        String?
+  state       String?
+  zipCode     String?
+  phone       String?
+  email       String?
   website     String?
   empleados   Empleados[]
   proveedores Proveedores[]
@@ -37,12 +38,11 @@ model Proveedores {
   id           Int        @id @default(autoincrement())
   cif          String     @unique
   name         String
-  address      String
-  city         String
-  state        String
-  zipCode      String
-  phone        String
-  email        String
+  address      String?
+  state        String?
+  zipCode      String?
+  phone        String?
+  email        String?
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
   restaurantId Int
   facturas     Facturas[]
@@ -54,7 +54,7 @@ model Facturas {
   date           DateTime     @default(now())
   total          Float
   proveedores    Proveedores  @relation(fields: [cif], references: [cif])
-  cif            String
+  cif            String       @unique
   restaurant     Restaurant   @relation(fields: [restaurantId], references: [id])
   restaurantId   Int
 }

@@ -72,14 +72,20 @@ app.get('/empleados', (req, res) => {
 app.get('/suscribirse', (req, res) => {
     res.render('suscribirse')
 })
+app.get('/restaurantes', (req, res) => {
+  res.render('restaurantes')
+})
 
 app.get('/dashboard', (req, res) => {
+  res.render('dashboard')
+})
+/*p.get('/dashboard', (req, res) => {
     if (req.session.usuario && req.session.rol) {
       res.render('dashboard');
     } else {
       res.render('login')
     }
-  });
+  });*/
 
   app.get('/logout', (req, res) => {
     // Destruir la sesión
