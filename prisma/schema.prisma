@@ -25,6 +25,7 @@ model Restaurant {
 
 model Empleados {
   id           Int        @id @default(autoincrement())
+  dni          String     @unique
   firstName    String
   lastName     String
   position     String
@@ -34,6 +35,7 @@ model Empleados {
 
 model Proveedores {
   id           Int        @id @default(autoincrement())
+  cif          String     @unique
   name         String
   address      String
   city         String
@@ -51,14 +53,16 @@ model Facturas {
   facturaNumber  String
   date           DateTime     @default(now())
   total          Float
-  proveedores    Proveedores  @relation(fields: [proveedorId], references: [id])
-  proveedorId     Int
+  proveedores    Proveedores  @relation(fields: [cif], references: [cif])
+  cif            String
   restaurant     Restaurant   @relation(fields: [restaurantId], references: [id])
   restaurantId   Int
 }
 
+
 model Admin {
   id          Int        @id @default(autoincrement())
+  dni         String     @unique
   email       String
   username    String
   password    String
@@ -70,7 +74,7 @@ model Cliente {
   id        Int     @id @default(autoincrement())
   name      String
   surname   String
-  email     String
+  email     String  @unique
   phone     String?
   address   String?
   city      String?

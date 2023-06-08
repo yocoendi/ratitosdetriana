@@ -19,13 +19,19 @@ async function getEmpleados() {
 }
 
 async function getAdmin() {
-  const admin = await prisma.admin.findMany();
-  console.log(admin);
+  const administradores = await prisma.admin.findMany();
+  console.log(administradores);
+}
+
+async function getClientes() {
+  const clientes = await prisma.cliente.findMany();
+  console.log(clientes);
 }
 
 
 //getEmpleados();
 //getAdmin();
+//getClientes()
 
 // Cierra la conexión de Prisma al finalizar
 //prisma.$disconnect();
@@ -44,14 +50,14 @@ router.post('/', postMetodo);
 
 router.post('/auth', async (req, res) => {
   try {
-    const username = req.body.username;
+    const dni = req.body.dni;
     const password = req.body.password;
 
-    if (username && password) {
+    if (dni && password) {
       // Buscar al usuario en la base de datos utilizando Prisma
       const admin = await prisma.admin.findUnique({
         where: {
-          username: username,
+          dni: dni,
         },
       });
 
@@ -67,7 +73,7 @@ router.post('/auth', async (req, res) => {
       res.send('<script>alert("Faltan campos obligatorios"); window.location.href="/login";</script>');
     }
   } catch (error) {
-    // Error de conexión con el servidor
+    console.log(error);
     res.send('<script>alert("Error de conexión con el servidor"); window.location.href="/login";</script>');
   }
 });
@@ -75,38 +81,32 @@ router.post('/auth', async (req, res) => {
 router.post('/registro', async (req, res) => {
   try {
     const username = req.body.username;
-    const restaurantId = req.body.restaurantId;
+    const dni = req.body.dni;
+    const restaurantId = parseInt(req.body.restaurantId); // Convertir a número entero
     const email = req.body.email;
     const password = req.body.password;
     const passwordHash = await bcryptjs.hash(password, 8);
 
-    // Verificar si el nombre de usuario ya está registrado utilizando Prisma
+    // Verificar si el dni ya está registrado utilizando Prisma
     const existingUsername = await prisma.admin.findUnique({
       where: {
-        username: username,
+        dni: dni,
       },
     });
     if (existingUsername) {
-      return res.send('<script>alert("El nombre de usuario ya está registrado"); window.location.href="/registro";</script>');
-    }
-
-    // Verificar si el correo electrónico ya está registrado utilizando Prisma
-    const existingEmail = await prisma.admin.findUnique({
-      where: {
-        email: email,
-      },
-    });
-    if (existingEmail) {
-      return res.send('<script>alert("El correo electrónico ya está registrado"); window.location.href="/registro";</script>');
+      return res.send('<script>alert("El Dni ya está registrado"); window.location.href="/registro";</script>');
     }
 
     // Insertar el nuevo usuario en la base de datos utilizando Prisma
     await prisma.admin.create({
       data: {
+        dni: dni,
         username: username,
-        restaurantId: restaurantId,
         email: email,
         password: passwordHash,
+        restaurant:{
+          connect:{ id: restaurantId }
+        }
       },
     });
 
@@ -119,16 +119,16 @@ router.post('/registro', async (req, res) => {
 
 router.post('/empleados', async (req, res) => {
   try {
+    const dni = req.body.dni;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const position = req.body.position;
     const restaurantId = parseInt(req.body.restaurantId); // Convertir a número entero
 
     // Verificar si el empleado ya está registrado
-    const existingEmployee = await prisma.empleados.findFirst({
+    const existingEmployee = await prisma.empleados.findUnique({
       where: {
-        firstName: firstName,
-        lastName: lastName
+        dni:dni
       }
     });
     if (existingEmployee) {
@@ -138,6 +138,7 @@ router.post('/empleados', async (req, res) => {
     // Insertar el nuevo empleado en la base de datos
     await prisma.empleados.create({
       data: {
+        dni: dni,
         firstName: firstName,
         lastName: lastName,
         position: position,
@@ -146,6 +147,13 @@ router.post('/empleados', async (req, res) => {
         }
       }
     });
+
+   /* res.send('<script>alert("Empleado insertado correctamente"); window.location.href="/empleados";</script>');
+  } catch (error) {
+    const errorMessage = `Error en el servidor: ${error.message}`;
+    res.send(`<script>alert("${errorMessage}"); window.location.href="/empleados";</script>`);
+  }
+});*/
 
     res.send('<script>alert("Empleado insertado correctamente"); window.location.href="/empleados";</script>');
   } catch (error) {

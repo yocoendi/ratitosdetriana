@@ -91,7 +91,7 @@ app.get('/dashboard', (req, res) => {
       }
     });
   });
-  
+
 
 app.get('/visita', (req, res) => {
     req.session.usuario = "Jorge";
