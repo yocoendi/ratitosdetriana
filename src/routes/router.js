@@ -161,7 +161,7 @@ router.post('/suscribirse', async (req, res) => {
     const email = req.body.email;
 
     // Verificar si el correo electrónico ya existe en la base de datos utilizando Prisma
-    const existingUser = await prisma.cliente.findUnique({
+    const existingUser = await prisma.cliente.findFirst({
       where: {
         email: email,
       },
