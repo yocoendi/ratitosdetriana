@@ -1,6 +1,6 @@
 import express from 'express';
 import { pool1 } from '../db.js';
-import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes} from '../controller/indexRoutex.js';
+import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes, vistaDashboard} from '../controller/indexRoutex.js';
 import { PrismaClient } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';
@@ -34,8 +34,8 @@ async function getRestaurantes() {
 }
 
 
-//getEmpleados();
-//getAdmin();
+getEmpleados();
+getAdmin();
 //getClientes()
 //getRestaurantes()
 
@@ -57,14 +57,15 @@ router.post('/', postMetodo);
 
 router.post('/auth', async (req, res) => {
   try {
-    const dni = req.body.dni;
+    
     const password = req.body.password;
-
-    if (dni && password) {
+    const username = req.body.username;
+    
+    if (username && password ) {
       // Buscar al usuario en la base de datos utilizando Prisma
       const admin = await prisma.admin.findUnique({
         where: {
-          dni: dni,
+          username: username
         },
       });
 
@@ -303,4 +304,6 @@ router.post('/cv', upload.single('file'), async (req, res) => {
 });
 
 
+
+//exportar enrutador
 export default router;

@@ -8,6 +8,14 @@ import { Pool } from 'mysql2';
 import { pool1 } from './db.js';
 import dotenv from 'dotenv';
 import bodyParser from "body-parser";
+import { error } from 'console';
+import { PrismaClient } from '@prisma/client';
+
+
+
+const prisma = new PrismaClient();
+
+
 
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -38,7 +46,7 @@ app.use(session({
 // Crear el servidor
 const port = process.env.PORT || 2000;
 app.listen(port);
-console.log('El servidor escucha en el puerto', port);
+console.log('El servidor escucha en http//localhost:'+ port);
 
 
 // Configurar el motor de plantillas
@@ -76,16 +84,44 @@ app.get('/restaurantes', (req, res) => {
   res.render('restaurantes')
 })
 
-app.get('/dashboard', (req, res) => {
-  res.render('dashboard')
+
+app.get('/dashboard', async (req, res) => {
+        const empleados = await prisma.empleados.findMany();
+        const administradores = await prisma.admin.findMany();
+        res.render('dashboard', { empleados, administradores });
 })
-/*p.get('/dashboard', (req, res) => {
+ 
+/* app.get('/dashboard', (req, res) => {
     if (req.session.usuario && req.session.rol) {
       res.render('dashboard');
     } else {
       res.render('login')
     }
-  });*/
+  }); 
+ */
+  /*const checkSession = (req, res, next) => {
+    if (req.session.usuario && req.session.rol) {
+      next(); // Si hay sesión válida, continúa con la siguiente función de middleware
+    } else {
+      res.redirect('/login'); // Si no hay sesión de usuario o rol, redirige a la página de inicio de sesión
+    }
+  };
+
+
+  
+// Ruta del dashboard protegida por el middleware de sesión
+app.get('/dashboard', checkSession, async (req, res) => {
+  try {
+    const empleados = await prisma.empleados.findMany();
+    const administradores = await prisma.admin.findMany();
+    res.render('dashboard', { empleados, administradores });
+  } catch (error) {
+    console.error('Error al obtener los datos del dashboard:', error);
+    res.render('login'); // Renderiza la página de inicio de sesión en caso de error
+  }
+});
+*/
+
 
   app.get('/logout', (req, res) => {
     // Destruir la sesión
