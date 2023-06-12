@@ -254,7 +254,7 @@ router.post('/updateEmpleados', async (req, res) => {
     });
 
     // Redirige al usuario a la página de detalles del resultado actualizado o muestra un mensaje de éxito
-    res.redirect(`/update/${resultadoActualizado.id}`); // Por ejemplo, redirige a la página de detalles del resultado actualizado
+    res.redirect(`/updateEmpleados/${resultadoActualizado.id}`); // Por ejemplo, redirige a la página de detalles del resultado actualizado
   } catch (error) {
     console.error('Error al actualizar el resultado:', error);
     res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
