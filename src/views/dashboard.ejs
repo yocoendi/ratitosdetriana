@@ -155,7 +155,7 @@
                             <td><%= admin.email %></td>
                             <td><%= admin.username %></td>
                             <td>
-                              <a href="/edit" class="btn btn-outline-info">editar</a>
+                              <a href="/updateAdmin/<%= admin.id %>" class="btn btn-outline-info">editar</a>
                               <a href="/delete" class="btn btn-outline-info">borrar</a>
                             </td>
                           </tr>
@@ -184,7 +184,7 @@
                           <td><%= empleados.lastName %></td>
                           <td><%= empleados.position %></td>
                           <td>
-                            <a href="/edit" class="btn btn-outline-info">editar</a>
+                            <a href="/updateEmpleados/<%= empleados.id %>" class="btn btn-outline-info">editar</a>
                             <a href="/delete" class="btn btn-outline-info">borrar</a>
                           </td>
                         </tr>

@@ -22,6 +22,10 @@ export const vistaDashboard = (req, res) => {
     res.render('dashboard', {title: 'Dashboard'})
 }
 
+export const vistaUpdate = (req, res) => {
+    res.render('updateEmpleados', {title: 'Update'})
+}
+
 export const vistaGallery = (req, res) => {
     res.render('gallery', {title: 'Gallery'})
 }

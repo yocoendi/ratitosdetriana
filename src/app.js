@@ -12,7 +12,11 @@ import { error } from 'console';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
+// Importar el router de actualización genérico
+
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
 // Crear variable para llamar express
 const app = express();
 
@@ -31,6 +35,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configurar Router
 app.use(indexRoutes);
+
+
 
 // Configurar el motor de plantillas
 app.set('view engine', 'ejs');
@@ -69,6 +75,29 @@ app.get('/dashboard', verificarSesion, async (req, res) => {
     res.render('dashboard', { administradores: [], empleados:[] }); // Pasar un arreglo vacío si ocurre un error
   }
 });
+
+app.get('/updateEmpleados/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    // Realiza la lógica necesaria para obtener los detalles del resultado a editar
+    const empleados = await prisma.empleados.findUnique({
+      where: {
+        id: id
+      }
+    });
+
+    res.render('updateEmpleados', { empleados: empleados });
+    
+
+  } catch (error) {
+    console.error('Error al obtener el resultado:', error);
+    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
+  }
+}); 
+
+
+
+
 
 
 // Resto de rutas sin verificación de sesión

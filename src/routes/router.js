@@ -1,6 +1,6 @@
 import express from 'express';
 import { pool1 } from '../db.js';
-import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes, vistaDashboard} from '../controller/indexRoutex.js';
+import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes, vistaDashboard, vistaUpdate} from '../controller/indexRoutex.js';
 import { PrismaClient } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';
@@ -62,6 +62,7 @@ router.get('/empleados', vistaEmpleados);
 router.get('/suscribirse', vistaSuscribirse);
 router.get('/gallery', vistaGallery);
 router.get('/restaurantes', vistaRestaurantes);
+router.get('/updateEmpleados', vistaUpdate);
 router.post('/', postMetodo);
 router.get('/dashboard', verificarSesion, vistaDashboard); // Aplica el middleware de verificación de sesión
 
@@ -218,19 +219,49 @@ router.post('/empleados', async (req, res) => {
       }
     });
 
-   /* res.send('<script>alert("Empleado insertado correctamente"); window.location.href="/empleados";</script>');
-  } catch (error) {
-    const errorMessage = `Error en el servidor: ${error.message}`;
-    res.send(`<script>alert("${errorMessage}"); window.location.href="/empleados";</script>`);
-  }
-});*/
-
     res.send('<script>alert("Empleado insertado correctamente"); window.location.href="/empleados";</script>');
   } catch (error) {
     console.log(error);
     res.send('<script>alert("Error en el servidor"); window.location.href="/empleados";</script>');
   }
 });
+
+router.post('/updateEmpleados', async (req, res) => {
+  try {
+    const id = req.body.id;
+    const dni = req.body.dni;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const position = req.body.position;
+    const restaurantId = req.body.restaurantId;
+
+    // Realiza la lógica necesaria para actualizar el resultado en la base de datos
+    const resultadoActualizado = await prisma.empleados.update({
+      where: {
+        id: parseInt(id)
+      },
+      data: {
+        dni: dni,
+        firstName: firstName,
+        lastName: lastName,
+        position: position,
+        restaurant: {
+          connect: {
+            id: parseInt(restaurantId)
+          }
+        }
+      }
+    });
+
+    // Redirige al usuario a la página de detalles del resultado actualizado o muestra un mensaje de éxito
+    res.redirect(`/update/${resultadoActualizado.id}`); // Por ejemplo, redirige a la página de detalles del resultado actualizado
+  } catch (error) {
+    console.error('Error al actualizar el resultado:', error);
+    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
+  }
+});
+
+
 
 router.post('/suscribirse', async (req, res) => {
   try {
