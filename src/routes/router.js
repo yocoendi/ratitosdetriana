@@ -6,6 +6,7 @@ import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';
 import multer from 'multer'; // Importar multer
 
+
 const router = express.Router();
 const upload = multer({ dest: 'src/uploads/' }); // Configurar multer para manejar la carga de archivos
 const prisma = new PrismaClient(); //Instancias prisma para 
@@ -33,6 +34,16 @@ async function getRestaurantes() {
   console.log(restaurant);
 }
 
+// Middleware de verificación de sesión
+const verificarSesion = (req, res, next) => {
+  if (!req.session.usuario) {
+    // El usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
+    return res.redirect('/login');
+  }
+
+  // El usuario ha iniciado sesión correctamente, continuar con la siguiente ruta
+  next();
+};
 
 getEmpleados();
 getAdmin();
@@ -52,6 +63,7 @@ router.get('/suscribirse', vistaSuscribirse);
 router.get('/gallery', vistaGallery);
 router.get('/restaurantes', vistaRestaurantes);
 router.post('/', postMetodo);
+router.get('/dashboard', verificarSesion, vistaDashboard); // Aplica el middleware de verificación de sesión
 
 
 
@@ -74,7 +86,9 @@ router.post('/auth', async (req, res) => {
         return res.send('<script>alert("Usuario o contraseña incorrectos"); window.location.href="/login";</script>');
       } else {
         // Autenticación exitosa, redirigir al dashboard
-        res.render('dashboard');
+        const empleados = await prisma.empleados.findMany();
+        const administradores = await prisma.admin.findMany();
+        res.render('dashboard', { empleados, administradores });
       }
     } else {
       // Faltan campos obligatorios
