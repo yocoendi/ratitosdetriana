@@ -1,6 +1,6 @@
 import express from 'express';
 import { pool1 } from '../db.js';
-import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes, vistaDashboard, vistaUpdate} from '../controller/indexRoutex.js';
+import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes, vistaDashboard, vistaUpdate, vistaUpdateAdmin} from '../controller/indexRoutex.js';
 import { PrismaClient } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';
@@ -35,18 +35,18 @@ async function getRestaurantes() {
 }
 
 // Middleware de verificación de sesión
-const verificarSesion = (req, res, next) => {
+const verificarSesion = (req, res) => {
   if (!req.session.usuario) {
     // El usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
     return res.redirect('/login');
   }
 
-  // El usuario ha iniciado sesión correctamente, continuar con la siguiente ruta
-  next();
+  // El usuario ha iniciado sesión correctamente, no se ejecuta next()
 };
 
-getEmpleados();
-getAdmin();
+
+//getEmpleados();
+//getAdmin();
 //getClientes()
 //getRestaurantes()
 
@@ -63,6 +63,7 @@ router.get('/suscribirse', vistaSuscribirse);
 router.get('/gallery', vistaGallery);
 router.get('/restaurantes', vistaRestaurantes);
 router.get('/updateEmpleados', vistaUpdate);
+router.get('/updateAdmin', vistaUpdateAdmin);
 router.post('/', postMetodo);
 router.get('/dashboard', verificarSesion, vistaDashboard); // Aplica el middleware de verificación de sesión
 
@@ -226,6 +227,16 @@ router.post('/empleados', async (req, res) => {
   }
 });
 
+router.get('/dashboard', (req, res) => {
+  if (req.session && req.session.userId) {
+    // El usuario está autenticado, redirige al dashboard
+    res.render('dashboard');
+  } else {
+    // El usuario no está autenticado, redirige a la página de inicio de sesión
+    res.redirect('/login');
+  }
+});
+
 router.post('/updateEmpleados', async (req, res) => {
   try {
     const id = req.body.id;
@@ -252,14 +263,55 @@ router.post('/updateEmpleados', async (req, res) => {
         }
       }
     });
-
-    // Redirige al usuario a la página de detalles del resultado actualizado o muestra un mensaje de éxito
-    res.redirect(`/updateEmpleados/${resultadoActualizado.id}`); // Por ejemplo, redirige a la página de detalles del resultado actualizado
+          // Autenticación exitosa, redirigir al dashboard
+          const empleados = await prisma.empleados.findMany();
+          const administradores = await prisma.admin.findMany();
+          res.render('dashboard', { empleados, administradores });
   } catch (error) {
     console.error('Error al actualizar el resultado:', error);
     res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
   }
 });
+
+router.post('/updateAdmin', async (req, res) => {
+  try {
+    const id = req.body.id;
+    const dni = req.body.dni;
+    const email = req.body.email;
+    const username = req.body.username;
+    const password = req.body.password;
+    const restaurantId = req.body.restaurantId;
+
+    // Realiza la lógica necesaria para actualizar el administrador en la base de datos
+    const adminActualizado = await prisma.admin.update({
+      where: {
+        id: parseInt(id)
+      },
+      data: {
+        dni: dni,
+        email: email,
+        username: username,
+        password: password,
+        restaurant: {
+          connect: {
+            id: parseInt(restaurantId)
+          }
+        }
+      }
+    });
+
+    // Obtén los empleados y administradores actualizados para renderizar el dashboard
+    const empleados = await prisma.empleados.findMany();
+    const administradores = await prisma.admin.findMany();
+
+    res.render('dashboard', { empleados, administradores });
+
+  } catch (error) {
+    console.error('Error al actualizar el administrador:', error);
+    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
+  }
+});
+
 
 
 

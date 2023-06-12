@@ -45,60 +45,13 @@ app.set('views', join(__dirname, 'views'));
 // Configurar Public
 app.use(express.static(join(__dirname, 'public')));
 
-// verificación de sesión
-const verificarSesion = (req, res, next) => {
-  if (!req.session.usuario) {
-    // El usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
-    return res.redirect('/login');
-  }
 
-  // El usuario ha iniciado sesión correctamente, continuar con la siguiente ruta
-  next();
-};
 
 // Crear nuestras rutas para las diferentes páginas
 
-// Ruta de inicio de sesión
 app.get('/login', (req, res) => {
   res.render('login');
 });
-
-// Ruta de dashboard que requiere verificación de sesión
-app.get('/dashboard', verificarSesion, async (req, res) => {
-  try {
-    const administradores = await prisma.admin.findMany();
-    const empleados = await prisma.empleados.findMany();
-
-    res.render('dashboard', { administradores, empleados });
-  } catch (error) {
-    console.error('Error al obtener los administradores:', error);
-    res.render('dashboard', { administradores: [], empleados:[] }); // Pasar un arreglo vacío si ocurre un error
-  }
-});
-
-app.get('/updateEmpleados/:id', async (req, res) => {
-  try {
-    const id = parseInt(req.params.id);
-    // Realiza la lógica necesaria para obtener los detalles del resultado a editar
-    const empleados = await prisma.empleados.findUnique({
-      where: {
-        id: id
-      }
-    });
-
-    res.render('updateEmpleados', { empleados: empleados });
-    
-
-  } catch (error) {
-    console.error('Error al obtener el resultado:', error);
-    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
-  }
-}); 
-
-
-
-
-
 
 // Resto de rutas sin verificación de sesión
 
@@ -135,6 +88,70 @@ app.get('/logout', (req, res) => {
       res.redirect('/');
     }
   });
+});
+
+// verificación de sesión
+const verificarSesion = (req, res, next) => {
+  if (!req.session.usuario) {
+    // El usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
+    return res.redirect('/login');
+  }
+
+  // El usuario ha iniciado sesión correctamente, continuar con la siguiente ruta
+  next();
+};
+
+// Ruta de dashboard que requiere verificación de sesión
+app.get('/dashboard', verificarSesion, async (req, res) => {
+  try {
+    const administradores = await prisma.admin.findMany();
+    const empleados = await prisma.empleados.findMany();
+
+    res.render('dashboard', { administradores, empleados });
+  } catch (error) {
+    console.error('Error al obtener los administradores:', error);
+    res.render('dashboard', { administradores: [], empleados:[] }); // Pasar un arreglo vacío si ocurre un error
+  }
+});
+
+app.get('/updateEmpleados/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    // Realiza la lógica necesaria para obtener los detalles del resultado a editar
+    const empleados = await prisma.empleados.findUnique({
+      where: {
+        id: id
+      }
+    });
+
+    res.render('updateEmpleados', { empleados: empleados });
+    
+
+  } catch (error) {
+    console.error('Error al obtener el resultado:', error);
+    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
+  }
+}); 
+
+app.get('/updateAdmin/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    // Realiza la lógica necesaria para obtener los detalles del administrador a editar
+    const admin = await prisma.admin.findUnique({
+      where: {
+        id: id
+      },
+      include: {
+        restaurant: true
+      }
+    });
+
+    res.render('updateAdmin', { admin: admin });
+
+  } catch (error) {
+    console.error('Error al obtener el administrador:', error);
+    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
+  }
 });
 
 app.get('/visita', (req, res) => {
