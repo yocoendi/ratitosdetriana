@@ -1,10 +1,11 @@
 import express from 'express';
 import { pool1 } from '../db.js';
-import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes} from '../controller/indexRoutex.js';
+import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes, vistaDashboard} from '../controller/indexRoutex.js';
 import { PrismaClient } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';
 import multer from 'multer'; // Importar multer
+
 
 const router = express.Router();
 const upload = multer({ dest: 'src/uploads/' }); // Configurar multer para manejar la carga de archivos
@@ -33,9 +34,19 @@ async function getRestaurantes() {
   console.log(restaurant);
 }
 
+// Middleware de verificación de sesión
+const verificarSesion = (req, res, next) => {
+  if (!req.session.usuario) {
+    // El usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
+    return res.redirect('/login');
+  }
 
-//getEmpleados();
-//getAdmin();
+  // El usuario ha iniciado sesión correctamente, continuar con la siguiente ruta
+  next();
+};
+
+getEmpleados();
+getAdmin();
 //getClientes()
 //getRestaurantes()
 
@@ -52,19 +63,21 @@ router.get('/suscribirse', vistaSuscribirse);
 router.get('/gallery', vistaGallery);
 router.get('/restaurantes', vistaRestaurantes);
 router.post('/', postMetodo);
+router.get('/dashboard', verificarSesion, vistaDashboard); // Aplica el middleware de verificación de sesión
 
 
 
 router.post('/auth', async (req, res) => {
   try {
-    const dni = req.body.dni;
+    
     const password = req.body.password;
-
-    if (dni && password) {
+    const username = req.body.username;
+    
+    if (username && password ) {
       // Buscar al usuario en la base de datos utilizando Prisma
       const admin = await prisma.admin.findUnique({
         where: {
-          dni: dni,
+          username: username
         },
       });
 
@@ -73,7 +86,9 @@ router.post('/auth', async (req, res) => {
         return res.send('<script>alert("Usuario o contraseña incorrectos"); window.location.href="/login";</script>');
       } else {
         // Autenticación exitosa, redirigir al dashboard
-        res.render('dashboard');
+        const empleados = await prisma.empleados.findMany();
+        const administradores = await prisma.admin.findMany();
+        res.render('dashboard', { empleados, administradores });
       }
     } else {
       // Faltan campos obligatorios
@@ -303,4 +318,6 @@ router.post('/cv', upload.single('file'), async (req, res) => {
 });
 
 
+
+//exportar enrutador
 export default router;
