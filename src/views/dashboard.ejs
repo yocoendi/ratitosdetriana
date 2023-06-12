@@ -156,7 +156,7 @@
                             <td><%= admin.username %></td>
                             <td>
                               <a href="/updateAdmin/<%= admin.id %>" class="btn btn-outline-info">editar</a>
-                              <a href="/delete" class="btn btn-outline-info">borrar</a>
+                              <a href="/deleteAdmin/<%= admin.id %>" class="btn btn-outline-info">borrar</a>
                             </td>
                           </tr>
                         <% }) %>
@@ -185,7 +185,7 @@
                           <td><%= empleados.position %></td>
                           <td>
                             <a href="/updateEmpleados/<%= empleados.id %>" class="btn btn-outline-info">editar</a>
-                            <a href="/delete" class="btn btn-outline-info">borrar</a>
+                            <a href="/deleteEmpleados/<%= empleados.id %>" class="btn btn-outline-info">borrar</a>
                           </td>
                         </tr>
                       <% }) %>
