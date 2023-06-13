@@ -34,10 +34,7 @@
         <a href="facturas" class="d-block p-3 text-light"><i class="icon ion-md-stats mr-2 lead"></i>Facturas</a>
         <a href="clientes" class="d-block p-3 text-light"><i class="icon ion-md-person mr-2 lead"></i>Clientes</a>
         <a href="#" class="d-block p-3 text-light"><i class="icon ion-md-settings mr-2 lead"></i>Configuracion</a>
-
       </div>
-
- 
     </div>
     <div class="w-100">
       <nav class="navbar navbar-expand-lg navbar-light bg-light border">
@@ -62,9 +59,9 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="#">Mi perfil</a>
-                  <a class="dropdown-item" href="#">Sescripción</a>
+                  <a class="dropdown-item" href="#">Suscripción</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/logout">Cerrar sesión </a>
+                  <a class="dropdown-item" href="/logout">Cerrar sesión</a>
                 </div>
               </li>
             </ul>
@@ -72,17 +69,16 @@
         </div>
       </nav>
       <div id="content">
-        <section cñlass=" py-3">
+        <section class="py-3">
           <div class="container-fluid">
             <div class="row">
               <div class="col-lg-9">
-                <h1 class="font-weight-bold mb-0 ">Bienvendo Jorge</h1>
+                <h1 class="font-weight-bold mb-0">Bienvenido, Jorge</h1>
                 <p class="lead text-muted">Revisa la última información</p>
               </div>
               <div class="col-lg-3 col-md-6 col-sm-12 align-self-center text-center w-100">
-                <button class="btn btn-primary">Descarga archivo</button>
+                <button class="btn btn-primary">Descargar archivo</button>
               </div>
-
             </div>
           </div>
         </section>
@@ -122,12 +118,10 @@
             </div>
           </div>
         </section>
-
         <div class="d-flex">
           <div class="chart-container chart1">
             <canvas id="myChart"></canvas>
           </div>
-
           <div class="chart-container chart2">
             <canvas id="myChart1"></canvas>
           </div>
@@ -141,11 +135,10 @@
                     <table>
                       <thead>
                         <tr class="bg-primary text-white">
-                          <h6 class="text-muted my-3">Administradores</h6>
                           <th>ID</th>
-                          <th>EMAIL</th>
-                          <th>USERNAME</th>
-                          <th>ACCIONES</th>
+                          <th>Email</th>
+                          <th>Username</th>
+                          <th>Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -155,8 +148,8 @@
                             <td><%= admin.email %></td>
                             <td><%= admin.username %></td>
                             <td>
-                              <a href="/updateAdmin/<%= admin.id %>" class="btn btn-outline-info">editar</a>
-                              <a href="/deleteAdmin/<%= admin.id %>" class="btn btn-outline-info">borrar</a>
+                              <a href="/updateAdmin/<%= admin.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/delete/<%= admin.id %>" class="btn btn-outline-info">Borrar</a>
                             </td>
                           </tr>
                         <% }) %>
@@ -164,33 +157,36 @@
                     </table>
                   </div>
                 </div>
-                <div class="mx-auto text-center">
-                  <table>
-                    <thead>
-                      <tr class="bg-primary text-white">
-                        <h6 class="text-muted my-3">Empleados</h6>
-                        <th>DNI</th>
-                        <th>NOMBRE</th>
-                        <th>APELLIDOS</th>
-                        <th>PUESTO</th>
-                        <th>ACCIONES</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <% empleados.forEach((empleados) => { %>
-                        <tr>
-                          <td><%= empleados.dni %></td>
-                          <td><%= empleados.firstName %></td>
-                          <td><%= empleados.lastName %></td>
-                          <td><%= empleados.position %></td>
-                          <td>
-                            <a href="/updateEmpleados/<%= empleados.id %>" class="btn btn-outline-info">editar</a>
-                            <a href="/deleteEmpleados/<%= empleados.id %>" class="btn btn-outline-info">borrar</a>
-                          </td>
+                <div class="col-lg-6 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <table>
+                      <thead>
+                        <tr class="bg-primary text-white">
+                          <th>ID</th>
+                          <th>DNI</th>
+                          <th>Nombre</th>
+                          <th>Apellidos</th>
+                          <th>Puesto</th>
+                          <th>Acciones</th>
                         </tr>
-                      <% }) %>
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        <% empleados.forEach((empleado) => { %>
+                          <tr>
+                            <td><%= empleado.id %></td>
+                            <td><%= empleado.dni %></td>
+                            <td><%= empleado.firstName %></td>
+                            <td><%= empleado.lastName %></td>
+                            <td><%= empleado.position %></td>
+                            <td>
+                              <a href="/updateEmpleados/<%= empleado.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteEmpleados/<%= empleado.id %>" class="btn btn-outline-info">Borrar</a>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
