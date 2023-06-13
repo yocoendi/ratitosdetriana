@@ -159,30 +159,30 @@ async function getUpdateAdmin(req, res) {
   }
 }
 
-// POST: Registrar una factura en la base de datos
-// POST: Registrar una factura en la base de datos
-// POST: Registrar una factura en la base de datos
-// POST: Registrar una factura en la base de datos
-// POST: Registrar una factura en la base de datos
 router.post('/facturas', registroFactura);
 
 async function registroFactura(req, res) {
   try {
-    const { facturaNumber, date, total, proveedor, restaurantId, cif } = req.body;
+    const { facturaNumber, date, total, proveedorId, restaurantId, cif } = req.body;
+    console.log(req.body);
+
+    // Parsear la fecha en el formato deseado y establecer la parte de tiempo en cero
+    const [day, month, year] = date.split('/');
+    const parsedDate = new Date(`${year}-${month}-${day}`);
+    parsedDate.setHours(0, 0, 0, 0);
 
     // Insertar la nueva factura en la base de datos utilizando Prisma
     await prisma.facturas.create({
       data: {
         facturaNumber,
-        date: new Date(date),
+        date: parsedDate,
         total: parseFloat(total),
         proveedor: {
-          connect: {
-            proveedorId: parseInt(proveedor.proveedorId)
-          }
+          connect: { cif: cif }
         },
-        restaurantId: parseInt(restaurantId),
-        cif
+        restaurant: {
+          connect: { id: parseInt(restaurantId) }
+        }
       }
     });
 
