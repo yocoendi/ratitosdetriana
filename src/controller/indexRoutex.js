@@ -21,6 +21,10 @@ export const vistaSuscribirse = (req, res) => {
 export const vistaDashboard = (req, res) => {
     res.render('dashboard', {title: 'Dashboard'})
 }
+export const vistaFacturas = (req, res) => {
+    res.render('facturas', {title: 'Facturas'})
+}
+
 
 export const vistaUpdate = (req, res) => {
     res.render('updateEmpleados', {title: 'Update'})

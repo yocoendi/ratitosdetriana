@@ -33,31 +33,32 @@ model Empleados {
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
   restaurantId Int
 }
-
 model Proveedores {
-  id           Int        @id @default(autoincrement())
-  cif          String     @unique
+  id           Int          @id @default(autoincrement())
+  cif          String       @unique
   name         String
   address      String?
   state        String?
   zipCode      String?
   phone        String?
   email        String?
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurant   Restaurant   @relation(fields: [restaurantId], references: [id])
   restaurantId Int
-  facturas     Facturas[]
+  facturas     Facturas[]   @relation("ProveedorFacturas")
 }
 
 model Facturas {
-  id             Int          @id @default(autoincrement())
-  facturaNumber  String
-  date           DateTime     @default(now())
-  total          Float
-  proveedores    Proveedores  @relation(fields: [cif], references: [cif])
-  cif            String       @unique
-  restaurant     Restaurant   @relation(fields: [restaurantId], references: [id])
-  restaurantId   Int
+  id              Int         @id @default(autoincrement())
+  facturaNumber   String
+  date            DateTime
+  total           Float
+  cif             String
+  restaurant      Restaurant  @relation(fields: [restaurantId], references: [id])
+  restaurantId    Int
+  proveedor       Proveedores @relation("ProveedorFacturas", fields: [cif], references: [cif])
 }
+
+
 
 
 model Admin {
