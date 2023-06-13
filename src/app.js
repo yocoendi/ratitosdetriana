@@ -174,6 +174,27 @@ app.get('/deleteAdmin/:id', async (req, res) => {
   }
 });
 
+app.get('/deleteEmpleados/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    // Realiza la lógica necesaria para eliminar el administrador
+    await prisma.empleados.delete({
+      where: {
+        id: id
+      }
+    });
+
+    // Autenticación exitosa, redirigir al dashboard
+    const empleados = await prisma.empleados.findMany();
+    const administradores = await prisma.admin.findMany();
+    res.render('dashboard', { empleados, administradores });
+  } catch (error) {
+    console.error('Error al eliminar el administrador:', error);
+    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
+  }
+});
+
+
 app.get('/visita', (req, res) => {
   req.session.usuario = 'Jorge';
   req.session.rol = 'Administrador';

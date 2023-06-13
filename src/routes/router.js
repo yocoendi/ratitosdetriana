@@ -65,7 +65,7 @@ router.get('/restaurantes', vistaRestaurantes);
 router.get('/updateEmpleados', vistaUpdate);
 router.get('/updateAdmin', vistaUpdateAdmin);
 router.post('/', postMetodo);
-router.get('/dashboard', verificarSesion, vistaDashboard); // Aplica el middleware de verificación de sesión
+router.get('/dashboard', vistaDashboard); // Aplica el middleware de verificación de sesión
 
 
 
@@ -303,7 +303,6 @@ router.post('/updateAdmin', async (req, res) => {
     // Obtén los empleados y administradores actualizados para renderizar el dashboard
     const empleados = await prisma.empleados.findMany();
     const administradores = await prisma.admin.findMany();
-
     res.render('dashboard', { empleados, administradores });
 
   } catch (error) {
