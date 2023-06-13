@@ -31,7 +31,6 @@ router.get('/restaurantes', vistaRestaurantes);
 
 // GET: Renderizar la página de actualización del administrador
 router.get('/updateAdmin/:id', getUpdateAdmin);
-
 // Función de controlador para renderizar la página de actualización del administrador
 async function getUpdateAdmin(req, res) {
   try {
@@ -348,55 +347,6 @@ router.post('/empleados', async (req, res) => {
     res.send('<script>alert("Error en el servidor"); window.location.href="/empleados";</script>');
   }
 });
-
-
-router.get('/delete/:id', async (req, res) => {
-  try {
-    const id = parseInt(req.params.id);
-    console.log('ID del administrador:', id);
-
-    const admin = await prisma.admin.findUnique({
-      where: {
-        id: id
-      },
-      include: {
-        restaurant: true
-      }
-    });
-    console.log('Administrador encontrado:', admin);
-
-    const { empleados, administradores } = await obtenerDatosDashboard();
-    res.render('dashboard', { empleados, administradores });
-    
-  } catch (error) {
-    console.error('Error al obtener el administrador:', error);
-    res.redirect('/dashboard');
-  }
-});
-
-
-
-router.post('/delete', async (req, res) => {
-  try {
-    const id = parseInt(req.params.id);
-    console.log('ID del administrador a eliminar:', id);
-
-    const deletedAdmin = await prisma.admin.delete({
-      where: {
-        id: id
-      }
-    });
-    console.log('Administrador eliminado:', deletedAdmin);
-
-    const { empleados, administradores } = await obtenerDatosDashboard();
-    res.render('dashboard', { empleados, administradores });
-    
-  } catch (error) {
-    console.error('Error al eliminar el administrador:', error);
-    res.redirect('/dashboard');
-  }
-});
-
 
 
 router.post('/suscribirse', async (req, res) => {

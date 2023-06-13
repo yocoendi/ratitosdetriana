@@ -26,6 +26,26 @@ app.use(express.static(join(__dirname, 'public')));
 
 app.use(indexRoutes);
 
+app.get('/deleteAdmin/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    // Realiza la lógica necesaria para eliminar el administrador
+    await prisma.admin.delete({
+      where: {
+        id: id
+      }
+    });
+
+    // Autenticación exitosa, redirigir al dashboard
+    const empleados = await prisma.empleados.findMany();
+    const administradores = await prisma.admin.findMany();
+    res.render('dashboard', { empleados, administradores });
+  } catch (error) {
+    console.error('Error al eliminar el administrador:', error);
+    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
+  }
+});
+
 const port = process.env.PORT || 2000;
 app.listen(port, () => {
   console.log(`El servidor escucha en http://localhost:${port}`);
