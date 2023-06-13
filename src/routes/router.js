@@ -9,7 +9,6 @@ import multer from 'multer'; // Importar multer
 
 
 
-
 const router = express.Router();
 const upload = multer({ dest: 'src/uploads/' }); // Configurar multer para manejar la carga de archivos
 const prisma = new PrismaClient(); //Instancias prisma para 
@@ -163,25 +162,35 @@ async function getUpdateAdmin(req, res) {
 
 // POST: Registrar una factura en la base de datos
 // Ruta POST para registrar una factura
+// Ruta POST para registrar una factura
 router.post('/facturas', registroFactura);
 
 async function registroFactura(req, res) {
   try {
-    const { facturaNumber, date, total, proveedor, restaurantId, cif } = req.body;
+    const { facturaNumber, date, total, proveedorId, restaurantId, cif } = req.body;
     console.log(req.body);
+
+    let parsedDate;
+    if (date) {
+      const [day, month, year] = date.split('/'); // Dividir la fecha en día, mes y año
+      parsedDate = new Date(`${year}-${month}-${day}`); // Crear un objeto de fecha válido
+    } else {
+      parsedDate = new Date(); // Usar la fecha actual como valor predeterminado
+    }
+      parsedDate.setHours(0, 0, 0, 0);
+  
     // Insertar la nueva factura en la base de datos utilizando Prisma
     await prisma.facturas.create({
       data: {
         facturaNumber,
-        date: new Date(date),
+        date: parsedDate,
         total: parseFloat(total),
         proveedor: {
-          connect: {
-            proveedorId: parseInt(proveedor.proveedorId)
-          }
+          connect: { cif: cif }
         },
-        restaurantId: parseInt(restaurantId),
-        cif
+        restaurant: {
+          connect: { id: parseInt(restaurantId) }
+        }
       }
     });
 
