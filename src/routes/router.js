@@ -30,6 +30,7 @@ router.get('/suscribirse', vistaSuscribirse);
 router.get('/gallery', vistaGallery);
 router.get('/restaurantes', vistaRestaurantes);
 
+
 // GET: Renderizar la página de actualización del administrador
 router.get('/updateAdmin/:id', getUpdateAdmin);
 
@@ -148,7 +149,8 @@ router.post('/registro', async (req, res) => {
       },
     });
 
-    res.send('<script>alert("Usuario insertado correctamente"); window.location.href="/login";</script>');
+    const { empleados, administradores } = await obtenerDatosDashboard();
+    res.render('dashboard', { administradores, empleados });
   } catch (error) {
     console.log(error);
     res.send('<script>alert("Error en el servidor"); window.location.href="/registro";</script>');
@@ -233,8 +235,8 @@ router.post('/empleados', async (req, res) => {
         }
       }
     });
-
-    res.send('<script>alert("Empleado insertado correctamente"); window.location.href="/empleados";</script>');
+    const { empleados, administradores } = await obtenerDatosDashboard();
+    res.render('dashboard', { administradores, empleados });
   } catch (error) {
     console.log(error);
     res.send('<script>alert("Error en el servidor"); window.location.href="/empleados";</script>');
