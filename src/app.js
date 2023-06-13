@@ -28,6 +28,18 @@ app.use(express.static(join(__dirname, 'public')));
 
 app.use(indexRoutes);
 
+// Obtener datos de empleados y administradores
+async function obtenerDatosDashboard() {
+  const empleados = await prisma.empleados.findMany();
+  const administradores = await prisma.admin.findMany();
+  const restaurant = await prisma.restaurant.findMany();
+  const facturas = await prisma.facturas.findMany();
+  const clientes = await prisma.cliente.findMany();
+  const proveedores = await prisma.proveedores.findMany();
+
+  return { empleados, administradores, restaurant, facturas, clientes, proveedores };
+}
+
 app.get('/deleteAdmin/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id);
@@ -38,10 +50,10 @@ app.get('/deleteAdmin/:id', async (req, res) => {
       }
     });
 
-    // Autenticación exitosa, redirigir al dashboard
-    const empleados = await prisma.empleados.findMany();
-    const administradores = await prisma.admin.findMany();
-    res.render('dashboard', { empleados, administradores });
+      // Autenticación exitosa, redirigir al dashboard
+        const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
+        res.render('dashboard', { administradores, empleados, proveedores, facturas });
+      
   } catch (error) {
     console.error('Error al eliminar el administrador:', error);
     res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
@@ -57,10 +69,10 @@ app.get('/deleteEmpleados/:id', async (req, res) => {
       }
     });
 
-    // Autenticación exitosa, redirigir al dashboard
-    const empleados = await prisma.empleados.findMany();
-    const administradores = await prisma.admin.findMany();
-    res.render('dashboard', { empleados, administradores });
+      // Autenticación exitosa, redirigir al dashboard
+      const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
+      res.render('dashboard', { administradores, empleados, proveedores, facturas });
+    
   } catch (error) {
     console.error('Error al eliminar el administrador:', error);
     res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error

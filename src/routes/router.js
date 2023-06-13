@@ -367,12 +367,8 @@ router.get('/logout', (req, res) => {
 router.get('/dashboard', async (req, res) => {
   try {
     if (req.session && req.session.userId) {
-      // El usuario está autenticado, obtén los datos de administradores y empleados
-      const administradores = await prisma.admin.findMany();
-      const empleados = await prisma.empleados.findMany();
-      const proveedores = await prisma.empleados.findMany();
-      const facturas = await prisma.empleados.findMany();
       
+      const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
       res.render('dashboard', { administradores, empleados, proveedores, facturas });
     } else {
       // El usuario no está autenticado, redirige a la página de inicio de sesión
