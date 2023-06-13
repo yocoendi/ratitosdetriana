@@ -26,7 +26,6 @@
         <h4 class="text-light font-weight-bold">Ratitos</h4>
       </div>
       <div class="menu">
-        <a href="#" class="d-block p-3 text-light"><i class="icon ion-md-apps mr-2 lead"></i>Dashboard</a>
         <a href="registro" class="d-block p-3 text-light"><i class="icon ion-md-person mr-2 lead"></i>Admin</a>
         <a href="restaurantes" class="d-block p-3 text-light"><i class="icon ion-md-home mr-2 lead "></i>Restaurantes</a>
         <a href="empleados" class="d-block p-3 text-light"><i class="icon ion-md-contacts mr-2 lead"></i>Empleados</a>
@@ -82,42 +81,7 @@
             </div>
           </div>
         </section>
-        <section>
-          <div class="container-fluid">
-            <div class="card">
-              <div class="row">
-                <div class="col-lg-3 stat d-flex my-3">
-                  <div class="mx-auto text-center">
-                    <h6 class="text-muted my-3">Ingresos Mensuales</h6>
-                    <h3 class="font-weight-bold mb-2">50.000€</h3>
-                    <h6 class="font-weight-bold text-success">50.50%</h6>
-                  </div>
-                </div>
-                <div class="col-lg-3 stat d-flex my-3">
-                  <div class="mx-auto text-center">
-                    <h6 class="text-muted my-3">Ingresos Mensuales</h6>
-                    <h3 class="font-weight-bold mb-2">50.000€</h3>
-                    <h6 class="font-weight-bold text-success">50.50%</h6>
-                  </div>
-                </div>
-                <div class="col-lg-3 stat d-flex my-3">
-                  <div class="mx-auto text-center">
-                    <h6 class="text-muted my-3">Ingresos Mensuales</h6>
-                    <h3 class="font-weight-bold mb-2">50.000€</h3>
-                    <h6 class="font-weight-bold text-success">50.50%</h6>
-                  </div>
-                </div>
-                <div class="col-lg-3 d-flex my-3">
-                  <div class="mx-auto text-center">
-                    <h6 class="text-muted my-3">Ingresos Mensuales</h6>
-                    <h3 class="font-weight-bold mb-2">50.000€</h3>
-                    <h6 class="font-weight-bold text-success">50.50%</h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+       
         <div class="d-flex">
           <div class="chart-container chart1">
             <canvas id="myChart"></canvas>
@@ -132,6 +96,7 @@
               <div class="row">
                 <div class="col-lg-6 stat d-flex my-3">
                   <div class="mx-auto text-center">
+                    <p class="font-weight-bold mb-0">Administradores</p>
                     <table>
                       <thead>
                         <tr class="bg-primary text-white">
@@ -149,7 +114,7 @@
                             <td><%= admin.username %></td>
                             <td>
                               <a href="/updateAdmin/<%= admin.id %>" class="btn btn-outline-info">Editar</a>
-                              <a href="/delete/<%= admin.id %>" class="btn btn-outline-info">Borrar</a>
+                              <a href="/deleteAdmin/<%= admin.id %>" class="btn btn-outline-info">Borrar</a>
                             </td>
                           </tr>
                         <% }) %>
@@ -159,6 +124,7 @@
                 </div>
                 <div class="col-lg-6 stat d-flex my-3">
                   <div class="mx-auto text-center">
+                    <p class="font-weight-bold mb-0">Empleados</p>
                     <table>
                       <thead>
                         <tr class="bg-primary text-white">
@@ -191,6 +157,78 @@
               </div>
             </div>
           </div>
+          <div class="container-fluid">
+            <div class="card">
+              <div class="row">
+                <div class="col-lg-6 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <p class="font-weight-bold mb-0">Proveedores</p>
+                    <table>
+                      <thead>
+                        <tr class="bg-primary text-white">
+                          <th>ID</th>
+                          <th>Cif</th>
+                          <th>Nombre</th>
+                          <th>Telefono</th>
+                          <th>Email</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% proveedores.forEach((proveedores) => { %>
+                          <tr>
+                            <td><%= proveedores.id %></td>
+                            <td><%= proveedores.cif %></td>
+                            <td><%= proveedores.name %></td>
+                            <td><%= proveedores.phone %></td>
+                            <td><%= proveedores.email %></td>
+                            <td>
+                              <a href="/updateProveedores/<%= proveedores.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteProveedores/<%= proveedores.id %>" class="btn btn-outline-info">Borrar</a>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-lg-6 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <p class="font-weight-bold mb-0">Facturas</p>
+                    <table>
+                      <thead>
+                        <tr class="bg-primary text-white">
+                          <th>ID</th>
+                          <th>Numero</th>
+                          <th>Cif</th>
+                          <th>Total</th>
+                          <th>Proveedores</th>
+                          <th>Fecha</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% facturas.forEach((facturas) => { %>
+                          <tr>
+                            <td><%= facturas.id %></td>
+                            <td><%= facturas.facturaNumber %></td>
+                            <td><%= facturas.cif %></td>
+                            <td><%= facturas.total %></td>
+                            <td><%= facturas.proveedores %></td>
+                            <td><%= facturas.date %></td>
+                            <td>
+                              <a href="/updateEmpleados/<%= facturas.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteEmpleados/<%= facturas.id %>" class="btn btn-outline-info">Borrar</a>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
 
@@ -205,7 +243,7 @@
             data: {
               labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
               datasets: [{
-                label: '# of Votes',
+                label: 'Venta de Productos',
                 data: [12, 19, 3, 5, 2, 3],
                 borderWidth: 1
               }]
