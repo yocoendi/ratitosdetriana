@@ -35,27 +35,30 @@ model Empleados {
 }
 
 model Proveedores {
-  id            Int         @id @default(autoincrement())
-  proveedorId   Int         @unique
-  cif           String
-  name          String
-  address       String?
-  state         String?
-  zipCode       String?
-  phone         String?
-  email         String?
-  restaurant    Restaurant  @relation(fields: [restaurantId], references: [id])
-  restaurantId  Int
+  id             Int         @id @default(autoincrement())
+  proveedorId    Int         @unique
+  cif            String
+  name           String
+  address        String?
+  state          String?
+  zipCode        String?
+  phone          String?
+  email          String?
+  restaurant     Restaurant  @relation(fields: [restaurantId], references: [id])
+  restaurantId   Int
+  facturas       Facturas[]  @relation("ProveedorFacturas")
 }
 
 model Facturas {
-  id             Int          @id @default(autoincrement())
-  facturaNumber  String
-  date           DateTime?     
-  total          Float
-  cif            String
-  restaurant     Restaurant   @relation(fields: [restaurantId], references: [id])
-  restaurantId   Int
+  id              Int         @id @default(autoincrement())
+  facturaNumber   String
+  date            DateTime?
+  total           Float
+  cif             String
+  restaurant      Restaurant  @relation(fields: [restaurantId], references: [id])
+  restaurantId    Int
+  proveedor       Proveedores @relation("ProveedorFacturas", fields: [proveedorId], references: [proveedorId])
+  proveedorId     Int
 }
 
 

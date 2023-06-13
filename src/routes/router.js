@@ -8,6 +8,8 @@ import nodemailer from 'nodemailer';
 import multer from 'multer'; // Importar multer
 
 
+
+
 const router = express.Router();
 const upload = multer({ dest: 'src/uploads/' }); // Configurar multer para manejar la carga de archivos
 const prisma = new PrismaClient(); //Instancias prisma para 
@@ -160,16 +162,13 @@ async function getUpdateAdmin(req, res) {
 }
 
 // POST: Registrar una factura en la base de datos
-// POST: Registrar una factura en la base de datos
-// POST: Registrar una factura en la base de datos
-// POST: Registrar una factura en la base de datos
-// POST: Registrar una factura en la base de datos
+// Ruta POST para registrar una factura
 router.post('/facturas', registroFactura);
 
 async function registroFactura(req, res) {
   try {
     const { facturaNumber, date, total, proveedor, restaurantId, cif } = req.body;
-
+    console.log(req.body);
     // Insertar la nueva factura en la base de datos utilizando Prisma
     await prisma.facturas.create({
       data: {
@@ -195,8 +194,6 @@ async function registroFactura(req, res) {
     res.send('Ocurrió un error al registrar la factura');
   }
 }
-
-
 
 
 

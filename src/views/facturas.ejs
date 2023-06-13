@@ -23,11 +23,11 @@
 
 <body class="text-center">
 
-    <main class="form-signin w-100 m-auto">
-        <form action="/facturas" method="POST">
-            <img class="mb-4" src="../img/lugar.jpg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 fw-normal">Registro Factura</h1>
-            <div class="form-floating">
+    <div class="container">
+        <main class="form-signin w-100 m-auto">
+            <form action="/facturas" method="POST">
+                <img class="mb-4" src="../img/lugar.jpg" alt="" width="72" height="72">
+                <h1 class="h3 mb-3 fw-normal">Registro Factura</h1>
                 <div class="form-floating">
                     <input type="text" class="form-control" id="cif" name="cif" placeholder="cif...">
                     <label for="floatingInput">cif</label>
@@ -46,7 +46,8 @@
                     <label for="floatingInput">total</label>
                 </div>
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="restaurantId" name="restaurantId" placeholder="Restaurante ID...">
+                    <input type="text" class="form-control" id="restaurantId" name="restaurantId"
+                        placeholder="Restaurante ID...">
                     <label for="floatingPassword">Restaurante ID</label>
                 </div>
                 <div class="checkbox mb-3">
@@ -58,8 +59,10 @@
                 <!-- Botón de cancelar -->
                 <a class="w-100 btn btn-lg btn-secondary mt-2 px-4 py-2" href="/">Cancelar</a>
                 <p class="mt-5 mb-3 text-muted">@ratitos</p>
-        </form>
-    </main>
+            </form>
+        </main>
+    </div>
 </body>
 
 </html>
+
