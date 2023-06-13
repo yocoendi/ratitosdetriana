@@ -8,6 +8,7 @@ import nodemailer from 'nodemailer';
 import multer from 'multer'; // Importar multer
 
 
+
 const router = express.Router();
 const upload = multer({ dest: 'src/uploads/' }); // Configurar multer para manejar la carga de archivos
 const prisma = new PrismaClient(); //Instancias prisma para 
@@ -53,6 +54,7 @@ router.get('/logout', (req, res) => {
 
 
 router.post('/', postMetodo);
+
 
 // POST: registrar el admin en la base de datos
 router.post('/registro', registro);
@@ -393,8 +395,6 @@ router.get('/visita', (req, res) => {
   );
 });
 
-
-
 router.post('/auth', async (req, res) => {
   try {
     
@@ -476,6 +476,94 @@ router.post('/restaurantes', async (req, res) => {
     res.send('<script>alert("Error en el servidor"); window.location.href="/empleados";</script>');
   }
 });
+
+router.get('/dashboard', (req, res) => {
+  if (req.session && req.session.userId) {
+    // El usuario está autenticado, redirige al dashboard
+    res.render('dashboard');
+  } else {
+    // El usuario no está autenticado, redirige a la página de inicio de sesión
+    res.redirect('/login');
+  }
+});
+
+router.post('/updateEmpleados', async (req, res) => {
+  try {
+    const id = req.body.id;
+    const dni = req.body.dni;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const position = req.body.position;
+    const restaurantId = req.body.restaurantId;
+
+    // Realiza la lógica necesaria para actualizar el resultado en la base de datos
+    const resultadoActualizado = await prisma.empleados.update({
+      where: {
+        id: parseInt(id)
+      },
+      data: {
+        dni: dni,
+        firstName: firstName,
+        lastName: lastName,
+        position: position,
+        restaurant: {
+          connect: {
+            id: parseInt(restaurantId)
+          }
+        }
+      }
+    });
+          // Autenticación exitosa, redirigir al dashboard
+          const empleados = await prisma.empleados.findMany();
+          const administradores = await prisma.admin.findMany();
+          res.render('dashboard', { empleados, administradores });
+  } catch (error) {
+    console.error('Error al actualizar el resultado:', error);
+    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
+  }
+});
+
+router.post('/updateAdmin', async (req, res) => {
+  try {
+    const id = req.body.id;
+    const dni = req.body.dni;
+    const email = req.body.email;
+    const username = req.body.username;
+    const password = req.body.password;
+    const restaurantId = req.body.restaurantId;
+
+    // Realiza la lógica necesaria para actualizar el administrador en la base de datos
+    const adminActualizado = await prisma.admin.update({
+      where: {
+        id: parseInt(id)
+      },
+      data: {
+        dni: dni,
+        email: email,
+        username: username,
+        password: password,
+        restaurant: {
+          connect: {
+            id: parseInt(restaurantId)
+          }
+        }
+      }
+    });
+
+    // Obtén los empleados y administradores actualizados para renderizar el dashboard
+    const empleados = await prisma.empleados.findMany();
+    const administradores = await prisma.admin.findMany();
+
+    res.render('dashboard', { empleados, administradores });
+
+  } catch (error) {
+    console.error('Error al actualizar el administrador:', error);
+    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
+  }
+});
+
+
+
 
 router.post('/suscribirse', async (req, res) => {
   try {

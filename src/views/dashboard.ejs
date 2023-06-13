@@ -29,9 +29,6 @@
         <a href="registro" class="d-block p-3 text-light"><i class="icon ion-md-person mr-2 lead"></i>Admin</a>
         <a href="restaurantes" class="d-block p-3 text-light"><i class="icon ion-md-home mr-2 lead "></i>Restaurantes</a>
         <a href="empleados" class="d-block p-3 text-light"><i class="icon ion-md-contacts mr-2 lead"></i>Empleados</a>
-        <a href="proveedores" class="d-block p-3 text-light"><i class="icon ion-md-person mr-2 lead"></i>Proveedores</a>
-        <a href="facturas" class="d-block p-3 text-light"><i class="icon ion-md-stats mr-2 lead"></i>Facturas</a>
-        <a href="clientes" class="d-block p-3 text-light"><i class="icon ion-md-person mr-2 lead"></i>Clientes</a>
         <a href="#" class="d-block p-3 text-light"><i class="icon ion-md-settings mr-2 lead"></i>Configuracion</a>
       </div>
     </div>
@@ -72,16 +69,53 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-lg-9">
-                <h1 class="font-weight-bold mb-0">Bienvenido, Jorge</h1>
+                <h1 class="font-weight-bold mb-0 ">Bienvendo Jorge</h1>
                 <p class="lead text-muted">Revisa la última información</p>
               </div>
               <div class="col-lg-3 col-md-6 col-sm-12 align-self-center text-center w-100">
-                <button class="btn btn-primary">Descargar archivo</button>
+                <button class="btn btn-primary">Descarga archivo</button>
+              </div>
+
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="container-fluid">
+            <div class="card">
+              <div class="row">
+                <div class="col-lg-3 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <h6 class="text-muted my-3">Ingresos Mensuales</h6>
+                    <h3 class="font-weight-bold mb-2">50.000€</h3>
+                    <h6 class="font-weight-bold text-success">50.50%</h6>
+                  </div>
+                </div>
+                <div class="col-lg-3 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <h6 class="text-muted my-3">Ingresos Mensuales</h6>
+                    <h3 class="font-weight-bold mb-2">50.000€</h3>
+                    <h6 class="font-weight-bold text-success">50.50%</h6>
+                  </div>
+                </div>
+                <div class="col-lg-3 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <h6 class="text-muted my-3">Ingresos Mensuales</h6>
+                    <h3 class="font-weight-bold mb-2">50.000€</h3>
+                    <h6 class="font-weight-bold text-success">50.50%</h6>
+                  </div>
+                </div>
+                <div class="col-lg-3 d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <h6 class="text-muted my-3">Ingresos Mensuales</h6>
+                    <h3 class="font-weight-bold mb-2">50.000€</h3>
+                    <h6 class="font-weight-bold text-success">50.50%</h6>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
-       
+
         <div class="d-flex">
           <div class="chart-container chart1">
             <canvas id="myChart"></canvas>
@@ -243,7 +277,7 @@
             data: {
               labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
               datasets: [{
-                label: 'Venta de Productos',
+                label: '# of Votes',
                 data: [12, 19, 3, 5, 2, 3],
                 borderWidth: 1
               }]
