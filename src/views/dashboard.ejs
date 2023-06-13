@@ -26,15 +26,11 @@
         <h4 class="text-light font-weight-bold">Ratitos</h4>
       </div>
       <div class="menu">
-        <a href="#" class="d-block p-3 text-light"><i class="icon ion-md-apps mr-2 lead"></i>Dashboard</a>
         <a href="registro" class="d-block p-3 text-light"><i class="icon ion-md-person mr-2 lead"></i>Admin</a>
         <a href="restaurantes" class="d-block p-3 text-light"><i class="icon ion-md-home mr-2 lead "></i>Restaurantes</a>
         <a href="empleados" class="d-block p-3 text-light"><i class="icon ion-md-contacts mr-2 lead"></i>Empleados</a>
         <a href="#" class="d-block p-3 text-light"><i class="icon ion-md-settings mr-2 lead"></i>Configuracion</a>
-
       </div>
-
- 
     </div>
     <div class="w-100">
       <nav class="navbar navbar-expand-lg navbar-light bg-light border">
@@ -59,9 +55,9 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="#">Mi perfil</a>
-                  <a class="dropdown-item" href="#">Sescripción</a>
+                  <a class="dropdown-item" href="#">Suscripción</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/logout">Cerrar sesión </a>
+                  <a class="dropdown-item" href="/logout">Cerrar sesión</a>
                 </div>
               </li>
             </ul>
@@ -69,11 +65,11 @@
         </div>
       </nav>
       <div id="content">
-        <section cñlass=" py-3">
+        <section class="py-3">
           <div class="container-fluid">
             <div class="row">
               <div class="col-lg-9">
-                <h1 class="font-weight-bold mb-0 ">Bienvendo</h1>
+                <h1 class="font-weight-bold mb-0 ">Bienvendo Jorge</h1>
                 <p class="lead text-muted">Revisa la última información</p>
               </div>
               <div class="col-lg-3 col-md-6 col-sm-12 align-self-center text-center w-100">
@@ -83,13 +79,47 @@
             </div>
           </div>
         </section>
-
+        <section>
+          <div class="container-fluid">
+            <div class="card">
+              <div class="row">
+                <div class="col-lg-3 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <h6 class="text-muted my-3">Ingresos Mensuales</h6>
+                    <h3 class="font-weight-bold mb-2">50.000€</h3>
+                    <h6 class="font-weight-bold text-success">50.50%</h6>
+                  </div>
+                </div>
+                <div class="col-lg-3 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <h6 class="text-muted my-3">Ingresos Mensuales</h6>
+                    <h3 class="font-weight-bold mb-2">50.000€</h3>
+                    <h6 class="font-weight-bold text-success">50.50%</h6>
+                  </div>
+                </div>
+                <div class="col-lg-3 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <h6 class="text-muted my-3">Ingresos Mensuales</h6>
+                    <h3 class="font-weight-bold mb-2">50.000€</h3>
+                    <h6 class="font-weight-bold text-success">50.50%</h6>
+                  </div>
+                </div>
+                <div class="col-lg-3 d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <h6 class="text-muted my-3">Ingresos Mensuales</h6>
+                    <h3 class="font-weight-bold mb-2">50.000€</h3>
+                    <h6 class="font-weight-bold text-success">50.50%</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <div class="d-flex">
           <div class="chart-container chart1">
             <canvas id="myChart"></canvas>
           </div>
-
           <div class="chart-container chart2">
             <canvas id="myChart1"></canvas>
           </div>
@@ -100,14 +130,14 @@
               <div class="row">
                 <div class="col-lg-6 stat d-flex my-3">
                   <div class="mx-auto text-center">
+                    <p class="font-weight-bold mb-0">Administradores</p>
                     <table>
                       <thead>
                         <tr class="bg-primary text-white">
-                          <h6 class="text-muted my-3">Administradores</h6>
                           <th>ID</th>
-                          <th>EMAIL</th>
-                          <th>USERNAME</th>
-                          <th>ACCIONES</th>
+                          <th>Email</th>
+                          <th>Username</th>
+                          <th>Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -117,8 +147,8 @@
                             <td><%= admin.email %></td>
                             <td><%= admin.username %></td>
                             <td>
-                              <a href="/updateAdmin/<%= admin.id %>" class="btn btn-outline-info">editar</a>
-                              <a href="/deleteAdmin/<%= admin.id %>" class="btn btn-outline-info">borrar</a>
+                              <a href="/updateAdmin/<%= admin.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteAdmin/<%= admin.id %>" class="btn btn-outline-info">Borrar</a>
                             </td>
                           </tr>
                         <% }) %>
@@ -126,33 +156,109 @@
                     </table>
                   </div>
                 </div>
-                <div class="mx-auto text-center">
-                  <table>
-                    <thead>
-                      <tr class="bg-primary text-white">
-                        <h6 class="text-muted my-3">Empleados</h6>
-                        <th>DNI</th>
-                        <th>NOMBRE</th>
-                        <th>APELLIDOS</th>
-                        <th>PUESTO</th>
-                        <th>ACCIONES</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <% empleados.forEach((empleados) => { %>
-                        <tr>
-                          <td><%= empleados.dni %></td>
-                          <td><%= empleados.firstName %></td>
-                          <td><%= empleados.lastName %></td>
-                          <td><%= empleados.position %></td>
-                          <td>
-                            <a href="/updateEmpleados/<%= empleados.id %>" class="btn btn-outline-info">editar</a>
-                            <a href="/deleteEmpleados/<%= empleados.id %>" class="btn btn-outline-info">borrar</a>
-                          </td>
+                <div class="col-lg-6 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <p class="font-weight-bold mb-0">Empleados</p>
+                    <table>
+                      <thead>
+                        <tr class="bg-primary text-white">
+                          <th>ID</th>
+                          <th>DNI</th>
+                          <th>Nombre</th>
+                          <th>Apellidos</th>
+                          <th>Puesto</th>
+                          <th>Acciones</th>
                         </tr>
-                      <% }) %>
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        <% empleados.forEach((empleado) => { %>
+                          <tr>
+                            <td><%= empleado.id %></td>
+                            <td><%= empleado.dni %></td>
+                            <td><%= empleado.firstName %></td>
+                            <td><%= empleado.lastName %></td>
+                            <td><%= empleado.position %></td>
+                            <td>
+                              <a href="/updateEmpleados/<%= empleado.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteEmpleados/<%= empleado.id %>" class="btn btn-outline-info">Borrar</a>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid">
+            <div class="card">
+              <div class="row">
+                <div class="col-lg-6 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <p class="font-weight-bold mb-0">Proveedores</p>
+                    <table>
+                      <thead>
+                        <tr class="bg-primary text-white">
+                          <th>ID</th>
+                          <th>Cif</th>
+                          <th>Nombre</th>
+                          <th>Telefono</th>
+                          <th>Email</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% proveedores.forEach((proveedores) => { %>
+                          <tr>
+                            <td><%= proveedores.id %></td>
+                            <td><%= proveedores.cif %></td>
+                            <td><%= proveedores.name %></td>
+                            <td><%= proveedores.phone %></td>
+                            <td><%= proveedores.email %></td>
+                            <td>
+                              <a href="/updateProveedores/<%= proveedores.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteProveedores/<%= proveedores.id %>" class="btn btn-outline-info">Borrar</a>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-lg-6 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <p class="font-weight-bold mb-0">Facturas</p>
+                    <table>
+                      <thead>
+                        <tr class="bg-primary text-white">
+                          <th>ID</th>
+                          <th>Numero</th>
+                          <th>Cif</th>
+                          <th>Total</th>
+                          <th>Proveedores</th>
+                          <th>Fecha</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% facturas.forEach((facturas) => { %>
+                          <tr>
+                            <td><%= facturas.id %></td>
+                            <td><%= facturas.facturaNumber %></td>
+                            <td><%= facturas.cif %></td>
+                            <td><%= facturas.total %></td>
+                            <td><%= facturas.proveedores %></td>
+                            <td><%= facturas.date %></td>
+                            <td>
+                              <a href="/updateEmpleados/<%= facturas.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteEmpleados/<%= facturas.id %>" class="btn btn-outline-info">Borrar</a>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -171,7 +277,7 @@
             data: {
               labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
               datasets: [{
-                label: 'Ventas Productos',
+                label: '# of Votes',
                 data: [12, 19, 3, 5, 2, 3],
                 borderWidth: 1
               }]

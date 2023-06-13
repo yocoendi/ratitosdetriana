@@ -1,58 +1,30 @@
 import express from 'express';
 import { pool1 } from '../db.js';
-import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse, postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes, vistaDashboard, vistaUpdate, vistaUpdateAdmin} from '../controller/indexRoutex.js';
+import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse,
+   postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes, vistaDashboard, vistaUpdate, vistaUpdateAdmin, vistaFacturas} from '../controller/indexRoutex.js';
 import { PrismaClient } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';
 import multer from 'multer'; // Importar multer
 
 
+
 const router = express.Router();
 const upload = multer({ dest: 'src/uploads/' }); // Configurar multer para manejar la carga de archivos
 const prisma = new PrismaClient(); //Instancias prisma para 
 
-// Aquí puedes utilizar el cliente de Prisma para realizar operaciones en la base de datos
 
-// Ejemplo de consulta de empleados
-async function getEmpleados() {
+// Obtener datos de empleados y administradores
+async function obtenerDatosDashboard() {
   const empleados = await prisma.empleados.findMany();
-  console.log(empleados);
-}
-
-async function getAdmin() {
   const administradores = await prisma.admin.findMany();
-  console.log(administradores);
-}
-
-async function getClientes() {
-  const clientes = await prisma.cliente.findMany();
-  console.log(clientes);
-}
-
-async function getRestaurantes() {
   const restaurant = await prisma.restaurant.findMany();
-  console.log(restaurant);
+  const facturas = await prisma.facturas.findMany();
+  const clientes = await prisma.cliente.findMany();
+  const proveedores = await prisma.proveedores.findMany();
+
+  return { empleados, administradores, restaurant, facturas, clientes, proveedores };
 }
-
-// Middleware de verificación de sesión
-const verificarSesion = (req, res) => {
-  if (!req.session.usuario) {
-    // El usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
-    return res.redirect('/login');
-  }
-
-  // El usuario ha iniciado sesión correctamente, no se ejecuta next()
-};
-
-
-//getEmpleados();
-//getAdmin();
-//getClientes()
-//getRestaurantes()
-
-// Cierra la conexión de Prisma al finalizar
-//prisma.$disconnect();
-
 
 // Crear nuestras rutas para las diferentes páginas
 router.get('/', vistaHome);
@@ -61,11 +33,28 @@ router.get('/registro', vistaRegistro);
 router.get('/empleados', vistaEmpleados);
 router.get('/suscribirse', vistaSuscribirse);
 router.get('/gallery', vistaGallery);
+router.get('/facturas', vistaFacturas);
+
 router.get('/restaurantes', vistaRestaurantes);
-router.get('/updateEmpleados', vistaUpdate);
-router.get('/updateAdmin', vistaUpdateAdmin);
+
+// GET: Renderizar la página de cierre de sesión
+router.get('/logout', (req, res) => {
+  // Destruye la sesión del usuario
+  req.session.destroy(err => {
+    if (err) {
+      // Si ocurre un error al destruir la sesión, muestra un mensaje de error en la consola
+      console.error('Error al destruir la sesión:', err);
+    } else {
+      // Redirige al usuario a la página principal después de cerrar sesión
+      res.redirect('/');
+    }
+  });
+});
+
+
+
 router.post('/', postMetodo);
-router.get('/dashboard', vistaDashboard); // Aplica el middleware de verificación de sesión
+router.get('/dashboard', verificarSesion, vistaDashboard); // Aplica el middleware de verificación de sesión
 
 
 
@@ -88,9 +77,8 @@ router.post('/auth', async (req, res) => {
         return res.send('<script>alert("Usuario o contraseña incorrectos"); window.location.href="/login";</script>');
       } else {
         // Autenticación exitosa, redirigir al dashboard
-        const empleados = await prisma.empleados.findMany();
-        const administradores = await prisma.admin.findMany();
-        res.render('dashboard', { empleados, administradores });
+        const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
+        res.render('dashboard', { administradores, empleados, proveedores, facturas });
       }
     } else {
       // Faltan campos obligatorios
@@ -102,44 +90,6 @@ router.post('/auth', async (req, res) => {
   }
 });
 
-router.post('/registro', async (req, res) => {
-  try {
-    const username = req.body.username;
-    const dni = req.body.dni;
-    const restaurantId = parseInt(req.body.restaurantId); // Convertir a número entero
-    const email = req.body.email;
-    const password = req.body.password;
-    const passwordHash = await bcryptjs.hash(password, 8);
-
-    // Verificar si el dni ya está registrado utilizando Prisma
-    const existingUsername = await prisma.admin.findUnique({
-      where: {
-        dni: dni,
-      },
-    });
-    if (existingUsername) {
-      return res.send('<script>alert("El Dni ya está registrado"); window.location.href="/registro";</script>');
-    }
-
-    // Insertar el nuevo usuario en la base de datos utilizando Prisma
-    await prisma.admin.create({
-      data: {
-        dni: dni,
-        username: username,
-        email: email,
-        password: passwordHash,
-        restaurant:{
-          connect:{ id: restaurantId }
-        }
-      },
-    });
-
-    res.send('<script>alert("Usuario insertado correctamente"); window.location.href="/login";</script>');
-  } catch (error) {
-    console.log(error);
-    res.send('<script>alert("Error en el servidor"); window.location.href="/registro";</script>');
-  }
-});
 
 router.post('/restaurantes', async (req, res) => {
   try {
@@ -168,7 +118,7 @@ router.post('/restaurantes', async (req, res) => {
     }
 
     // Crear un nuevo restaurante en la base de datos
-    const newRestaurant = await prisma.restaurant.create({
+      await prisma.restaurant.create({
       data: {
         restaurantId: restaurantId,
         name: name,
@@ -182,45 +132,8 @@ router.post('/restaurantes', async (req, res) => {
       },
     });
 
-    res.send('<script>alert("Restaurante insertado correctamente"); window.location.href="/empleados";</script>');
-  } catch (error) {
-    console.log(error);
-    res.send('<script>alert("Error en el servidor"); window.location.href="/empleados";</script>');
-  }
-});
-
-router.post('/empleados', async (req, res) => {
-  try {
-    const dni = req.body.dni;
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const position = req.body.position;
-    const restaurantId = parseInt(req.body.restaurantId); // Convertir a número entero
-
-    // Verificar si el empleado ya está registrado
-    const existingEmployee = await prisma.empleados.findUnique({
-      where: {
-        dni:dni
-      }
-    });
-    if (existingEmployee) {
-      return res.send('<script>alert("El empleado ya está registrado"); window.location.href="/empleados";</script>');
-    }
-
-    // Insertar el nuevo empleado en la base de datos
-    await prisma.empleados.create({
-      data: {
-        dni: dni,
-        firstName: firstName,
-        lastName: lastName,
-        position: position,
-        restaurant: {
-          connect: { id: restaurantId }
-        }
-      }
-    });
-
-    res.send('<script>alert("Empleado insertado correctamente"); window.location.href="/empleados";</script>');
+    const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
+    res.render('dashboard', { administradores, empleados, proveedores, facturas });
   } catch (error) {
     console.log(error);
     res.send('<script>alert("Error en el servidor"); window.location.href="/empleados";</script>');
@@ -303,6 +216,7 @@ router.post('/updateAdmin', async (req, res) => {
     // Obtén los empleados y administradores actualizados para renderizar el dashboard
     const empleados = await prisma.empleados.findMany();
     const administradores = await prisma.admin.findMany();
+
     res.render('dashboard', { empleados, administradores });
 
   } catch (error) {
