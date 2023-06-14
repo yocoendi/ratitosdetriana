@@ -1,8 +1,6 @@
 import express from 'express';
 import { pool1 } from '../db.js';
-import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse,
-   postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes,  
-   vistaDashboard, vistaUpdate, vistaUpdateAdmin, vistaFacturas} from '../controller/indexRoutex.js';
+import { vistaHome, vistaLogin, vistaRegistro, vistaCvnews, postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes, vistaFacturas,vistaProveedores } from '../controller/indexRoutex.js';
 import { PrismaClient } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';
@@ -32,9 +30,10 @@ router.get('/', vistaHome);
 router.get('/login', vistaLogin);
 router.get('/registro', vistaRegistro);
 router.get('/empleados', vistaEmpleados);
-router.get('/suscribirse', vistaSuscribirse);
+router.get('/cvnews', vistaCvnews);
 router.get('/gallery', vistaGallery);
 router.get('/facturas', vistaFacturas);
+router.get('/proveedores', vistaProveedores);
 router.get('/restaurantes', vistaRestaurantes);
 router.post('/', postMetodo);
 
@@ -89,6 +88,39 @@ router.get('/logout', (req, res) => {
     }
   });
 });
+
+//DASHBOARD 
+
+// GET: Renderizar EL DASHBOARD 
+router.get('/dashboard', async (req, res) => {
+  try {
+    if (req.session && req.session.userId) {
+      
+      const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
+      res.render('dashboard', { administradores, empleados, proveedores, facturas });
+    } else {
+      // El usuario no está autenticado, redirige a la página de inicio de sesión
+      res.redirect('/login');
+    }
+  } catch (error) {
+    console.error('Error al obtener los administradores:', error);
+    res.render('dashboard', { administradores: [], empleados: [], proveedores: [], facturas: [] });
+  }
+});
+
+
+//VISITAS 
+
+// GET: Renderizar VISITAS 
+router.get('/visita', (req, res) => {
+  req.session.usuario = 'Jorge';
+  req.session.rol = 'Administrador';
+  req.session.visitas = req.session.visitas ? ++req.session.visitas : 1;
+  res.send(
+    `El usuario <Strong>${req.session.usuario}</Strong> con el privilegio de <Strong>${req.session.rol}</Strong> ha visitado la web <Strong>${req.session.visitas}</Strong>`
+  );
+});
+
 
 
 //ADMIN
@@ -326,107 +358,80 @@ async function registroFactura(req, res) {
     res.send('Ocurrió un error al registrar la factura');
   }
 }
-// POST: Actualizar una factura en la base de datos
-router.post('/updateFactura', postUpdateFactura);
+// Router para actualizar una factura en la base de datos
+router.post('/updateFacturas', updateFactura);
 // Función de controlador para actualizar una factura en la base de datos
-async function postUpdateFactura(req, res) {
+async function updateFactura(req, res) {
   try {
-    const id = req.body.id;
-    const facturaNumber = req.body.facturaNumber;
-    const total = parseFloat(req.body.total);
-    const cif = req.body.cif;
-    const restaurantId = req.body.restaurantId;
+    const { id } = req.params;
+    const { facturaNumber, date, total, proveedorId, restaurantId, cif } = req.body;
+    console.log(req.body);
 
-    // Realiza la lógica necesaria para actualizar la factura en la base de datos
-    const factura = await prisma.facturas.update({
+    // Parsear la fecha en el formato deseado y establecer la parte de tiempo en cero
+    const [day, month, year] = date.split('/');
+    const parsedDate = new Date(`${year}-${month}-${day}`);
+    parsedDate.setHours(0, 0, 0, 0);
+
+    // Actualizar la factura en la base de datos utilizando Prisma
+    await prisma.facturas.update({
       where: {
         id: parseInt(id)
       },
       data: {
-        facturaNumber: facturaNumber,
-        total: total,
-        cif: cif,
-        restaurantId: parseInt(restaurantId),
-      },
-    });
-
-    // Obtén las facturas actualizadas para renderizar la página
-    const facturas = await prisma.facturas.findMany();
-    res.render('facturas', { facturas });
-
-  } catch (error) {
-    console.error('Error al actualizar la factura:', error);
-    res.redirect('/facturas'); // Redirige a la página de facturas si ocurre un error
-  }
-}
-// GET: Renderizar la página de actualización de una factura
-router.get('/updateFactura/:id', getUpdateFactura);
-// Función de controlador para renderizar la página de actualización de una factura
-async function getUpdateFactura(req, res) {
-  try {
-    const id = parseInt(req.params.id);
-    const factura = await prisma.facturas.findUnique({
-      where: {
-        id: id
-      },
-      include: {
-        proveedores: true,
-        restaurant: true
+        facturaNumber,
+        date: parsedDate,
+        total: parseFloat(total),
+        proveedor: {
+          connect: { cif: cif }
+        },
+        restaurant: {
+          connect: { id: parseInt(restaurantId) }
+        }
       }
     });
 
-    res.render('updateFactura', { factura: factura });
+    // Redirigir a una página de éxito o renderizar una vista apropiada
+    const { empleados, administradores, proveedores, facturas } = await obtenerDatosDashboard();
+    res.render('dashboard', { administradores, empleados, proveedores, facturas });
+
+  } catch (error) {
+    console.error('Error al actualizar la factura:', error);
+    res.send('Ocurrió un error al actualizar la factura');
+  }
+}
+// GET: Renderizar la página de actualización de una factura
+router.get('/updateFacturas/:id', renderUpdateFacturaPage);
+// Función de controlador para renderizar la página de actualización de una factura
+async function renderUpdateFacturaPage(req, res) {
+  try {
+    const { id } = req.params;
+
+    // Obtener la factura de la base de datos utilizando Prisma
+    const factura = await prisma.facturas.findUnique({
+      where: {
+        id: parseInt(id)
+      },
+      include: {
+        proveedor: true,
+        restaurant: true
+      }
+    });
+    
+    console.log(factura);
+   // Renderizar la página de actualización de la factura con los datos obtenidos
+    res.render('updateFacturas', { facturas : factura });
+   
+
   } catch (error) {
     console.error('Error al obtener la factura:', error);
-    res.redirect('/facturas');
+    res.send('Ocurrió un error al obtener la factura');
   }
 }
 
 
+//RESTAURANTES
 
-// GET: Renderizar la página de cierre de sesión
-router.get('/logout', (req, res) => {
-  // Destruye la sesión del usuario
-  req.session.destroy(err => {
-    if (err) {
-      // Si ocurre un error al destruir la sesión, muestra un mensaje de error en la consola
-      console.error('Error al destruir la sesión:', err);
-    } else {
-      // Redirige al usuario a la página principal después de cerrar sesión
-      res.redirect('/');
-    }
-  });
-});
-
-
-router.get('/dashboard', async (req, res) => {
-  try {
-    if (req.session && req.session.userId) {
-      
-      const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
-      res.render('dashboard', { administradores, empleados, proveedores, facturas });
-    } else {
-      // El usuario no está autenticado, redirige a la página de inicio de sesión
-      res.redirect('/login');
-    }
-  } catch (error) {
-    console.error('Error al obtener los administradores:', error);
-    res.render('dashboard', { administradores: [], empleados: [], proveedores: [], facturas: [] });
-  }
-});
-
-router.get('/visita', (req, res) => {
-  req.session.usuario = 'Jorge';
-  req.session.rol = 'Administrador';
-  req.session.visitas = req.session.visitas ? ++req.session.visitas : 1;
-  res.send(
-    `El usuario <Strong>${req.session.usuario}</Strong> con el privilegio de <Strong>${req.session.rol}</Strong> ha visitado la web <Strong>${req.session.visitas}</Strong>`
-  );
-});
-
-
-
-
+// POST: registrar el RESTAURANTES en la base de datos
 router.post('/restaurantes', async (req, res) => {
   try {
     const {
@@ -476,17 +481,9 @@ router.post('/restaurantes', async (req, res) => {
   }
 });
 
-router.get('/dashboard', (req, res) => {
-  if (req.session && req.session.userId) {
-    // El usuario está autenticado, redirige al dashboard
-    res.render('dashboard');
-  } else {
-    // El usuario no está autenticado, redirige a la página de inicio de sesión
-    res.redirect('/login');
-  }
-});
 
-router.post('/suscribirse', async (req, res) => {
+
+router.post('/suscribirse_', async (req, res) => {
   try {
     const name = req.body.name;
     const surname = req.body.surname;
@@ -553,6 +550,59 @@ router.post('/cv', upload.single('file'), async (req, res) => {
           content: file.buffer // Contenido del archivo adjunto
         }
       ]
+    };
+
+    // Enviar el correo electrónico
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+        return res.send('<script>alert("Error al enviar el correo electrónico"); window.location.href="/";</script>');
+      } else {
+        console.log('Correo electrónico enviado:', info.response);
+        return res.send('<script>alert("Correo electrónico enviado con éxito"); window.location.href="/";</script>');
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    return res.send('<script>alert("Error en el servidor"); window.location.href="/";</script>');
+  }
+});
+
+router.post('/cvnews', upload.single('file'), async (req, res) => {
+  try {
+    // Obtener los datos del formulario
+    const emailAddress = req.body.emailAddress;
+    const message = req.body.message;
+    /* const file = req.file; // Utilizar req.file en lugar de req.files.file
+
+    // Verificar si se envió un archivo adjunto
+    if (!file) {
+      return res.send('<script>alert("No se ha adjuntado ningún archivo"); window.location.href="/";</script>');
+    } */
+
+    // Configurar el transporter de nodemailer para enviar correos electrónicos
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com', // Configura tu host de correo electrónico aquí
+      port: 587, // Configura el puerto de correo electrónico aquí
+      secure: false, // Si el servidor utiliza SSL/TLS, cambia a true
+      auth: {
+        user: 'losratitosdetriana@gmail.com', // Tu dirección de correo electrónico
+        pass: 'kpanscacwppqzyln' // Tu contraseña de correo electrónico
+      }
+    });
+
+    // Configurar el mensaje de correo electrónico
+    const mailOptions = {
+      from: emailAddress, // Dirección de correo electrónico del remitente
+      to: 'losratitosdetriana@gmail.com', // Dirección de correo electrónico del destinatario
+      subject: 'Información de Franquicia solicitada - Confirmación de recepción', // Asunto del correo electrónico
+      text: message, // Cuerpo del correo electrónico
+/*       attachments: [
+        {
+          filename: file.originalname, // Nombre del archivo adjunto
+          content: file.buffer // Contenido del archivo adjunto
+        }
+      ] */
     };
 
     // Enviar el correo electrónico

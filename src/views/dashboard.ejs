@@ -42,10 +42,10 @@
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <form class="form-inline position-relative my-2 d-inline-block">
+<!--           <form class="form-inline position-relative my-2 d-inline-block">
             <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
             <button class="btn btn-search position-absolute" type="submit"><i class="icon ion-md-search"></i></button>
-          </form>
+          </form> -->
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
@@ -133,6 +133,8 @@
                 <div class="col-lg-6 stat d-flex my-3">
                   <div class="mx-auto text-center">
                     <p class="font-weight-bold mb-0">Administradores</p>
+
+                  
                     <table>
                       <thead>
                         <tr class="bg-primary text-white">
@@ -238,22 +240,26 @@
                           <th>Numero</th>
                           <th>Cif</th>
                           <th>Total</th>
+                          <th>Name</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <% facturas.forEach((facturas) => { %>
+                        <% facturas.forEach((factura) => { %>
                           <tr>
-                            <td><%= facturas.id %></td>
-                            <td><%= facturas.facturaNumber %></td>
-                            <td><%= facturas.cif %></td>
-                            <td><%= facturas.total %></td>
+                            <td><%= factura.id %></td>
+                            <td><%= factura.facturaNumber %></td>
+                            <td><%= factura.cif %></td>
+                            <td><%= factura.total %></td>
+                            <td><%= factura.proveedor && factura.proveedor.name %></td>
+                            
                             <td>
-                              <a href="/updateEmpleados/<%= facturas.id %>" class="btn btn-outline-info">Editar</a>
-                              <a href="/deleteEmpleados/<%= facturas.id %>" class="btn btn-outline-info">Borrar</a>
+                              <a href="/updateFacturas/<%= factura.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteFacturas/<%= factura.id %>" class="btn btn-outline-info">Borrar</a>
                             </td>
                           </tr>
                         <% }) %>
+                        
                       </tbody>
                     </table>
                   </div>

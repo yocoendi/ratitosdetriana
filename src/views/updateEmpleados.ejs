@@ -27,8 +27,9 @@
 
     <main class="form-signin w-100 m-auto">
         <form action="/updateEmpleados" method="POST">
-            <input id="id" name="id" value="<%= empleados.id %>">
+            
             <img class="mb-4" src="../img/lugar.jpg" alt="" width="72" height="72">
+            <input type="number" id="id" name="id" value="<%= empleados.id %>">
             <h1 class="h3 mb-3 fw-normal">Update Empleados</h1>
 
             <div class="form-floating">

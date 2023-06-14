@@ -70,8 +70,8 @@ export const vistaUpdateProveedores = (req, res) => {
 }
 
 //VISTA PARA SUSCRIBIRSE
-export const vistaSuscribirse = (req, res) => {
-    res.render('suscribirse', {title: 'Suscribirse'})
+export const vistaCvnews = (req, res) => {
+    res.render('cvnews', {title: 'Cvnews'})
 }
 
 
