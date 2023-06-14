@@ -1,7 +1,8 @@
 import express from 'express';
 import { pool1 } from '../db.js';
 import { vistaHome, vistaLogin, vistaRegistro, vistaSuscribirse,
-   postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes, vistaDashboard, vistaUpdate, vistaUpdateAdmin, vistaFacturas} from '../controller/indexRoutex.js';
+   postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes,  
+   vistaDashboard, vistaUpdate, vistaUpdateAdmin, vistaFacturas} from '../controller/indexRoutex.js';
 import { PrismaClient } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';

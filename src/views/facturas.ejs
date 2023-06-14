@@ -24,36 +24,49 @@
 <body class="text-center">
 
     <main class="form-signin w-100 m-auto">
-        <form action="/registro" method="POST">
+        <form action="/facturas" method="POST">
             <img class="mb-4" src="../img/lugar.jpg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 fw-normal">Registro Admin</h1>
+            <h1 class="h3 mb-3 fw-normal">Registro Factura</h1>
             <div class="form-floating">
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email...">
-                <label for="floatingInput">Email</label>
+                <input type="text" class="form-control" id="facturaNumber" name="facturaNumber"
+                    placeholder="Número de factura...">
+                <label for="facturaNumber">Número de factura</label>
             </div>
             <div class="form-floating">
-                <input type="username" class="form-control" id="username" name="username" placeholder="username...">
-                <label for="floatingInput">User</label>
+                <input type="text" class="form-control" id="date" name="date"
+                    placeholder="Fecha de la factura (DD/MM/YYYY)...">
+                <label for="date">Fecha de la factura</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="restaurantId" name="restaurantId" placeholder="ID del restaurante...">
+                <input type="text" class="form-control" id="total" name="total"
+                    placeholder="Total de la factura...">
+                <label for="total">Total de la factura</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="proveedorId" name="proveedorId"
+                    placeholder="ID del proveedor...">
+                <label for="proveedorId">ID del proveedor</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="restaurantId" name="restaurantId"
+                    placeholder="ID del restaurante...">
                 <label for="restaurantId">ID del restaurante</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="pass" name="password"
-                    placeholder="Contraseña...">
-                <label for="floatingPassword">Contraseña</label>
+                <input type="text" class="form-control" id="cif" name="cif" placeholder="CIF del proveedor...">
+                <label for="cif">CIF del proveedor</label>
             </div>
             <div class="checkbox mb-3">
                 <label>
-                    <input type="checkbox" value="remember-me"> Acepto condiciones y términos
+                    <input type="checkbox" value="remember-me" required> Acepto condiciones y términos
                 </label>
             </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Registrarse</button>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Registro</button>
+              <!-- Botón de cancelar -->
+              <a class="w-100 btn btn-lg btn-secondary mt-2 px-4 py-2" href="/">Cancelar</a>
             <p class="mt-5 mb-3 text-muted">@ratitos</p>
         </form>
     </main>
 </body>
 
 </html>
-
