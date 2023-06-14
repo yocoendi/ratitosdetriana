@@ -362,11 +362,13 @@ async function registroFactura(req, res) {
 // Router para actualizar una factura en la base de datos
 router.post('/updateFacturas', updateFactura);
 // Función de controlador para actualizar una factura en la base de datos
+// ...
+
+// Función de controlador para actualizar una factura en la base de datos
 async function updateFactura(req, res) {
   try {
-    const id = parseInt(req.params.id);
-    const {facturaNumber, date, total, proveedorId, restaurantId, cif } = req.body;
-  
+    const id = parseInt(req.params.id, 10); // Parsear el ID como número entero
+    const { facturaNumber, date, total, proveedorId, restaurantId, cif } = req.body;
 
     // Parsear la fecha en el formato deseado y establecer la parte de tiempo en cero
     const [day, month, year] = date.split('/');
@@ -386,7 +388,7 @@ async function updateFactura(req, res) {
           connect: { cif: cif }
         },
         restaurant: {
-          connect: { id: parseInt(restaurantId) }
+          connect: { id: parseInt(restaurantId, 10) } // Parsear el ID del restaurante como número entero
         }
       }
     });
@@ -400,6 +402,9 @@ async function updateFactura(req, res) {
     res.send('Ocurrió un error al actualizar la factura');
   }
 }
+
+// ...
+
 // GET: Renderizar la página de actualización de una factura
 router.get('/updateFacturas/:id', renderUpdateFacturaPage);
 // Función de controlador para renderizar la página de actualización de una factura

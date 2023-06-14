@@ -29,25 +29,20 @@
             <input type="number" id="id" name="id" value="<%= restaurant.id %>">
             <h1 class="h3 mb-3 fw-normal">Restaurantes</h1>
             <div class="form-floating">
-                <input type="number" class="form-control" id="restaurantId" name="restaurantId" placeholder="restaurantId...">
-                <label for="floatingInput">restaurantId</label>
+                <input type="number" class="form-control" id="restaurantId" name="restaurantId" value="<%= restaurant.id %>" placeholder="restaurantId...">
+                <label for="restaurantId">restaurantId</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="name" name="name" placeholder="Nombre...">
+                <input type="text" class="form-control" id="name" name="name" value="<%= restaurant.id %>" placeholder="Nombre...">
                 <label for="floatingInput">Nombre</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="address" name="address" placeholder="Dirección...">
+                <input type="text" class="form-control" id="address" name="address" value="<%= restaurant.id %>" placeholder="Dirección...">
                 <label for="restaurantId">Dirección</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="pass" name="city" placeholder="Ciudad...">
+                <input type="text" class="form-control" id="pass" name="city" value="<%= restaurant.id %>" placeholder="Ciudad...">
                 <label for="floatingPassword">Ciudad</label>
-            </div>
-
-            <div class="form-floating">
-                <input type="text" class="form-control" id="state" name="state" placeholder="Estado...">
-                <label for="floatingInput">Estado</label>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="Cp...">

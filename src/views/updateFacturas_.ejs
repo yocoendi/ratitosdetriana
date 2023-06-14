@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.108.0">
-    <title>Update Facturas</title>
+    <title>Update Factura</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
     <link href="../../bootstrap-5.3.0-alpha1-examples/assets/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -22,25 +22,19 @@
 </head>
 
 <body class="text-center">
-
     <% if (facturas) {%>
-
     <main class="form-signin w-100 m-auto">
         <form action="/updateFacturas" method="POST">
-            
             <img class="mb-4" src="../img/lugar.jpg" alt="" width="72" height="72">
             <input type="number" id="id" name="id" value="<%= facturas.id %>">
-            <h1 class="h3 mb-3 fw-normal">Update Facturas</h1>
-
+            <h1 class="h3 mb-3 fw-normal">Modifica Factura</h1>
             <div class="form-floating">
-                <input type="text" class="form-control" id="facturaNumber" name="facturaNumber" value="<%= facturas.facturaNumber %>"
-                    placeholder="facturaNumber...">
-                <label for="floatingInput">Numero</label>
+                <input type="text" class="form-control" id="facturaNumber" name="facturaNumber" placeholder="Número de factura..." value="<%= facturas.facturaNumber %>">
+                <label for="floatingInput">Número de factura</label>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="date" name="date" placeholder="Fecha de la factura (DD/MM/YYYY)..." value="<%= facturas.date.toISOString().split('T')[0] %>">
                 <label for="floatingInput">Fecha de la factura</label>
-                <label for="floatingInput">Nombre</label>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="total" name="total"
@@ -48,25 +42,35 @@
                 <label for="floatingInput">Total de la factura</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="restaurantId" name="restaurantId"
-                placeholder="ID del restaurante..." value="<%= facturas.restaurant.id %>">
-            <label for="floatingInput">ID del restaurante</label>
+                <input type="text" class="form-control" id="proveedorId" name="proveedorId"
+                    placeholder="ID del proveedor..." value="<%= facturas.proveedor.id %>">
+                <label for="floatingInput">ID del proveedor</label>
             </div>
-            
+            <div class="form-floating">
+                <input type="text" class="form-control" id="restaurantId" name="restaurantId"
+                    placeholder="ID del restaurante..." value="<%= facturas.restaurant.id %>">
+                <label for="floatingInput">ID del restaurante</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="cif" name="cif" placeholder="CIF del proveedor..."
+                    value="<%= facturas.proveedor.cif %>">
+                <label for="floatingInput">CIF del proveedor</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Nombre del proveedor..." value="<%= facturas.proveedor.name %>">
+                <label for="floatingInput">Nombre del proveedor</label>
+            </div>
             <div class="checkbox mb-3">
                 <label>
                     <input type="checkbox" value="remember-me"> Acepto condiciones y términos
                 </label>
             </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Modificar</button>
-             <!-- Botón de cancelar -->
-             <a class="w-100 btn btn-lg btn-secondary mt-2 px-4 py-2" href="/">Cancelar</a>
-            
-            <p class="mt-5 mb-3 text-muted">@ratitos</p>
-        </form>
-
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Registrarse</button>
+            <!-- Botón de cancelar -->
+            <a class="w-100 btn btn-lg btn-secondary mt-2 px-4 py-2" href="/">Cancelar</a>
+           <p class="mt-5 mb-3 text-muted">@ratitos</p>
+       </form>
         <%} %>
-
     </main>
 </body>
 

@@ -13,7 +13,6 @@ model Restaurant {
   name        String
   address     String?
   city        String?
-  state       String?
   zipCode     String?
   phone       String?
   email       String?
@@ -38,7 +37,6 @@ model Proveedores {
   cif          String       @unique
   name         String
   address      String?
-  state        String?
   zipCode      String?
   phone        String?
   email        String?
@@ -48,7 +46,7 @@ model Proveedores {
 }
 
 model Facturas {
-  id              Int         @id @default(autoincrement())
+  id              Int        @id @default(autoincrement())
   facturaNumber   String
   date            DateTime
   total           Float
@@ -57,9 +55,6 @@ model Facturas {
   restaurantId    Int
   proveedor       Proveedores @relation("ProveedorFacturas", fields: [cif], references: [cif])
 }
-
-
-
 
 model Admin {
   id          Int        @id @default(autoincrement())
@@ -79,6 +74,5 @@ model Cliente {
   phone     String?
   address   String?
   city      String?
-  state     String?
   zipCode   String?
 }
