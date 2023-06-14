@@ -37,6 +37,44 @@ router.get('/facturas', vistaFacturas);
 router.get('/restaurantes', vistaRestaurantes);
 router.post('/', postMetodo);
 
+
+//REGISTRO
+
+// POST: LOGIN DE admin en la base de datos
+router.post('/auth', async (req, res) => {
+  try {
+    
+    const password = req.body.password;
+    const username = req.body.username;
+    
+    if (username && password ) {
+      // Buscar al usuario en la base de datos utilizando Prisma
+      const admin = await prisma.admin.findUnique({
+        where: {
+          username: username
+        },
+      });
+
+      if (!admin || !(await bcryptjs.compare(password, admin.password))) {
+        // Usuario o contraseña incorrectos
+        return res.send('<script>alert("Usuario o contraseña incorrectos"); window.location.href="/login";</script>');
+      } else {
+        // Autenticación exitosa, redirigir al dashboard
+        const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
+        res.render('dashboard', { administradores, empleados, proveedores, facturas });
+      }
+    } else {
+      // Faltan campos obligatorios
+      res.send('<script>alert("Faltan campos obligatorios"); window.location.href="/login";</script>');
+    }
+  } catch (error) {
+    console.log(error);
+    res.send('<script>alert("Error de conexión con el servidor"); window.location.href="/login";</script>');
+  }
+});
+
+//LOGOUT
+
 // GET: Renderizar la página de cierre de sesión
 router.get('/logout', (req, res) => {
   // Destruye la sesión del usuario
@@ -51,6 +89,8 @@ router.get('/logout', (req, res) => {
   });
 });
 
+
+//ADMIN
 
 // POST: registrar el admin en la base de datos
 router.post('/registro', registro);
@@ -155,106 +195,7 @@ async function getUpdateAdmin(req, res) {
   }
 }
 
-// POST: registrar el facturas en la base de datos
-router.post('/facturas', registroFactura);
-// Función de controlador para actualizar facturas en la base de datos
-async function registroFactura(req, res) {
-  try {
-    const { facturaNumber, date, total, proveedorId, restaurantId, cif } = req.body;
-    console.log(req.body);
-
-    // Parsear la fecha en el formato deseado y establecer la parte de tiempo en cero
-    const [day, month, year] = date.split('/');
-    const parsedDate = new Date(`${year}-${month}-${day}`);
-    parsedDate.setHours(0, 0, 0, 0);
-
-    // Insertar la nueva factura en la base de datos utilizando Prisma
-    await prisma.facturas.create({
-      data: {
-        facturaNumber,
-        date: parsedDate,
-        total: parseFloat(total),
-        proveedor: {
-          connect: { cif: cif }
-        },
-        restaurant: {
-          connect: { id: parseInt(restaurantId) }
-        }
-      }
-    });
-
-    // Redirigir a una página de éxito o renderizar una vista apropiada
-    const { empleados, administradores, proveedores, facturas } = await obtenerDatosDashboard();
-    res.render('dashboard', { administradores, empleados, proveedores, facturas });
-
-  } catch (error) {
-    console.error('Error al registrar la factura:', error);
-    res.send('Ocurrió un error al registrar la factura');
-  }
-}
-
-
-
-
-
-
-// POST: Actualizar una factura en la base de datos
-router.post('/updateFactura', postUpdateFactura);
-// Función de controlador para actualizar una factura en la base de datos
-async function postUpdateFactura(req, res) {
-  try {
-    const id = req.body.id;
-    const facturaNumber = req.body.facturaNumber;
-    const total = parseFloat(req.body.total);
-    const cif = req.body.cif;
-    const restaurantId = req.body.restaurantId;
-
-    // Realiza la lógica necesaria para actualizar la factura en la base de datos
-    const factura = await prisma.facturas.update({
-      where: {
-        id: parseInt(id)
-      },
-      data: {
-        facturaNumber: facturaNumber,
-        total: total,
-        cif: cif,
-        restaurantId: parseInt(restaurantId),
-      },
-    });
-
-    // Obtén las facturas actualizadas para renderizar la página
-    const facturas = await prisma.facturas.findMany();
-    res.render('facturas', { facturas });
-
-  } catch (error) {
-    console.error('Error al actualizar la factura:', error);
-    res.redirect('/facturas'); // Redirige a la página de facturas si ocurre un error
-  }
-}
-
-// GET: Renderizar la página de actualización de una factura
-router.get('/updateFactura/:id', getUpdateFactura);
-// Función de controlador para renderizar la página de actualización de una factura
-async function getUpdateFactura(req, res) {
-  try {
-    const id = parseInt(req.params.id);
-    const factura = await prisma.facturas.findUnique({
-      where: {
-        id: id
-      },
-      include: {
-        proveedores: true,
-        restaurant: true
-      }
-    });
-
-    res.render('updateFactura', { factura: factura });
-  } catch (error) {
-    console.error('Error al obtener la factura:', error);
-    res.redirect('/facturas');
-  }
-}
-
+//EMPLEADOS
 
 // POST: registrar el empleado en la base de datos
 router.post('/empleados', async (req, res) => {
@@ -294,7 +235,6 @@ router.post('/empleados', async (req, res) => {
     res.send('<script>alert("Error en el servidor"); window.location.href="/empleados";</script>');
   }
 });
-
 // POST: Actualizar el empleado en la base de datos
 router.post('/updateEmpleados', postUpdateEmpleado);
 // Función de controlador para actualizar el empleado en la base de datos
@@ -326,7 +266,6 @@ async function postUpdateEmpleado(req, res) {
     res.redirect('/dashboard');
   }
 }
-
 // GET: Renderizar la página de actualización del empleado
 router.get('/updateEmpleados/:id', getUpdateEmpleado);
 // Función de controlador para renderizar la página de actualización del empleado
@@ -345,6 +284,104 @@ async function getUpdateEmpleado(req, res) {
     res.redirect('/dashboard');
   }
 }
+
+
+//FACTURAS
+
+// POST: registrar el facturas en la base de datos
+router.post('/facturas', registroFactura);
+// Función de controlador para actualizar facturas en la base de datos
+async function registroFactura(req, res) {
+  try {
+    const { facturaNumber, date, total, proveedorId, restaurantId, cif } = req.body;
+    console.log(req.body);
+
+    // Parsear la fecha en el formato deseado y establecer la parte de tiempo en cero
+    const [day, month, year] = date.split('/');
+    const parsedDate = new Date(`${year}-${month}-${day}`);
+    parsedDate.setHours(0, 0, 0, 0);
+
+    // Insertar la nueva factura en la base de datos utilizando Prisma
+    await prisma.facturas.create({
+      data: {
+        facturaNumber,
+        date: parsedDate,
+        total: parseFloat(total),
+        proveedor: {
+          connect: { cif: cif }
+        },
+        restaurant: {
+          connect: { id: parseInt(restaurantId) }
+        }
+      }
+    });
+
+    // Redirigir a una página de éxito o renderizar una vista apropiada
+    const { empleados, administradores, proveedores, facturas } = await obtenerDatosDashboard();
+    res.render('dashboard', { administradores, empleados, proveedores, facturas });
+
+  } catch (error) {
+    console.error('Error al registrar la factura:', error);
+    res.send('Ocurrió un error al registrar la factura');
+  }
+}
+// POST: Actualizar una factura en la base de datos
+router.post('/updateFactura', postUpdateFactura);
+// Función de controlador para actualizar una factura en la base de datos
+async function postUpdateFactura(req, res) {
+  try {
+    const id = req.body.id;
+    const facturaNumber = req.body.facturaNumber;
+    const total = parseFloat(req.body.total);
+    const cif = req.body.cif;
+    const restaurantId = req.body.restaurantId;
+
+    // Realiza la lógica necesaria para actualizar la factura en la base de datos
+    const factura = await prisma.facturas.update({
+      where: {
+        id: parseInt(id)
+      },
+      data: {
+        facturaNumber: facturaNumber,
+        total: total,
+        cif: cif,
+        restaurantId: parseInt(restaurantId),
+      },
+    });
+
+    // Obtén las facturas actualizadas para renderizar la página
+    const facturas = await prisma.facturas.findMany();
+    res.render('facturas', { facturas });
+
+  } catch (error) {
+    console.error('Error al actualizar la factura:', error);
+    res.redirect('/facturas'); // Redirige a la página de facturas si ocurre un error
+  }
+}
+// GET: Renderizar la página de actualización de una factura
+router.get('/updateFactura/:id', getUpdateFactura);
+// Función de controlador para renderizar la página de actualización de una factura
+async function getUpdateFactura(req, res) {
+  try {
+    const id = parseInt(req.params.id);
+    const factura = await prisma.facturas.findUnique({
+      where: {
+        id: id
+      },
+      include: {
+        proveedores: true,
+        restaurant: true
+      }
+    });
+
+    res.render('updateFactura', { factura: factura });
+  } catch (error) {
+    console.error('Error al obtener la factura:', error);
+    res.redirect('/facturas');
+  }
+}
+
+
 
 // GET: Renderizar la página de cierre de sesión
 router.get('/logout', (req, res) => {
@@ -386,37 +423,7 @@ router.get('/visita', (req, res) => {
   );
 });
 
-router.post('/auth', async (req, res) => {
-  try {
-    
-    const password = req.body.password;
-    const username = req.body.username;
-    
-    if (username && password ) {
-      // Buscar al usuario en la base de datos utilizando Prisma
-      const admin = await prisma.admin.findUnique({
-        where: {
-          username: username
-        },
-      });
 
-      if (!admin || !(await bcryptjs.compare(password, admin.password))) {
-        // Usuario o contraseña incorrectos
-        return res.send('<script>alert("Usuario o contraseña incorrectos"); window.location.href="/login";</script>');
-      } else {
-        // Autenticación exitosa, redirigir al dashboard
-        const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
-        res.render('dashboard', { administradores, empleados, proveedores, facturas });
-      }
-    } else {
-      // Faltan campos obligatorios
-      res.send('<script>alert("Faltan campos obligatorios"); window.location.href="/login";</script>');
-    }
-  } catch (error) {
-    console.log(error);
-    res.send('<script>alert("Error de conexión con el servidor"); window.location.href="/login";</script>');
-  }
-});
 
 
 router.post('/restaurantes', async (req, res) => {
@@ -477,84 +484,6 @@ router.get('/dashboard', (req, res) => {
     res.redirect('/login');
   }
 });
-
-router.post('/updateEmpleados', async (req, res) => {
-  try {
-    const id = req.body.id;
-    const dni = req.body.dni;
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const position = req.body.position;
-    const restaurantId = req.body.restaurantId;
-
-    // Realiza la lógica necesaria para actualizar el resultado en la base de datos
-    const resultadoActualizado = await prisma.empleados.update({
-      where: {
-        id: parseInt(id)
-      },
-      data: {
-        dni: dni,
-        firstName: firstName,
-        lastName: lastName,
-        position: position,
-        restaurant: {
-          connect: {
-            id: parseInt(restaurantId)
-          }
-        }
-      }
-    });
-          // Autenticación exitosa, redirigir al dashboard
-          const empleados = await prisma.empleados.findMany();
-          const administradores = await prisma.admin.findMany();
-          res.render('dashboard', { empleados, administradores });
-  } catch (error) {
-    console.error('Error al actualizar el resultado:', error);
-    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
-  }
-});
-
-router.post('/updateAdmin', async (req, res) => {
-  try {
-    const id = req.body.id;
-    const dni = req.body.dni;
-    const email = req.body.email;
-    const username = req.body.username;
-    const password = req.body.password;
-    const restaurantId = req.body.restaurantId;
-
-    // Realiza la lógica necesaria para actualizar el administrador en la base de datos
-    const adminActualizado = await prisma.admin.update({
-      where: {
-        id: parseInt(id)
-      },
-      data: {
-        dni: dni,
-        email: email,
-        username: username,
-        password: password,
-        restaurant: {
-          connect: {
-            id: parseInt(restaurantId)
-          }
-        }
-      }
-    });
-
-    // Obtén los empleados y administradores actualizados para renderizar el dashboard
-    const empleados = await prisma.empleados.findMany();
-    const administradores = await prisma.admin.findMany();
-
-    res.render('dashboard', { empleados, administradores });
-
-  } catch (error) {
-    console.error('Error al actualizar el administrador:', error);
-    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
-  }
-});
-
-
-
 
 router.post('/suscribirse', async (req, res) => {
   try {
