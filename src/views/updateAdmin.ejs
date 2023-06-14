@@ -29,31 +29,27 @@
         <form action="/updateAdmin" method="POST">
             <input id="id" name="id" value="<%= admin.id %>">
             <img class="mb-4" src="../img/lugar.jpg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 fw-normal">Update Admin</h1>
+            
+            <h1 class="h3 mb-3 fw-normal">Modifica Admin</h1>
 
             <div class="form-floating">
-                <input type="text" class="form-control" id="nombre" name="username" 
-                value="<%= admin.username %>" placeholder="Usuario...">
-                <label for="floatingInput">Usuario</label>
+                <input type="text" class="form-control" id="username" name="username" value="<%= admin.username %>" placeholder="Usuario...">
+                <label for="username">Usuario</label>
             </div>
             <div class="form-floating">
-                <input type="email" class="form-control" id="email" name="email"
-                    value="<%= admin.email %>" placeholder="Email...">
-                <label for="floatingInput">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="<%= admin.email %>" placeholder="Email...">
+                <label for="email">Email</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="dni" name="dni"
-                    value="<%= admin.dni %>" placeholder="Dni...">
-                <label for="floatingInput">Dni</label>
+                <input type="text" class="form-control" id="dni" name="dni" value="<%= admin.dni %>" placeholder="Dni...">
+                <label for="dni">Dni</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="password" name="password" value="<%= admin.password %>"
-                    placeholder="Puesto...">
-                <label for="floatingInput">Password</label>
+                <input type="password" class="form-control" id="password" name="password" value="<%= admin.password %>" placeholder="Puesto...">
+                <label for="password">Password</label>
             </div>
             <div class="form-floating">
-                <input type="number" class="form-control" id="restaurantId" name="restaurantId"
-                    value="<%= admin.restaurantId %>" placeholder="ID del restaurante...">
+                <input type="number" class="form-control" id="restaurantId" name="restaurantId" value="<%= admin.restaurantId %>" placeholder="ID del restaurante...">
                 <label for="restaurantId">ID del restaurante</label>
             </div>
 

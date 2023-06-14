@@ -27,39 +27,36 @@
             
             <img class="mb-4" src="../img/lugar.jpg" alt="" width="72" height="72">
             <input type="number" id="id" name="id" value="<%= cliente.id %>">
-            <h1 class="h3 mb-3 fw-normal">Update Clientes</h1>
+            <h1 class="h3 mb-3 fw-normal">Modifica Clientes</h1>
 
             <div class="form-floating">
+                <input type="text" class="form-control" id="name" name="name" value="<%= cliente.name %>" placeholder="Nombre">
                 <label for="name" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="name" name="name" vale="<%= cliente.name %>" placeholder="Nombre">
             </div>
             <div class="form-floating">
+                <input type="text" class="form-control" id="surname" name="surname" value="<%= cliente.surname %>" placeholder="Apellido">
                 <label for="surname" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="surname" name="surname" vale="<%= cliente.surname %>" placeholder="Apellido">
             </div>
             <div class="form-floating">
+                <input type="email" class="form-control" id="email" name="email"  value="<%= cliente.email %>" placeholder="Email">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email"  vale="<%= cliente.email %>" placeholder="Email">
             </div>
             <div class="form-floating">
+                <input type="text" class="form-control" id="phone" name="phone"  value="<%= cliente.phone %>" placeholder="Teléfono">
                 <label for="phone" class="form-label">Teléfono</label>
-                <input type="text" class="form-control" id="phone" name="phone"  vale="<%= cliente.phone %>" placeholder="Teléfono">
             </div>
             <div class="form-floating">
+                <input type="text" class="form-control" id="address" name="address"  value="<%= cliente.address %>" placeholder="Dirección">
                 <label for="address" class="form-label">Dirección</label>
-                <input type="text" class="form-control" id="address" name="address"  vale="<%= cliente.address %>" placeholder="Dirección">
             </div>
             <div class="form-floating">
+                <input type="text" class="form-control" id="city" name="city" value="<%= cliente.city %>" placeholder="Ciudad">
                 <label for="city" class="form-label">Ciudad</label>
-                <input type="text" class="form-control" id="city" name="city" vale="<%= cliente.city %>" placeholder="Ciudad">
             </div>
+
             <div class="form-floating">
-                <label for="state" class="form-label">Estado</label>
-                <input type="text" class="form-control" id="state" name="state" vale="<%= cliente.state %>" placeholder="Estado">
-            </div>
-            <div class="form-floating">
+                <input type="text" class="form-control" id="zipCode" name="zipCode" value="<%= cliente.ziCode %>" placeholder="Código Postal">
                 <label for="zipCode" class="form-label">Código Postal</label>
-                <input type="text" class="form-control" id="zipCode" name="zipCode" vale="<%= cliente.ziCode %>" placeholder="Código Postal">
 
             <div class="checkbox mb-3">
                 <label>

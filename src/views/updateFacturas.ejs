@@ -30,27 +30,23 @@
             
             <img class="mb-4" src="../img/lugar.jpg" alt="" width="72" height="72">
             <input type="number" id="id" name="id" value="<%= facturas.id %>">
-            <h1 class="h3 mb-3 fw-normal">Update Facturas</h1>
+            <h1 class="h3 mb-3 fw-normal">Modifica Facturas</h1>
 
             <div class="form-floating">
-                <input type="text" class="form-control" id="facturaNumber" name="facturaNumber" value="<%= facturas.facturaNumber %>"
-                    placeholder="facturaNumber...">
-                <label for="floatingInput">Numero</label>
+                <input type="text" class="form-control" id="facturaNumber" name="facturaNumber" value="<%= facturas.facturaNumber %>" placeholder="facturaNumber...">
+                <label for="facturaNumber">Numero</label>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="date" name="date" placeholder="Fecha de la factura (DD/MM/YYYY)..." value="<%= facturas.date.toISOString().split('T')[0] %>">
-                <label for="floatingInput">Fecha de la factura</label>
-                <label for="floatingInput">Nombre</label>
+                <label for="date">Fecha de la factura</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="total" name="total"
-                    placeholder="Total de la factura..." value="<%= facturas.total %>">
-                <label for="floatingInput">Total de la factura</label>
+                <input type="text" class="form-control" id="total" name="total" placeholder="Total de la factura..." value="<%= facturas.total %>">
+                <label for="total">Total de la factura</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="restaurantId" name="restaurantId"
-                placeholder="ID del restaurante..." value="<%= facturas.restaurant.id %>">
-            <label for="floatingInput">ID del restaurante</label>
+                <input type="text" class="form-control" id="restaurantId" name="restaurantId" placeholder="ID del restaurante..." value="<%= facturas.restaurant.id %>">
+            <label for="restaurantId">ID del restaurante</label>
             </div>
             
             <div class="checkbox mb-3">

@@ -13,16 +13,15 @@ const upload = multer({ dest: 'src/uploads/' }); // Configurar multer para manej
 const prisma = new PrismaClient(); //Instancias prisma para 
 
 
-// Obtener datos de empleados y administradores
 async function obtenerDatosDashboard() {
-  const empleados = await prisma.empleados.findMany();
+  const empleado = await prisma.empleados.findMany();
   const administradores = await prisma.admin.findMany();
-  const restaurant = await prisma.restaurant.findMany();
-  const facturas = await prisma.facturas.findMany();
+  const restaurantes = await prisma.restaurant.findMany();
+  const factura = await prisma.facturas.findMany();
   const clientes = await prisma.cliente.findMany();
-  const proveedores = await prisma.proveedores.findMany();
+  const proveedor = await prisma.proveedores.findMany();
 
-  return { empleados, administradores, restaurant, facturas, clientes, proveedores };
+  return { empleado, administradores, restaurantes, factura, clientes, proveedor };
 }
 
 // Crear nuestras rutas para las diferentes páginas
@@ -60,9 +59,9 @@ router.post('/auth', async (req, res) => {
         // Usuario o contraseña incorrectos
         return res.send('<script>alert("Usuario o contraseña incorrectos"); window.location.href="/login";</script>');
       } else {
-        // Autenticación exitosa, redirigir al dashboard
-        const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
-        res.render('dashboard', { administradores, empleados, proveedores, facturas });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
       }
     } else {
       // Faltan campos obligatorios
@@ -96,16 +95,18 @@ router.get('/logout', (req, res) => {
 router.get('/dashboard', async (req, res) => {
   try {
     if (req.session && req.session.userId) {
-      
-      const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
-      res.render('dashboard', { administradores, empleados, proveedores, facturas });
+
+        // Autenticación exitosa, redirigir al dashboard
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
     } else {
       // El usuario no está autenticado, redirige a la página de inicio de sesión
       res.redirect('/login');
     }
   } catch (error) {
     console.error('Error al obtener los administradores:', error);
-    res.render('dashboard', { administradores: [], empleados: [], proveedores: [], facturas: [] });
+    res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes :[], restaurantes: []});
   }
 });
 
@@ -160,9 +161,9 @@ async function registro(req, res) {
         }
       },
     });
-
-    const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
-    res.render('dashboard', { administradores, empleados, proveedores, facturas });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
   } catch (error) {
     console.log(error);
     res.send('<script>alert("Error en el servidor"); window.location.href="/registro";</script>');
@@ -198,9 +199,9 @@ async function postUpdateAdmin(req, res) {
       }
     });
 
-    // Obtén los empleados y administradores actualizados para renderizar el dashboard
-    const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
-    res.render('dashboard', { administradores, empleados, proveedores, facturas });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
 
   } catch (error) {
     console.error('Error al actualizar el administrador:', error);
@@ -262,8 +263,9 @@ router.post('/empleados', async (req, res) => {
         }
       }
     });
-    const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
-    res.render('dashboard', { administradores, empleados, proveedores, facturas });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
   } catch (error) {
     console.log(error);
     res.send('<script>alert("Error en el servidor"); window.location.href="/empleados";</script>');
@@ -293,8 +295,10 @@ async function postUpdateEmpleado(req, res) {
         }
       }
     });
-    const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
-    res.render('dashboard', { administradores, empleados, proveedores, facturas });
+
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
   } catch (error) {
     console.error('Error al actualizar el empleado:', error);
     res.redirect('/dashboard');
@@ -349,10 +353,9 @@ async function registroFactura(req, res) {
         }
       }
     });
-
-    // Redirigir a una página de éxito o renderizar una vista apropiada
-    const { empleados, administradores, proveedores, facturas } = await obtenerDatosDashboard();
-    res.render('dashboard', { administradores, empleados, proveedores, facturas });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
 
   } catch (error) {
     console.error('Error al registrar la factura:', error);
@@ -361,9 +364,6 @@ async function registroFactura(req, res) {
 }
 // Router para actualizar una factura en la base de datos
 router.post('/updateFacturas', updateFactura);
-// Función de controlador para actualizar una factura en la base de datos
-// ...
-
 // Función de controlador para actualizar una factura en la base de datos
 async function updateFactura(req, res) {
   try {
@@ -393,17 +393,15 @@ async function updateFactura(req, res) {
       }
     });
 
-    // Redirigir a una página de éxito o renderizar una vista apropiada
-    const { empleados, administradores, proveedores, facturas } = await obtenerDatosDashboard();
-    res.render('dashboard', { administradores, empleados, proveedores, facturas });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
 
   } catch (error) {
     console.error('Error al actualizar la factura:', error);
     res.send('Ocurrió un error al actualizar la factura');
   }
 }
-
-// ...
 
 // GET: Renderizar la página de actualización de una factura
 router.get('/updateFacturas/:id', renderUpdateFacturaPage);
@@ -453,7 +451,7 @@ router.post('/proveedores', async (req, res) => {
   }
 
     // Insertar el nuevo proveedor en la base de datos utilizando Prisma
-    const proveedor = await prisma.proveedores.create({
+    await prisma.proveedores.create({
       data: {
         cif,
         name,
@@ -467,9 +465,9 @@ router.post('/proveedores', async (req, res) => {
         },
       },
     });
-    // Redirigir a una página de éxito o renderizar una vista apropiada
-    const { empleados, administradores, proveedores, facturas } = await obtenerDatosDashboard();
-    res.render('dashboard', { administradores, empleados, proveedores, facturas });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
   } catch (error) {
     console.error('Error al registrar el proveedor:', error);
     res.status(500).json({ error: 'Ocurrió un error al registrar el proveedor' });
@@ -501,10 +499,9 @@ router.post('/updateProveedores', async (req, res) => {
         },
       },
     });
-
-    // Redirigir a una página de éxito o renderizar una vista apropiada
-    const { empleados, administradores, proveedores, facturas } = await obtenerDatosDashboard();
-    res.render('dashboard', { administradores, empleados, proveedores, facturas });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
   } catch (error) {
     console.error('Error al modificar el proveedor:', error);
     res.status(500).json({ error: 'Ocurrió un error al modificar el proveedor' });
@@ -516,8 +513,8 @@ router.get('/updateProveedores/:id', getUpdateProveedor);
 async function getUpdateProveedor(req, res) {
   try {
     const id = parseInt(req.params.id);
-    console.log('Valor de req.params.id:', req.params.id);
-    console.log('ID del proveedor:', id);
+/*     console.log('Valor de req.params.id:', req.params.id);
+    console.log('ID del proveedor:', id); */
 
     const proveedores = await prisma.proveedores.findUnique({
       where: {
@@ -535,18 +532,6 @@ async function getUpdateProveedor(req, res) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 //RESTAURANTES
 
 // POST: registrar el RESTAURANTES en la base de datos
@@ -556,7 +541,6 @@ router.post('/restaurantes', async (req, res) => {
       name,
       address,
       city,
-      state,
       zipCode,
       phone,
       email,
@@ -583,6 +567,37 @@ router.post('/restaurantes', async (req, res) => {
         name: name,
         address: address,
         city: city,
+        zipCode: zipCode,
+        phone: phone,
+        email: email,
+        website: website,
+      },
+    });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
+  } catch (error) {
+    console.log(error);
+    res.send('<script>alert("Error en el servidor"); window.location.href="/empleados";</script>');
+  }
+});
+// POST: registrar el RESTAURANTES en la base de datos
+router.post('/updateRestaurantes', async (req, res) => {
+  try {
+    const { id,name, address, city, state, zipCode, phone, email, website } = req.body;
+
+        // Verificar si el valor de id es un número válido
+        if (!id || isNaN(parseInt(id))) {
+          throw new Error('El valor de id no es válido');
+        }
+
+    // Crear un nuevo restaurante en la base de datos
+      await prisma.restaurant.update({
+        where: {id: parseInt(id)},  
+      data: {
+        name: name,
+        address: address,
+        city: city,
         state: state,
         zipCode: zipCode,
         phone: phone,
@@ -590,14 +605,133 @@ router.post('/restaurantes', async (req, res) => {
         website: website,
       },
     });
-
-    const { empleados, administradores, proveedores,facturas } = await obtenerDatosDashboard();
-    res.render('dashboard', { administradores, empleados, proveedores, facturas });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
   } catch (error) {
     console.log(error);
     res.send('<script>alert("Error en el servidor"); window.location.href="/empleados";</script>');
   }
 });
+router.get('/updateRestaurantes/:id', getUpdateRestaurante);
+// Función de controlador para renderizar la página de actualización del proveedor
+async function getUpdateRestaurante(req, res) {
+  try {
+    const id = parseInt(req.params.id);
+/*     console.log('Valor de req.params.id:', req.params.id);
+    console.log('ID del proveedor:', id); */
+
+    const restaurant = await prisma.restaurant.findUnique({
+      where: {
+        id: parseInt(id)
+      }
+    });
+
+    console.log('Proveedor encontrado:', restaurant);
+
+    res.render('updateRestaurantes', { restaurant });
+  } catch (error) {
+    console.error('Error al obtener el proveedor:', error);
+    res.redirect('/proveedores');
+  }
+}
+
+
+//CLIENTES
+
+// POST: registrar el RESTAURANTES en la base de datos
+router.post('/clientes', async (req, res) => {
+  try {
+    const { name, surname, email, phone, address, city, zipCode } = req.body;
+
+   // Verificar si el DNI ya está registrado utilizando Prisma
+   const existingemail = await prisma.cliente.findUnique({
+    where: {
+      email: email,
+    },
+  });
+  if (existingemail) {
+    return res.send('<script>alert("El email ya esta registrado ya está registrado"); window.location.href="/clientes";</script>');
+  }
+
+    // Crear un nuevo restaurante en la base de datos
+      await prisma.cliente.create({
+      data: {
+        name: name,
+        surname: surname,
+        email: email,
+        phone: phone,
+        address: address,
+        city: city,
+        zipCode: zipCode,
+      },
+    });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
+  } catch (error) {
+    console.log(error);
+    res.send('<script>alert("Error en el servidor"); window.location.href="/empleados";</script>');
+  }
+});
+// POST: registrar el RESTAURANTES en la base de datos
+router.post('/updateClientes', async (req, res) => {
+  try {
+
+    const { id, name, surname, email, phone, address, city, zipCode } = req.body;
+
+    // Verificar si el valor de id es un número válido
+    if (!id || isNaN(parseInt(id))) {
+      throw new Error('El valor de id no es válido');
+    }
+
+    // Actualizar los datos del cliente en la base de datos
+    await prisma.cliente.update({
+      where: { id: parseInt(id) },
+      data: {
+        name: name,
+        surname: surname,
+        email: email,
+        phone: phone,
+        address: address,
+        city: city,
+        zipCode: zipCode,
+      },
+    });
+
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
+  } catch (error) {
+    console.log(error);
+    res.send('<script>alert("Error en el servidor"); window.location.href="/dashboard";</script>');
+  }
+});
+
+router.get('/updateClientes/:id', getUpdateCliente);
+// Función de controlador para renderizar la página de actualización del proveedor
+async function getUpdateCliente(req, res) {
+  try {
+    const id = parseInt(req.params.id);
+    const cliente = await prisma.cliente.findUnique({
+      where: {
+        id
+      }
+    });
+
+    console.log('Cliente encontrado:', cliente);
+
+    res.render('updateClientes', { cliente });
+  } catch (error) {
+    console.error('Error al obtener el proveedor:', error);
+    res.redirect('/proveedores');
+  }
+}
+
+
+
+
+
 
 
 

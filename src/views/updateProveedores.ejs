@@ -27,34 +27,30 @@
         <form action="/updateProveedores" method="POST">
             <img class="mb-4" src="../img/lugar.jpg" alt="" width="72" height="72">
             <input type="number" id="id" name="id" value="<%= proveedores.id %>">
-            <h1 class="h3 mb-3 fw-normal">Registro Proveedores</h1>
+            <h1 class="h3 mb-3 fw-normal">Modifica Proveedores</h1>
             <div class="form-floating">
                 <input type="text" class="form-control" id="cif" name="cif"  value="<%= proveedores.cif %>" placeholder="Cif...">
-                <label for="floatingInput">Cif</label>
+                <label for="cif">Cif</label>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="name" name="name" value="<%= proveedores.name %>" placeholder="Nombre...">
-                <label for="floatingInput">Nombre</label>
+                <label for="name">Nombre</label>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="address" name="address" value="<%= proveedores.address %>" placeholder="Dirección...">
-                <label for="restaurantId">Dirección</label>
-            </div>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="state" name="state" value="<%= proveedores.state %>" placeholder="Pais...">
-                <label for="floatingInput">Pais</label>
+                <label for="address">Dirección</label>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="zipCode" name="zipCode" value="<%= proveedores.zipCode %>" placeholder="Codigo Postal...">
-                <label for="floatingInput">Codigo Postal</label>
+                <label for="zipCode">Codigo Postal</label>
             </div>
             <div class="form-floating">
                 <input type="email" class="form-control" id="email" name="email"  value="<%= proveedores.email %>" placeholder="Email...">
-                <label for="floatingInput">Email</label>
+                <label for="email">Email</label>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="restaurantId" name="restaurantId" value="<%= proveedores.restaurantId %>" placeholder="restaurantId...">
-                <label for="floatingInput">Restaurante ID</label>
+                <label for="restaurantId">Restaurante ID</label>
             </div>
             <div class="checkbox mb-3">
                 <label>

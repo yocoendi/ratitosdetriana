@@ -30,35 +30,35 @@
             <h1 class="h3 mb-3 fw-normal">Modifica Factura</h1>
             <div class="form-floating">
                 <input type="text" class="form-control" id="facturaNumber" name="facturaNumber" placeholder="Número de factura..." value="<%= facturas.facturaNumber %>">
-                <label for="floatingInput">Número de factura</label>
+                <label for="facturaNumber">Número de factura</label>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="date" name="date" placeholder="Fecha de la factura (DD/MM/YYYY)..." value="<%= facturas.date.toISOString().split('T')[0] %>">
-                <label for="floatingInput">Fecha de la factura</label>
+                <label for="date">Fecha de la factura</label>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="total" name="total"
                     placeholder="Total de la factura..." value="<%= facturas.total %>">
-                <label for="floatingInput">Total de la factura</label>
+                <label for="total">Total de la factura</label>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="proveedorId" name="proveedorId"
                     placeholder="ID del proveedor..." value="<%= facturas.proveedor.id %>">
-                <label for="floatingInput">ID del proveedor</label>
+                <label for="proveedorId">ID del proveedor</label>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="restaurantId" name="restaurantId"
                     placeholder="ID del restaurante..." value="<%= facturas.restaurant.id %>">
-                <label for="floatingInput">ID del restaurante</label>
+                <label for="restaurantId">ID del restaurante</label>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="cif" name="cif" placeholder="CIF del proveedor..."
                     value="<%= facturas.proveedor.cif %>">
-                <label for="floatingInput">CIF del proveedor</label>
+                <label for="cif">CIF del proveedor</label>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="name" name="name" placeholder="Nombre del proveedor..." value="<%= facturas.proveedor.name %>">
-                <label for="floatingInput">Nombre del proveedor</label>
+                <label for="name">Nombre del proveedor</label>
             </div>
             <div class="checkbox mb-3">
                 <label>

@@ -176,16 +176,16 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <% empleados.forEach((empleado) => { %>
+                        <% empleado.forEach((empleados) => { %>
                           <tr>
-                            <td><%= empleado.id %></td>
-                            <td><%= empleado.dni %></td>
-                            <td><%= empleado.firstName %></td>
-                            <td><%= empleado.lastName %></td>
-                            <td><%= empleado.position %></td>
+                            <td><%= empleados.id %></td>
+                            <td><%= empleados.dni %></td>
+                            <td><%= empleados.firstName %></td>
+                            <td><%= empleados.lastName %></td>
+                            <td><%= empleados.position %></td>
                             <td>
-                              <a href="/updateEmpleados/<%= empleado.id %>" class="btn btn-outline-info">Editar</a>
-                              <a href="/deleteEmpleados/<%= empleado.id %>" class="btn btn-outline-info">Borrar</a>
+                              <a href="/updateEmpleados/<%= empleados.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteEmpleados/<%= empleados.id %>" class="btn btn-outline-info">Borrar</a>
                             </td>
                           </tr>
                         <% }) %>
@@ -214,7 +214,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <% proveedores.forEach((proveedores) => { %>
+                        <% proveedor.forEach((proveedores) => { %>
                           <tr>
                             <td><%= proveedores.id %></td>
                             <td><%= proveedores.cif %></td>
@@ -241,22 +241,88 @@
                           <th>Numero</th>
                           <th>Cif</th>
                           <th>Total</th>
-                          <th>Name</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <% facturas.forEach((factura) => { %>
+                        <% factura.forEach((facturas) => { %>
                           <tr>
-                            <td><%= factura.id %></td>
-                            <td><%= factura.facturaNumber %></td>
-                            <td><%= factura.cif %></td>
-                            <td><%= factura.total %></td>
-                            <td><%= factura.proveedor && factura.proveedor.name %></td>
-                            
+                            <td><%= facturas.id %></td>
+                            <td><%= facturas.facturaNumber %></td>
+                            <td><%= facturas.cif %></td>
+                            <td><%= facturas.total %></td>
                             <td>
-                              <a href="/updateFacturas/<%= factura.id %>" class="btn btn-outline-info">Editar</a>
-                              <a href="/deleteFacturas/<%= factura.id %>" class="btn btn-outline-info">Borrar</a>
+                              <a href="/updateFacturas/<%= facturas.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteFacturas/<%= facturas.id %>" class="btn btn-outline-info">Borrar</a>
+                            </td>
+                          </tr>
+                        <% }) %>
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid">
+            <div class="card">
+              <div class="row">
+                <div class="col-lg-6 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <p class="font-weight-bold mb-0">Clientes</p>
+                    <table>
+                      <thead>
+                        <tr class="bg-primary text-white">
+                          <th>ID</th>
+                          <th>Nombre</th>
+                          <th>Apellidos</th>
+                          <th>Telefono</th>
+                          <th>Email</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% clientes.forEach((cliente) => { %>
+                          <tr>
+                            <td><%= cliente.id %></td>
+                            <td><%= cliente.name %></td>
+                            <td><%= cliente.surname %></td>
+                            <td><%= cliente.phone %></td>
+                            <td><%= cliente.email %></td>
+                            <td>
+                              <a href="/updateClientes/<%= cliente.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteClientes/<%= cliente.id %>" class="btn btn-outline-info">Borrar</a>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-lg-6 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <p class="font-weight-bold mb-0">Restaurantes</p>
+                    <table>
+                      <thead>
+                        <tr class="bg-primary text-white">
+                          <th>ID</th>
+                          <th>Nombre</th>
+                          <th>Direccion</th>
+                          <th>Email</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% restaurantes.forEach((restaurant) => { %>
+                          <tr>
+                            <td><%= restaurant.id %></td>
+                            <td><%= restaurant.name %></td>
+                            <td><%= restaurant.address %></td>
+                            <td><%= restaurant.email %></td>
+                            <td>
+                              <a href="/updateRestaurantes/<%= restaurant.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteRestaurantes/<%= restaurant.id %>" class="btn btn-outline-info">Borrar</a>
                             </td>
                           </tr>
                         <% }) %>
