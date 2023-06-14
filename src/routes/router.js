@@ -229,6 +229,26 @@ async function getUpdateAdmin(req, res) {
     res.redirect('/dashboard');
   }
 }
+// Función de controlador para borrar del administrador
+router.get('/deleteAdmin/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    // Realiza la lógica necesaria para eliminar el administrador
+    await prisma.admin.delete({
+      where: {
+        id: id
+      }
+    });
+       // Autenticación exitosa, redirigir al dashboard
+        const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+        res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
+      
+  } catch (error) {
+    console.error('Error al eliminar el administrador:', error);
+    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
+  }
+});
+
 
 //EMPLEADOS
 
@@ -322,6 +342,26 @@ async function getUpdateEmpleado(req, res) {
     res.redirect('/dashboard');
   }
 }
+// GET: para borrar el empleado
+router.get('/deleteEmpleados/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    // Realiza la lógica necesaria para eliminar el administrador
+    await prisma.empleados.delete({
+      where: {
+        id: id
+      }
+    });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
+    
+  } catch (error) {
+    console.error('Error al eliminar el administrador:', error);
+    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
+  }
+});
+
 
 
 //FACTURAS
@@ -428,6 +468,25 @@ async function renderUpdateFacturaPage(req, res) {
     res.send('Ocurrió un error al obtener la factura');
   }
 }
+// GET: Borrar una factura
+router.get('/deleteFacturas/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    // Realiza la lógica necesaria para eliminar el administrador
+    await prisma.facturas.delete({
+      where: {
+        id: id
+      }
+    });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
+    
+  } catch (error) {
+    console.error('Error al eliminar el administrador:', error);
+    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
+  }
+});
 
 
 //PROVEEDORES
@@ -527,6 +586,25 @@ async function getUpdateProveedor(req, res) {
     res.redirect('/proveedores');
   }
 }
+//GET: Borrar los proveedores por id
+router.get('/deleteProveedores/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    // Realiza la lógica necesaria para eliminar el administrador
+    await prisma.proveedores.delete({
+      where: {
+        id: id
+      }
+    });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
+    
+  } catch (error) {
+    console.error('Error al eliminar el administrador:', error);
+    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
+  }
+});
 
 
 //RESTAURANTES
@@ -632,6 +710,26 @@ async function getUpdateRestaurante(req, res) {
     res.redirect('/proveedores');
   }
 }
+//GET: Borra los restaurantes por id
+router.get('/deleteRestaurantes/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    // Realiza la lógica necesaria para eliminar el administrador
+    await prisma.restaurant.delete({
+      where: {
+        id: id
+      }
+    });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
+    
+  } catch (error) {
+    console.error('Error al eliminar el administrador:', error);
+    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
+  }
+});
+
 
 
 //CLIENTES
@@ -724,6 +822,27 @@ async function getUpdateCliente(req, res) {
     res.redirect('/proveedores');
   }
 }
+//GET: Borra los clientes por id
+router.get('/deleteClientes/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    // Realiza la lógica necesaria para eliminar el administrador
+    await prisma.cliente.delete({
+      where: {
+        id: id
+      }
+    });
+       // Autenticación exitosa, redirigir al dashboard
+       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
+       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
+    
+  } catch (error) {
+    console.error('Error al eliminar el administrador:', error);
+    res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
+  }
+});
+
+
 
 
 

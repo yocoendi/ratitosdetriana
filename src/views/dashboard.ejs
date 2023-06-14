@@ -76,9 +76,11 @@
                 <p class="lead text-muted">Revisa la última información</p>
               </div>
               <div class="col-lg-3 col-md-6 col-sm-12 align-self-center text-center w-100">
-                <button class="btn btn-primary">Descarga archivo</button>
+                <a href="../img/TFG.pdf" download>
+                  <button class="btn btn-primary">Descarga archivo</button>
+                </a>
               </div>
-
+              
             </div>
           </div>
         </section>
@@ -346,10 +348,10 @@
           new Chart(ctx, {
             type: 'bar',
             data: {
-              labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+              labels: ['Coca-Cola', 'Cerveza', 'Cerveza SIN', 'Fanta-Naranja', 'Fanta-Limon', 'Acuarius'],
               datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                label: 'Bebidas + Vendidos',
+                data: [12, 19, 3, 5, 8, 10],
                 borderWidth: 1
               }]
             },

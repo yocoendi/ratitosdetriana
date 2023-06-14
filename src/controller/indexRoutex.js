@@ -17,7 +17,7 @@ export const vistaLogout = (req, res) => {
 
 //VISTA PARA EL DASHBOARD
 export const vistaDashboard = (req, res) => {
-    res.render('dashboard', {title: 'Dashboard'})
+    res.render('dashboard', { title: 'Dashboard'})
 }
 
 
