@@ -367,8 +367,8 @@ router.post('/updateFacturas', updateFactura);
 // Función de controlador para actualizar una factura en la base de datos
 async function updateFactura(req, res) {
   try {
-    const id = parseInt(req.params.id, 10); // Parsear el ID como número entero
-    const { facturaNumber, date, total, proveedorId, restaurantId, cif } = req.body;
+  
+    const { id,facturaNumber, date, total, restaurantId, cif } = req.body;
 
     // Parsear la fecha en el formato deseado y establecer la parte de tiempo en cero
     const [day, month, year] = date.split('/');
@@ -377,9 +377,7 @@ async function updateFactura(req, res) {
 
     // Actualizar la factura en la base de datos utilizando Prisma
     await prisma.facturas.update({
-      where: { 
-        id 
-      },
+      where: { id: parseInt(id)},
       data: {
         facturaNumber,
         date: parsedDate,
@@ -402,7 +400,6 @@ async function updateFactura(req, res) {
     res.send('Ocurrió un error al actualizar la factura');
   }
 }
-
 // GET: Renderizar la página de actualización de una factura
 router.get('/updateFacturas/:id', renderUpdateFacturaPage);
 // Función de controlador para renderizar la página de actualización de una factura
@@ -639,7 +636,7 @@ async function getUpdateRestaurante(req, res) {
 
 //CLIENTES
 
-// POST: registrar el RESTAURANTES en la base de datos
+// POST: registrar el CLIENTES en la base de datos
 router.post('/clientes', async (req, res) => {
   try {
     const { name, surname, email, phone, address, city, zipCode } = req.body;
@@ -674,7 +671,7 @@ router.post('/clientes', async (req, res) => {
     res.send('<script>alert("Error en el servidor"); window.location.href="/empleados";</script>');
   }
 });
-// POST: registrar el RESTAURANTES en la base de datos
+// POST: registrar el CLIENTES en la base de datos
 router.post('/updateClientes', async (req, res) => {
   try {
 
@@ -707,7 +704,7 @@ router.post('/updateClientes', async (req, res) => {
     res.send('<script>alert("Error en el servidor"); window.location.href="/dashboard";</script>');
   }
 });
-
+// GET: Renderizar página de actualización de CLIENTES
 router.get('/updateClientes/:id', getUpdateCliente);
 // Función de controlador para renderizar la página de actualización del proveedor
 async function getUpdateCliente(req, res) {
@@ -734,7 +731,7 @@ async function getUpdateCliente(req, res) {
 
 
 
-
+//POT PARA MANDAR CV CON ARCHIVO ADJUTO
 
 router.post('/cv', upload.single('file'), async (req, res) => {
   try {
