@@ -1,6 +1,6 @@
 import express from 'express';
 import { pool1 } from '../db.js';
-import { vistaHome, vistaLogin, vistaRegistro, vistaCvnews, postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes, vistaFacturas,vistaProveedores } from '../controller/indexRoutex.js';
+import { vistaHome, vistaLogin, vistaRegistro, vistaCvnews, postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes, vistaFacturas,vistaProveedores, vistaClientes } from '../controller/indexRoutex.js';
 import { PrismaClient } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';
@@ -35,6 +35,7 @@ router.get('/gallery', vistaGallery);
 router.get('/facturas', vistaFacturas);
 router.get('/proveedores', vistaProveedores);
 router.get('/restaurantes', vistaRestaurantes);
+router.get('/clientes', vistaClientes);
 router.post('/', postMetodo);
 
 
@@ -363,9 +364,9 @@ router.post('/updateFacturas', updateFactura);
 // Función de controlador para actualizar una factura en la base de datos
 async function updateFactura(req, res) {
   try {
-    const { id } = req.params;
-    const { facturaNumber, date, total, proveedorId, restaurantId, cif } = req.body;
-    console.log(req.body);
+    const id = parseInt(req.params.id);
+    const {facturaNumber, date, total, proveedorId, restaurantId, cif } = req.body;
+  
 
     // Parsear la fecha en el formato deseado y establecer la parte de tiempo en cero
     const [day, month, year] = date.split('/');
@@ -374,8 +375,8 @@ async function updateFactura(req, res) {
 
     // Actualizar la factura en la base de datos utilizando Prisma
     await prisma.facturas.update({
-      where: {
-        id: parseInt(id)
+      where: { 
+        id 
       },
       data: {
         facturaNumber,
@@ -404,12 +405,12 @@ router.get('/updateFacturas/:id', renderUpdateFacturaPage);
 // Función de controlador para renderizar la página de actualización de una factura
 async function renderUpdateFacturaPage(req, res) {
   try {
-    const { id } = req.params;
+    const id = parseInt(req.params.id);
 
     // Obtener la factura de la base de datos utilizando Prisma
     const factura = await prisma.facturas.findUnique({
       where: {
-        id: parseInt(id)
+        id
       },
       include: {
         proveedor: true,
@@ -417,7 +418,7 @@ async function renderUpdateFacturaPage(req, res) {
       }
     });
     
-    console.log(factura);
+    
    // Renderizar la página de actualización de la factura con los datos obtenidos
     res.render('updateFacturas', { facturas : factura });
    
@@ -427,6 +428,118 @@ async function renderUpdateFacturaPage(req, res) {
     res.send('Ocurrió un error al obtener la factura');
   }
 }
+
+
+//PROVEEDORES
+
+//POST: registro de proveedores en la base de datos
+router.post('/proveedores', async (req, res) => {
+  try {
+    const { cif, name, address, state, zipCode, phone, email, restaurantId } = req.body;
+
+// Verificar si el empleado ya está registrado
+    const existingProveedor = await prisma.proveedores.findUnique({
+    where: {
+     cif:cif
+  }
+  });
+  if (existingProveedor) {
+  return res.send('<script>alert("El proveedor ya está registrado"); window.location.href="/proveedores";</script>');
+  }
+
+    // Insertar el nuevo proveedor en la base de datos utilizando Prisma
+    const proveedor = await prisma.proveedores.create({
+      data: {
+        cif,
+        name,
+        address,
+        state,
+        zipCode,
+        phone,
+        email,
+        restaurant: {
+          connect: { id: parseInt(restaurantId) },
+        },
+      },
+    });
+    // Redirigir a una página de éxito o renderizar una vista apropiada
+    const { empleados, administradores, proveedores, facturas } = await obtenerDatosDashboard();
+    res.render('dashboard', { administradores, empleados, proveedores, facturas });
+  } catch (error) {
+    console.error('Error al registrar el proveedor:', error);
+    res.status(500).json({ error: 'Ocurrió un error al registrar el proveedor' });
+  }
+});
+// POST: Modificación de proveedores en la base de datos
+router.post('/updateProveedores', async (req, res) => {
+  try {
+    const { id, cif, name, address, state, zipCode, phone, email, restaurantId } = req.body;
+
+    // Verificar si el valor de id es un número válido
+    if (!id || isNaN(parseInt(id))) {
+      throw new Error('El valor de id no es válido');
+    }
+
+    // Actualizar los datos del proveedor en la base de datos utilizando Prisma
+    await prisma.proveedores.update({
+      where: { id: parseInt(id) },
+      data: {
+        cif,
+        name,
+        address,
+        state,
+        zipCode,
+        phone,
+        email,
+        restaurant: {
+          connect: { id: parseInt(restaurantId) },
+        },
+      },
+    });
+
+    // Redirigir a una página de éxito o renderizar una vista apropiada
+    const { empleados, administradores, proveedores, facturas } = await obtenerDatosDashboard();
+    res.render('dashboard', { administradores, empleados, proveedores, facturas });
+  } catch (error) {
+    console.error('Error al modificar el proveedor:', error);
+    res.status(500).json({ error: 'Ocurrió un error al modificar el proveedor' });
+  }
+});
+// GET: Renderizar página de actualización de proveedores
+router.get('/updateProveedores/:id', getUpdateProveedor);
+// Función de controlador para renderizar la página de actualización del proveedor
+async function getUpdateProveedor(req, res) {
+  try {
+    const id = parseInt(req.params.id);
+    console.log('Valor de req.params.id:', req.params.id);
+    console.log('ID del proveedor:', id);
+
+    const proveedores = await prisma.proveedores.findUnique({
+      where: {
+        id: parseInt(id)
+      }
+    });
+
+    console.log('Proveedor encontrado:', proveedores);
+
+    res.render('updateProveedores', { proveedores });
+  } catch (error) {
+    console.error('Error al obtener el proveedor:', error);
+    res.redirect('/proveedores');
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //RESTAURANTES
@@ -483,37 +596,6 @@ router.post('/restaurantes', async (req, res) => {
 
 
 
-router.post('/suscribirse_', async (req, res) => {
-  try {
-    const name = req.body.name;
-    const surname = req.body.surname;
-    const email = req.body.email;
-
-    // Verificar si el correo electrónico ya existe en la base de datos utilizando Prisma
-    const existingUser = await prisma.cliente.findFirst({
-      where: {
-        email: email,
-      },
-    });
-    if (existingUser) {
-      return res.send('<script>alert("El correo electrónico ya está registrado"); window.location.href="/suscribirse";</script>');
-    }
-
-    // Insertar el nuevo cliente en la base de datos utilizando Prisma
-    await prisma.cliente.create({
-      data: {
-        name: name,
-        surname: surname,
-        email: email,
-      },
-    });
-
-    return res.send('<script>alert("Suscripción correcta, en breve recibirá noticias nuestras"); window.location.href="/";</script>');
-  } catch (error) {
-    console.log(error);
-    return res.send('<script>alert("Error en el servidor"); window.location.href="/suscribirse";</script>');
-  }
-});
 
 router.post('/cv', upload.single('file'), async (req, res) => {
   try {
@@ -620,6 +702,39 @@ router.post('/cvnews', upload.single('file'), async (req, res) => {
     return res.send('<script>alert("Error en el servidor"); window.location.href="/";</script>');
   }
 });
+
+/* router.post('/suscribirse_', async (req, res) => {
+  try {
+    const name = req.body.name;
+    const surname = req.body.surname;
+    const email = req.body.email;
+
+    // Verificar si el correo electrónico ya existe en la base de datos utilizando Prisma
+    const existingUser = await prisma.cliente.findFirst({
+      where: {
+        email: email,
+      },
+    });
+    if (existingUser) {
+      return res.send('<script>alert("El correo electrónico ya está registrado"); window.location.href="/suscribirse";</script>');
+    }
+
+    // Insertar el nuevo cliente en la base de datos utilizando Prisma
+    await prisma.cliente.create({
+      data: {
+        name: name,
+        surname: surname,
+        email: email,
+      },
+    });
+
+    return res.send('<script>alert("Suscripción correcta, en breve recibirá noticias nuestras"); window.location.href="/";</script>');
+  } catch (error) {
+    console.log(error);
+    return res.send('<script>alert("Error en el servidor"); window.location.href="/suscribirse";</script>');
+  }
+}); */
+
 
 
 

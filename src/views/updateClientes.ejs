@@ -10,10 +10,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.108.0">
-    <title>Registro Clientes</title>
+    <title>Registro Admin</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
     <link href="../../bootstrap-5.3.0-alpha1-examples/assets/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -22,51 +19,62 @@
 </head>
 
 <body class="text-center">
+
+    <% if (cliente) { %>
+
     <main class="form-signin w-100 m-auto">
-        <form action="/clientes" method="POST">
+        <form action="/updateClientes" method="POST">
+            
             <img class="mb-4" src="../img/lugar.jpg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 fw-normal">Resgistro Clientes</h1>
+            <input type="number" id="id" name="id" value="<%= cliente.id %>">
+            <h1 class="h3 mb-3 fw-normal">Update Clientes</h1>
+
             <div class="form-floating">
                 <label for="name" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Nombre">
+                <input type="text" class="form-control" id="name" name="name" vale="<%= cliente.name %>" placeholder="Nombre">
             </div>
             <div class="form-floating">
                 <label for="surname" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="surname" name="surname" placeholder="Apellido">
+                <input type="text" class="form-control" id="surname" name="surname" vale="<%= cliente.surname %>" placeholder="Apellido">
             </div>
             <div class="form-floating">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                <input type="email" class="form-control" id="email" name="email"  vale="<%= cliente.email %>" placeholder="Email">
             </div>
             <div class="form-floating">
                 <label for="phone" class="form-label">Teléfono</label>
-                <input type="text" class="form-control" id="phone" name="phone" placeholder="Teléfono">
+                <input type="text" class="form-control" id="phone" name="phone"  vale="<%= cliente.phone %>" placeholder="Teléfono">
             </div>
             <div class="form-floating">
                 <label for="address" class="form-label">Dirección</label>
-                <input type="text" class="form-control" id="address" name="address" placeholder="Dirección">
+                <input type="text" class="form-control" id="address" name="address"  vale="<%= cliente.address %>" placeholder="Dirección">
             </div>
             <div class="form-floating">
                 <label for="city" class="form-label">Ciudad</label>
-                <input type="text" class="form-control" id="city" name="city" placeholder="Ciudad">
+                <input type="text" class="form-control" id="city" name="city" vale="<%= cliente.city %>" placeholder="Ciudad">
             </div>
             <div class="form-floating">
                 <label for="state" class="form-label">Estado</label>
-                <input type="text" class="form-control" id="state" name="state" placeholder="Estado">
+                <input type="text" class="form-control" id="state" name="state" vale="<%= cliente.state %>" placeholder="Estado">
             </div>
             <div class="form-floating">
                 <label for="zipCode" class="form-label">Código Postal</label>
-                <input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="Código Postal">
-            </div>
+                <input type="text" class="form-control" id="zipCode" name="zipCode" vale="<%= cliente.ziCode %>" placeholder="Código Postal">
+
             <div class="checkbox mb-3">
                 <label>
                     <input type="checkbox" value="remember-me"> Acepto condiciones y términos
                 </label>
             </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Registrarse</button>
-              <!-- Botón de cancelar -->
-              <a class="w-100 btn btn-lg btn-secondary mt-2 px-4 py-2" href="/">Cancelar</a>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Modificar</button>
+            <!-- Botón de cancelar -->
+            <a class="w-100 btn btn-lg btn-secondary mt-2 px-4 py-2" href="/">Cancelar</a>
+            
+            <p class="mt-5 mb-3 text-muted">@ratitos</p>
         </form>
+
+    <% } %>
+
     </main>
 </body>
 

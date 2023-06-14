@@ -26,23 +26,34 @@
     <main class="form-signin w-100 m-auto">
         <form action="/proveedores" method="POST">
             <img class="mb-4" src="../img/lugar.jpg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 fw-normal">Registro Admin</h1>
+            <h1 class="h3 mb-3 fw-normal">Registro Proveedores</h1>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="cif" name="cif" placeholder="Cif...">
+                <label for="floatingInput">Cif</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Nombre...">
+                <label for="floatingInput">Nombre</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="address" name="address" placeholder="Dirección...">
+                <label for="restaurantId">Dirección</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="state" name="state" placeholder="Pais...">
+                <label for="floatingPassword">Pais</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="Codigo Postal...">
+                <label for="floatingPassword">Codigo Postal</label>
+            </div>
             <div class="form-floating">
                 <input type="email" class="form-control" id="email" name="email" placeholder="Email...">
-                <label for="floatingInput">Email</label>
+                <label for="floatingPassword">Email</label>
             </div>
             <div class="form-floating">
-                <input type="username" class="form-control" id="username" name="username" placeholder="username...">
-                <label for="floatingInput">User</label>
-            </div>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="restaurantId" name="restaurantId" placeholder="ID del restaurante...">
-                <label for="restaurantId">ID del restaurante</label>
-            </div>
-            <div class="form-floating">
-                <input type="password" class="form-control" id="pass" name="password"
-                    placeholder="Contraseña...">
-                <label for="floatingPassword">Contraseña</label>
+                <input type="text" class="form-control" id="restaurantId" name="restaurantId" placeholder="restaurantId...">
+                <label for="floatingPassword">Restaurante ID</label>
             </div>
             <div class="checkbox mb-3">
                 <label>

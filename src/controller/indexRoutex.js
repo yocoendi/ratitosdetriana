@@ -59,15 +59,26 @@ export const vistaUpdateFacturas = (req, res) => {
     res.render('updatefacturas')
 }
 
-//VISTA PARA REGISTRAR PROVEEDORE
+//VISTA PARA REGISTRAR PROVEEDORES
 export const vistaProveedores = (req, res) => {
     res.render('proveedores', {title: 'Proveedores'})
 }
 
-//VISTA PARA MODIFICAR FACTURAS
+//VISTA PARA MODIFICAR PROVEEDORES
 export const vistaUpdateProveedores = (req, res) => {
     res.render('updateProveedores')
 }
+
+//VISTA PARA REGISTRAR CLIENTES
+export const vistaClientes = (req, res) => {
+    res.render('clientes', {title: 'Proveedores'})
+}
+
+//VISTA PARA MODIFICAR CLIENTES
+export const vistaUpdateClientes = (req, res) => {
+    res.render('updateClientes')
+}
+
 
 //VISTA PARA SUSCRIBIRSE
 export const vistaCvnews = (req, res) => {
