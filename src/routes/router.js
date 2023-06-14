@@ -34,8 +34,8 @@ router.get('/empleados', vistaEmpleados);
 router.get('/suscribirse', vistaSuscribirse);
 router.get('/gallery', vistaGallery);
 router.get('/facturas', vistaFacturas);
-
 router.get('/restaurantes', vistaRestaurantes);
+router.post('/', postMetodo);
 
 // GET: Renderizar la página de cierre de sesión
 router.get('/logout', (req, res) => {
@@ -50,10 +50,6 @@ router.get('/logout', (req, res) => {
     }
   });
 });
-
-
-
-router.post('/', postMetodo);
 
 
 // POST: registrar el admin en la base de datos
@@ -98,7 +94,6 @@ async function registro(req, res) {
     res.send('<script>alert("Error en el servidor"); window.location.href="/registro";</script>');
   }
 }
-
 // POST: Actualizar el administrador en la base de datos
 router.post('/updateAdmin', postUpdateAdmin);
 // Función de controlador para actualizar el administrador en la base de datos
@@ -138,7 +133,6 @@ async function postUpdateAdmin(req, res) {
     res.redirect('/dashboard'); // Redirige al dashboard si ocurre un error
   }
 }
-
 // GET: Renderizar la página de actualización del administrador
 router.get('/updateAdmin/:id', getUpdateAdmin);
 // Función de controlador para renderizar la página de actualización del administrador
@@ -161,8 +155,9 @@ async function getUpdateAdmin(req, res) {
   }
 }
 
+// POST: registrar el facturas en la base de datos
 router.post('/facturas', registroFactura);
-
+// Función de controlador para actualizar facturas en la base de datos
 async function registroFactura(req, res) {
   try {
     const { facturaNumber, date, total, proveedorId, restaurantId, cif } = req.body;
