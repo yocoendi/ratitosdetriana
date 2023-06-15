@@ -1,6 +1,6 @@
 <section class="separador2">
-    <div id="cv" class="formulario-contacto contenedor">
-      <div class="informacion-contacto">
+  <div id="cv" class="formulario-contacto contenedor">
+    <div class="informacion-contacto">
         <h3>¿QUIERES TRABAJAR CON NOSOTROS?</h3>
         <p>
             <i class='fas fa-map-marker-alt' style='font-size:24px'></i>
@@ -9,31 +9,30 @@
           formulario y envíanos tus datos de contacto, hablamos sobre tí:
           tu formación, experiencia…etc.
           ¡Estaremos encantados de recibirte!
-        </p>
-
-        <div class="redes-sociales">
-          <i class="fab fa-facebook-square"></i>
-          <i class="fab fa-instagram"></i>
-        </div>
+        </p>  
       </div>
       <div class="container px-5 my-5">
         <form action="/cv" method="POST" enctype="multipart/form-data">
           <fieldset>
             <legend class="form-legend" style="color: white;">Envianos tu CV </legend>
-            <div class="form-floating mb-3">
+            <!-- Campo de entrada para la dirección de correo electrónico -->
+            <div class="">
               <input class="form-control" id="floatingInput" type="email" name="emailAddress" placeholder="Email Address"/>
               <label for="floatingInput">Email Address</label>
               <div class="invalid-feedback">Please enter a valid email address.</div>
             </div>
-            <div class="form-floating mb-3">
+            <!-- Campo de entrada para el mensaje -->
+            <div class="">
               <textarea class="form-control" id="floatingInput" name="message" placeholder="Message" style="height: 10rem;" required></textarea>
               <label for="floatingInput">Message</label>
               <div class="invalid-feedback">Please enter a message.</div>
             </div>
-            <div class="form-floating mb-3">
+            <!-- Campo de entrada para el archivo adjunto -->
+            <div class="">
               <input id="fileInput" type="file" name="file" />
               <label for="fileInput">Archivo</label>
             </div>
+            <!-- Mensajes de éxito y error (ocultos por defecto) -->
             <div class="d-none" id="submitSuccessMessage">
               <div class="text-center mb-3">
                 <div class="fw-bolder">Form submission successful!</div>
@@ -42,12 +41,10 @@
             <div class="d-none" id="submitErrorMessage">
               <div class="text-center text-danger mb-3">Error sending message!</div>
             </div>
+            <!-- Botón de envío del formulario -->
             <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button>
           </fieldset>
         </form>
       </div>
-    
-      
-
     </div>
   </section>

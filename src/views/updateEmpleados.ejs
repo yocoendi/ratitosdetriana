@@ -27,33 +27,29 @@
 
     <main class="form-signin w-100 m-auto">
         <form action="/updateEmpleados" method="POST">
-            <input id="id" name="id" value="<%= empleados.id %>">
+            
             <img class="mb-4" src="../img/lugar.jpg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 fw-normal">Update Empleados</h1>
+            <input type="number" id="id" name="id" value="<%= empleados.id %>">
+            <h1 class="h3 mb-3 fw-normal">Modifica Empleados</h1>
 
             <div class="form-floating">
-                <input type="text" class="form-control" id="nombre" name="dni" value="<%= empleados.dni %>"
-                    placeholder="Dni...">
-                <label for="floatingInput">DNI</label>
+                <input type="text" class="form-control" id="dni" name="dni" value="<%= empleados.dni %>" placeholder="Dni...">
+                <label for="dni">DNI</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="nombre" name="firstName"
-                    value="<%= empleados.firstName %>" placeholder="Nombre...">
-                <label for="floatingInput">Nombre</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" value="<%= empleados.firstName %>" placeholder="Nombre...">
+                <label for="firstName">Nombre</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="apellidos" name="lastName"
-                    value="<%= empleados.lastName %>" placeholder="Apellido...">
-                <label for="floatingInput">Apellidos</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" value="<%= empleados.lastName %>" placeholder="Apellido...">
+                <label for="lastName">Apellidos</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="puesto" name="position" value="<%= empleados.position %>"
-                    placeholder="Puesto...">
-                <label for="floatingInput">Puesto</label>
+                <input type="text" class="form-control" id="position" name="position" value="<%= empleados.position %>" placeholder="Puesto...">
+                <label for="position">Puesto</label>
             </div>
             <div class="form-floating">
-                <input type="number" class="form-control" id="restaurantId" name="restaurantId"
-                    value="<%= empleados.restaurantId %>" placeholder="ID del restaurante...">
+                <input type="number" class="form-control" id="restaurantId" name="restaurantId" value="<%= empleados.restaurantId %>" placeholder="ID del restaurante...">
                 <label for="restaurantId">ID del restaurante</label>
             </div>
 

@@ -22,37 +22,38 @@
 </head>
 
 <body class="text-center">
-
+    <% if (restaurant) {%>
     <main class="form-signin w-100 m-auto">
-        <form action="/restaurantes" method="POST">
+        <form action="/updateRestaurantes" method="POST">
             <img class="mb-4" src="../img/lugar.jpg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 fw-normal">Registro Restaurantes</h1>
+            <input type="number" id="id" name="id" value="<%= restaurant.id %>">
+            <h1 class="h3 mb-3 fw-normal">Modifica Restaurantes</h1>
             <div class="form-floating">
-                <input type="number" class="form-control" id="restaurantId" name="restaurantId" placeholder="restaurantId...">
+                <input type="number" class="form-control" id="restaurantId" name="restaurantId" value="<%= restaurant.restaurantId %>" placeholder="restaurantId...">
                 <label for="restaurantId">restaurantId</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="name" name="name" placeholder="Nombre...">
+                <input type="text" class="form-control" id="name" name="name" value="<%= restaurant.name %>" placeholder="Nombre...">
                 <label for="name">Nombre</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="address" name="address" placeholder="Dirección...">
+                <input type="text" class="form-control" id="address" name="address" value="<%= restaurant.address %>" placeholder="Dirección...">
                 <label for="address">Dirección</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="pass" name="city" placeholder="Ciudad...">
+                <input type="text" class="form-control" id="pass" name="city" value="<%= restaurant.city %>" placeholder="Ciudad...">
                 <label for="city">Ciudad</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="Cp...">
+                <input type="text" class="form-control" id="zipCode" name="zipCode" value="<%= restaurant.zipCode %>" placeholder="Cp...">
                 <label for="zipCode">Cp</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="phone" name="phone" placeholder="Telefono...">
+                <input type="text" class="form-control" id="phone" name="phone" value="<%= restaurant.phone %>" placeholder="Telefono...">
                 <label for="phone">Telefono</label>
             </div>
             <div class="form-floating">
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email...">
+                <input type="email" class="form-control" id="email" name="email" value="<%= restaurant.email %>" placeholder="Email...">
                 <label for="email">Email</label>
             </div>
             <div class="checkbox mb-3">
@@ -65,6 +66,7 @@
              <a class="w-100 btn btn-lg btn-secondary mt-2 px-4 py-2" href="/">Cancelar</a>
             <p class="mt-5 mb-3 text-muted">@ratitos</p>
         </form>
+        <%} %>
     </main>
 </body>
 

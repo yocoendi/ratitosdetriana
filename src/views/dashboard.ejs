@@ -26,11 +26,15 @@
         <h4 class="text-light font-weight-bold">Ratitos</h4>
       </div>
       <div class="menu">
-        <a href="registro" class="d-block p-3 text-light"><i class="icon ion-md-person mr-2 lead"></i>Admin</a>
-        <a href="restaurantes" class="d-block p-3 text-light"><i class="icon ion-md-home mr-2 lead "></i>Restaurantes</a>
-        <a href="empleados" class="d-block p-3 text-light"><i class="icon ion-md-contacts mr-2 lead"></i>Empleados</a>
-        <a href="#" class="d-block p-3 text-light"><i class="icon ion-md-settings mr-2 lead"></i>Configuracion</a>
+        <a href="/dashboard/registro" class="d-block p-3 text-light"><i class="icon ion-md-person mr-2 lead"></i>Admin</a>
+        <a href="/dashboard/restaurantes" class="d-block p-3 text-light"><i class="icon ion-md-home mr-2 lead"></i>Restaurantes</a>
+        <a href="/dashboard/empleados" class="d-block p-3 text-light"><i class="icon ion-md-contacts mr-2 lead"></i>Empleados</a>
+        <a href="/dashboard/proveedores" class="d-block p-3 text-light"><i class="icon ion-md-home mr-2 lead"></i>Proveedores</a>
+        <a href="/dashboard/facturas" class="d-block p-3 text-light"><i class="icon ion-md-contacts mr-2 lead"></i>Facturas</a>
+        <a href="/dashboard/clientes" class="d-block p-3 text-light"><i class="icon ion-md-contacts mr-2 lead"></i>Clientes</a>
+        <a href="#" class="d-block p-3 text-light"><i class="icon ion-md-settings mr-2 lead"></i>Configuración</a>
       </div>
+      
     </div>
     <div class="w-100">
       <nav class="navbar navbar-expand-lg navbar-light bg-light border">
@@ -40,10 +44,10 @@
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <form class="form-inline position-relative my-2 d-inline-block">
+<!--           <form class="form-inline position-relative my-2 d-inline-block">
             <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
             <button class="btn btn-search position-absolute" type="submit"><i class="icon ion-md-search"></i></button>
-          </form>
+          </form> -->
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
@@ -73,9 +77,11 @@
                 <p class="lead text-muted">Revisa la última información</p>
               </div>
               <div class="col-lg-3 col-md-6 col-sm-12 align-self-center text-center w-100">
-                <button class="btn btn-primary">Descarga archivo</button>
+                <a href="../img/TFG.pdf" download>
+                  <button class="btn btn-primary">Descarga archivo</button>
+                </a>
               </div>
-
+              
             </div>
           </div>
         </section>
@@ -131,6 +137,8 @@
                 <div class="col-lg-6 stat d-flex my-3">
                   <div class="mx-auto text-center">
                     <p class="font-weight-bold mb-0">Administradores</p>
+
+                  
                     <table>
                       <thead>
                         <tr class="bg-primary text-white">
@@ -171,16 +179,16 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <% empleados.forEach((empleado) => { %>
+                        <% empleado.forEach((empleados) => { %>
                           <tr>
-                            <td><%= empleado.id %></td>
-                            <td><%= empleado.dni %></td>
-                            <td><%= empleado.firstName %></td>
-                            <td><%= empleado.lastName %></td>
-                            <td><%= empleado.position %></td>
+                            <td><%= empleados.id %></td>
+                            <td><%= empleados.dni %></td>
+                            <td><%= empleados.firstName %></td>
+                            <td><%= empleados.lastName %></td>
+                            <td><%= empleados.position %></td>
                             <td>
-                              <a href="/updateEmpleados/<%= empleado.id %>" class="btn btn-outline-info">Editar</a>
-                              <a href="/deleteEmpleados/<%= empleado.id %>" class="btn btn-outline-info">Borrar</a>
+                              <a href="/updateEmpleados/<%= empleados.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteEmpleados/<%= empleados.id %>" class="btn btn-outline-info">Borrar</a>
                             </td>
                           </tr>
                         <% }) %>
@@ -209,7 +217,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <% proveedores.forEach((proveedores) => { %>
+                        <% proveedor.forEach((proveedores) => { %>
                           <tr>
                             <td><%= proveedores.id %></td>
                             <td><%= proveedores.cif %></td>
@@ -236,26 +244,92 @@
                           <th>Numero</th>
                           <th>Cif</th>
                           <th>Total</th>
-                          <th>Proveedores</th>
-                          <th>Fecha</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <% facturas.forEach((facturas) => { %>
+                        <% factura.forEach((facturas) => { %>
                           <tr>
                             <td><%= facturas.id %></td>
                             <td><%= facturas.facturaNumber %></td>
                             <td><%= facturas.cif %></td>
                             <td><%= facturas.total %></td>
-                            <td><%= facturas.proveedores %></td>
-                            <td><%= facturas.date %></td>
                             <td>
-                              <a href="/updateEmpleados/<%= facturas.id %>" class="btn btn-outline-info">Editar</a>
-                              <a href="/deleteEmpleados/<%= facturas.id %>" class="btn btn-outline-info">Borrar</a>
+                              <a href="/updateFacturas/<%= facturas.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteFacturas/<%= facturas.id %>" class="btn btn-outline-info">Borrar</a>
                             </td>
                           </tr>
                         <% }) %>
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid">
+            <div class="card">
+              <div class="row">
+                <div class="col-lg-6 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <p class="font-weight-bold mb-0">Clientes</p>
+                    <table>
+                      <thead>
+                        <tr class="bg-primary text-white">
+                          <th>ID</th>
+                          <th>Nombre</th>
+                          <th>Apellidos</th>
+                          <th>Telefono</th>
+                          <th>Email</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% clientes.forEach((cliente) => { %>
+                          <tr>
+                            <td><%= cliente.id %></td>
+                            <td><%= cliente.name %></td>
+                            <td><%= cliente.surname %></td>
+                            <td><%= cliente.phone %></td>
+                            <td><%= cliente.email %></td>
+                            <td>
+                              <a href="/updateClientes/<%= cliente.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteClientes/<%= cliente.id %>" class="btn btn-outline-info">Borrar</a>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-lg-6 stat d-flex my-3">
+                  <div class="mx-auto text-center">
+                    <p class="font-weight-bold mb-0">Restaurantes</p>
+                    <table>
+                      <thead>
+                        <tr class="bg-primary text-white">
+                          <th>ID</th>
+                          <th>Nombre</th>
+                          <th>Direccion</th>
+                          <th>Email</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% restaurantes.forEach((restaurant) => { %>
+                          <tr>
+                            <td><%= restaurant.id %></td>
+                            <td><%= restaurant.name %></td>
+                            <td><%= restaurant.address %></td>
+                            <td><%= restaurant.email %></td>
+                            <td>
+                              <a href="/updateRestaurantes/<%= restaurant.id %>" class="btn btn-outline-info">Editar</a>
+                              <a href="/deleteRestaurantes/<%= restaurant.id %>" class="btn btn-outline-info">Borrar</a>
+                            </td>
+                          </tr>
+                        <% }) %>
+                        
                       </tbody>
                     </table>
                   </div>
@@ -275,10 +349,10 @@
           new Chart(ctx, {
             type: 'bar',
             data: {
-              labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+              labels: ['Coca-Cola', 'Cerveza', 'Cerveza SIN', 'Fanta-Naranja', 'Fanta-Limon', 'Acuarius'],
               datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                label: 'Bebidas + Vendidos',
+                data: [12, 19, 3, 5, 8, 10],
                 borderWidth: 1
               }]
             },
