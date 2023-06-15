@@ -27,14 +27,12 @@ async function obtenerDatosDashboard() {
 // Crear nuestras rutas para las diferentes páginas
 router.get('/', vistaHome);
 router.get('/login', vistaLogin);
-router.get('/registro', vistaRegistro);
-router.get('/empleados', vistaEmpleados);
 router.get('/cvnews', vistaCvnews);
 router.get('/gallery', vistaGallery);
-router.get('/facturas', vistaFacturas);
-router.get('/proveedores', vistaProveedores);
-router.get('/restaurantes', vistaRestaurantes);
-router.get('/clientes', vistaClientes);
+
+
+
+
 router.post('/', postMetodo);
 
 
@@ -59,6 +57,7 @@ router.post('/auth', async (req, res) => {
         // Usuario o contraseña incorrectos
         return res.send('<script>alert("Usuario o contraseña incorrectos"); window.location.href="/login";</script>');
       } else {
+        req.session.userId = admin.id;
        // Autenticación exitosa, redirigir al dashboard
        const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
        res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
@@ -95,20 +94,76 @@ router.get('/logout', (req, res) => {
 router.get('/dashboard', async (req, res) => {
   try {
     if (req.session && req.session.userId) {
-
-        // Autenticación exitosa, redirigir al dashboard
-       // Autenticación exitosa, redirigir al dashboard
-       const { empleado, administradores, proveedor,factura, clientes, restaurantes } = await obtenerDatosDashboard();
-       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes  });
+      // El usuario está autenticado, mostrar enlace a la vista de clientes
+     
+      const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+      res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
     } else {
-      // El usuario no está autenticado, redirige a la página de inicio de sesión
+      // El usuario no está autenticado, redirigir a la página de inicio de sesión
       res.redirect('/login');
     }
   } catch (error) {
-    console.error('Error al obtener los administradores:', error);
-    res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes :[], restaurantes: []});
+    console.error('Error al obtener los datos del dashboard:', error);
+    res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
   }
 });
+
+
+
+router.get('/dashboard/clientes', (req, res) => {
+  if (req.session && req.session.userId) {
+    vistaClientes(req, res);
+  } else {
+    res.redirect('/login');
+  }
+});
+
+router.get('/dashboard/registro', (req, res) => {
+  if (req.session && req.session.userId) {
+    vistaRegistro(req, res);
+  } else {
+    res.redirect('/login');
+  }
+});
+
+router.get('/dashboard/restaurantes', (req, res) => {
+  if (req.session && req.session.userId) {
+    vistaRestaurantes(req, res);
+  } else {
+    res.redirect('/login');
+  }
+});
+
+router.get('/dashboard/empleados', (req, res) => {
+  if (req.session && req.session.userId) {
+    vistaEmpleados(req, res);
+  } else {
+    res.redirect('/login');
+  }
+});
+
+router.get('/dashboard/proveedores', (req, res) => {
+  if (req.session && req.session.userId) {
+    vistaProveedores(req, res);
+  } else {
+    res.redirect('/login');
+  }
+});
+
+router.get('/dashboard/facturas', (req, res) => {
+  if (req.session && req.session.userId) {
+    vistaFacturas(req, res);
+  } else {
+    res.redirect('/login');
+  }
+});
+
+
+
+
+
+
+
 
 
 //VISITAS 
