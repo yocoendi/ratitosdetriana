@@ -108,6 +108,110 @@ router.get('/dashboard', async (req, res) => {
   }
 });
 
+router.get('/clientes', async (req, res) => {
+  try {
+    if (req.session && req.session.userId) {
+      // El usuario está autenticado, mostrar enlace a la vista de clientes
+     
+      const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+      res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
+    } else {
+      // El usuario no está autenticado, redirigir a la página de inicio de sesión
+      res.redirect('/login');
+    }
+  } catch (error) {
+    console.error('Error al obtener los datos del dashboard:', error);
+    res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
+  }
+});
+
+router.get('/facturas', async (req, res) => {
+  try {
+    if (req.session && req.session.userId) {
+      // El usuario está autenticado, mostrar enlace a la vista de clientes
+     
+      const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+      res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
+    } else {
+      // El usuario no está autenticado, redirigir a la página de inicio de sesión
+      res.redirect('/login');
+    }
+  } catch (error) {
+    console.error('Error al obtener los datos del dashboard:', error);
+    res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
+  }
+});
+
+router.get('/proveedores', async (req, res) => {
+  try {
+    if (req.session && req.session.userId) {
+      // El usuario está autenticado, mostrar enlace a la vista de clientes
+     
+      const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+      res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
+    } else {
+      // El usuario no está autenticado, redirigir a la página de inicio de sesión
+      res.redirect('/login');
+    }
+  } catch (error) {
+    console.error('Error al obtener los datos del dashboard:', error);
+    res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
+  }
+});
+
+router.get('/empleados', async (req, res) => {
+  try {
+    if (req.session && req.session.userId) {
+      // El usuario está autenticado, mostrar enlace a la vista de clientes
+     
+      const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+      res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
+    } else {
+      // El usuario no está autenticado, redirigir a la página de inicio de sesión
+      res.redirect('/login');
+    }
+  } catch (error) {
+    console.error('Error al obtener los datos del dashboard:', error);
+    res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
+  }
+});
+
+router.get('/restaurantes', async (req, res) => {
+  try {
+    if (req.session && req.session.userId) {
+      // El usuario está autenticado, mostrar enlace a la vista de clientes
+     
+      const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+      res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
+    } else {
+      // El usuario no está autenticado, redirigir a la página de inicio de sesión
+      res.redirect('/login');
+    }
+  } catch (error) {
+    console.error('Error al obtener los datos del dashboard:', error);
+    res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
+  }
+});
+
+router.get('/registro', async (req, res) => {
+  try {
+    if (req.session && req.session.userId) {
+      // El usuario está autenticado, mostrar enlace a la vista de clientes
+     
+      const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+      res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
+    } else {
+      // El usuario no está autenticado, redirigir a la página de inicio de sesión
+      res.redirect('/login');
+    }
+  } catch (error) {
+    console.error('Error al obtener los datos del dashboard:', error);
+    res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
+  }
+});
+
+
+
 
 
 router.get('/dashboard/clientes', (req, res) => {
@@ -987,7 +1091,7 @@ router.post('/cvnews', upload.single('file'), async (req, res) => {
     const mailOptions = {
       from: emailAddress, // Dirección de correo electrónico del remitente
       to: 'losratitosdetriana@gmail.com', // Dirección de correo electrónico del destinatario
-      subject: 'Información de Franquicia solicitada - Confirmación de recepción', // Asunto del correo electrónico
+      subject: 'Información sobre noicias solicitada - Confirmación de recepción', // Asunto del correo electrónico
       text: message, // Cuerpo del correo electrónico
 /*       attachments: [
         {
