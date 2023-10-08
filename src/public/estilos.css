@@ -30,11 +30,23 @@ body{
     margin: 0 auto;
     width: 95%;
 }
-h1,h2{
+/* h1,h2{
 
     font-size: var(--titulos-size);
     
-}
+} */
+/* Tamaño de fuente predeterminado para h2 */
+h1,h2 {
+    font-size: var(--titulos-size);
+  }
+/* Media Query para pantallas pequeñas (ejemplo: dispositivos móviles) */
+@media (max-width: 768px) {
+    h2 {
+      font-size: 80%; /* Ajusta el tamaño de fuente para pantallas pequeñas */
+    }
+  }
+  
+
 h3, p, a{
     font-family: var(--parrafos);
 }
@@ -263,7 +275,7 @@ img{
     
 }
 
-.texto-encabezado{
+.texto-encabezado {
     position: absolute;
     z-index: 2;
     width: 100%;
@@ -273,21 +285,23 @@ img{
     align-items: center;
     justify-content: center;
 }
-.texto-encabezado h2{
+
+.texto-encabezado h2 {
     color: var(--blanco);
     font-size: 12rem;
 }
-.texto-encabezado P{
+
+.texto-encabezado p {
     color: var(--blanco);
     font-size: 5rem;
 }
 
-
-@media(min-width: 768px) {
-    .texto-encabezado h2{
-        font-size: 8rem;
+@media (min-width: 768px) {
+    .texto-encabezado h2 {
+        font-size: 8rem; /* Ajusta el tamaño de fuente para pantallas más grandes */
     }
 }
+
 
 video{
     width: 100%;

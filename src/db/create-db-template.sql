@@ -1,5 +1,5 @@
--- Active: 1675159090577@@127.0.0.1@33061
+-- Active: 1686206034286@@127.0.0.1@3306@phpmyadmin
 import
 
-CREATE DATABASE nodelogin
+CREATE DATABASE ratitos
    

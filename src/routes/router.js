@@ -1,6 +1,6 @@
 import express from 'express';
 import { pool1 } from '../db.js';
-import { vistaHome, vistaLogin, vistaRegistro, vistaCvnews, postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes, vistaFacturas,vistaProveedores, vistaClientes } from '../controller/indexRoutex.js';
+import { vistaHome, vistaLogin, vistaRegistro, vistaCvnews, postMetodo, vistaGallery, vistaEmpleados, vistaRestaurantes, vistaFacturas,vistaProveedores, vistaClientes,vistaDashboard } from '../controller/indexRoutex.js';
 import { PrismaClient } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';
@@ -88,122 +88,78 @@ router.get('/logout', (req, res) => {
   });
 });
 
-//DASHBOARD 
 
-// GET: Renderizar EL DASHBOARD 
+
+// GET: Renderizar EL DASHBOARD
 router.get('/dashboard', async (req, res) => {
   try {
-    if (req.session && req.session.userId) {
-      // El usuario está autenticado, mostrar enlace a la vista de clientes
-     
-      const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
-      res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
-    } else {
-      // El usuario no está autenticado, redirigir a la página de inicio de sesión
-      res.redirect('/login');
-    }
+    const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+    res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
   } catch (error) {
     console.error('Error al obtener los datos del dashboard:', error);
     res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
   }
 });
 
+// GET: Renderizar vista de clientes
 router.get('/clientes', async (req, res) => {
   try {
-    if (req.session && req.session.userId) {
-      // El usuario está autenticado, mostrar enlace a la vista de clientes
-     
-      const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
-      res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
-    } else {
-      // El usuario no está autenticado, redirigir a la página de inicio de sesión
-      res.redirect('/login');
-    }
+    const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+    res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
   } catch (error) {
     console.error('Error al obtener los datos del dashboard:', error);
     res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
   }
 });
 
+// GET: Renderizar vista de facturas
 router.get('/facturas', async (req, res) => {
   try {
-    if (req.session && req.session.userId) {
-      // El usuario está autenticado, mostrar enlace a la vista de clientes
-     
-      const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
-      res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
-    } else {
-      // El usuario no está autenticado, redirigir a la página de inicio de sesión
-      res.redirect('/login');
-    }
+    const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+    res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
   } catch (error) {
     console.error('Error al obtener los datos del dashboard:', error);
     res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
   }
 });
 
+// GET: Renderizar vista de proveedores
 router.get('/proveedores', async (req, res) => {
   try {
-    if (req.session && req.session.userId) {
-      // El usuario está autenticado, mostrar enlace a la vista de clientes
-     
-      const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
-      res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
-    } else {
-      // El usuario no está autenticado, redirigir a la página de inicio de sesión
-      res.redirect('/login');
-    }
+    const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+    res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
   } catch (error) {
     console.error('Error al obtener los datos del dashboard:', error);
     res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
   }
 });
-
+// GET: Renderizar vista de empleados
 router.get('/empleados', async (req, res) => {
   try {
-    if (req.session && req.session.userId) {
-      // El usuario está autenticado, mostrar enlace a la vista de clientes
-     
-      const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
-      res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
-    } else {
-      // El usuario no está autenticado, redirigir a la página de inicio de sesión
-      res.redirect('/login');
-    }
+    const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+    res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
   } catch (error) {
     console.error('Error al obtener los datos del dashboard:', error);
     res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
   }
 });
 
+// GET: Renderizar vista de restaurantes
 router.get('/restaurantes', async (req, res) => {
   try {
-    if (req.session && req.session.userId) {
-      // El usuario está autenticado, mostrar enlace a la vista de clientes
-     
-      const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
-      res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
-    } else {
-      // El usuario no está autenticado, redirigir a la página de inicio de sesión
-      res.redirect('/login');
-    }
+    const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+    res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
   } catch (error) {
     console.error('Error al obtener los datos del dashboard:', error);
     res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
   }
 });
 
+// GET: Renderizar vista de registro
 router.get('/registro', async (req, res) => {
   try {
-    if (req.session && req.session.userId) {
-      // El usuario está autenticado, mostrar enlace a la vista de clientes
-     
-      const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
-      res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
-    } else {
-      // El usuario no está autenticado, redirigir a la página de inicio de sesión
-      res.redirect('/login');
-    }
+    const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+    res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
   } catch (error) {
     console.error('Error al obtener los datos del dashboard:', error);
     res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
@@ -213,60 +169,212 @@ router.get('/registro', async (req, res) => {
 
 
 
+//DASHBOARD 
 
+// // GET: Renderizar EL DASHBOARD 
+// router.get('/dashboard', async (req, res) => {
+//   try {
+//     if (req.session && req.session.userId) {
+//       // El usuario está autenticado, mostrar enlace a la vista de clientes
+     
+//       const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+//       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
+//     } else {
+//       // El usuario no está autenticado, redirigir a la página de inicio de sesión
+//       res.redirect('/login');
+//     }
+//   } catch (error) {
+//     console.error('Error al obtener los datos del dashboard:', error);
+//     res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
+//   }
+// });
+
+
+// router.get('/clientes', async (req, res) => {
+//   try {
+//     if (req.session && req.session.userId) {
+//       // El usuario está autenticado, mostrar enlace a la vista de clientes
+     
+//       const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+//       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
+//     } else {
+//       // El usuario no está autenticado, redirigir a la página de inicio de sesión
+//       res.redirect('/login');
+//     }
+//   } catch (error) {
+//     console.error('Error al obtener los datos del dashboard:', error);
+//     res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
+//   }
+// });
+
+// router.get('/facturas', async (req, res) => {
+//   try {
+//     if (req.session && req.session.userId) {
+//       // El usuario está autenticado, mostrar enlace a la vista de clientes
+     
+//       const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+//       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
+//     } else {
+//       // El usuario no está autenticado, redirigir a la página de inicio de sesión
+//       res.redirect('/login');
+//     }
+//   } catch (error) {
+//     console.error('Error al obtener los datos del dashboard:', error);
+//     res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
+//   }
+// });
+
+// router.get('/proveedores', async (req, res) => {
+//   try {
+//     if (req.session && req.session.userId) {
+//       // El usuario está autenticado, mostrar enlace a la vista de clientes
+     
+//       const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+//       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
+//     } else {
+//       // El usuario no está autenticado, redirigir a la página de inicio de sesión
+//       res.redirect('/login');
+//     }
+//   } catch (error) {
+//     console.error('Error al obtener los datos del dashboard:', error);
+//     res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
+//   }
+// });
+
+// router.get('/empleados', async (req, res) => {
+//   try {
+//     if (req.session && req.session.userId) {
+//       // El usuario está autenticado, mostrar enlace a la vista de clientes
+     
+//       const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+//       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
+//     } else {
+//       // El usuario no está autenticado, redirigir a la página de inicio de sesión
+//       res.redirect('/login');
+//     }
+//   } catch (error) {
+//     console.error('Error al obtener los datos del dashboard:', error);
+//     res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
+//   }
+// });
+
+// router.get('/restaurantes', async (req, res) => {
+//   try {
+//     if (req.session && req.session.userId) {
+//       // El usuario está autenticado, mostrar enlace a la vista de clientes
+     
+//       const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+//       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
+//     } else {
+//       // El usuario no está autenticado, redirigir a la página de inicio de sesión
+//       res.redirect('/login');
+//     }
+//   } catch (error) {
+//     console.error('Error al obtener los datos del dashboard:', error);
+//     res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
+//   }
+// });
+
+// router.get('/registro', async (req, res) => {
+//   try {
+//     if (req.session && req.session.userId) {
+//       // El usuario está autenticado, mostrar enlace a la vista de clientes
+     
+//       const { administradores, empleado, proveedor, factura, clientes, restaurantes } = await obtenerDatosDashboard();
+//       res.render('dashboard', { administradores, empleado, proveedor, factura, clientes, restaurantes });
+//     } else {
+//       // El usuario no está autenticado, redirigir a la página de inicio de sesión
+//       res.redirect('/login');
+//     }
+//   } catch (error) {
+//     console.error('Error al obtener los datos del dashboard:', error);
+//     res.render('dashboard', { administradores: [], empleado: [], proveedor: [], factura: [], clientes: [], restaurantes: [] });
+//   }
+// });
+
+
+
+// GET: Renderizar vista de clientes en el dashboard
 router.get('/dashboard/clientes', (req, res) => {
-  if (req.session && req.session.userId) {
-    vistaClientes(req, res);
-  } else {
-    res.redirect('/login');
-  }
+  vistaClientes(req, res);
 });
 
+// GET: Renderizar vista de registro en el dashboard
 router.get('/dashboard/registro', (req, res) => {
-  if (req.session && req.session.userId) {
-    vistaRegistro(req, res);
-  } else {
-    res.redirect('/login');
-  }
+  vistaRegistro(req, res);
 });
 
+// GET: Renderizar vista de restaurantes en el dashboard
 router.get('/dashboard/restaurantes', (req, res) => {
-  if (req.session && req.session.userId) {
-    vistaRestaurantes(req, res);
-  } else {
-    res.redirect('/login');
-  }
+  vistaRestaurantes(req, res);
 });
 
+// GET: Renderizar vista de empleados en el dashboard
 router.get('/dashboard/empleados', (req, res) => {
-  if (req.session && req.session.userId) {
-    vistaEmpleados(req, res);
-  } else {
-    res.redirect('/login');
-  }
+  vistaEmpleados(req, res);
 });
 
+// GET: Renderizar vista de proveedores en el dashboard
 router.get('/dashboard/proveedores', (req, res) => {
-  if (req.session && req.session.userId) {
-    vistaProveedores(req, res);
-  } else {
-    res.redirect('/login');
-  }
+  vistaProveedores(req, res);
 });
 
+// GET: Renderizar vista de facturas en el dashboard
 router.get('/dashboard/facturas', (req, res) => {
-  if (req.session && req.session.userId) {
-    vistaFacturas(req, res);
-  } else {
-    res.redirect('/login');
-  }
+  vistaFacturas(req, res);
 });
 
 
 
 
 
+// router.get('/dashboard/clientes', (req, res) => {
+//   if (req.session && req.session.userId) {
+//     vistaClientes(req, res);
+//   } else {
+//     res.redirect('/login');
+//   }
+// });
 
+// router.get('/dashboard/registro', (req, res) => {
+//   if (req.session && req.session.userId) {
+//     vistaRegistro(req, res);
+//   } else {
+//     res.redirect('/login');
+//   }
+// });
+
+// router.get('/dashboard/restaurantes', (req, res) => {
+//   if (req.session && req.session.userId) {
+//     vistaRestaurantes(req, res);
+//   } else {
+//     res.redirect('/login');
+//   }
+// });
+
+// router.get('/dashboard/empleados', (req, res) => {
+//   if (req.session && req.session.userId) {
+//     vistaEmpleados(req, res);
+//   } else {
+//     res.redirect('/login');
+//   }
+// });
+
+// router.get('/dashboard/proveedores', (req, res) => {
+//   if (req.session && req.session.userId) {
+//     vistaProveedores(req, res);
+//   } else {
+//     res.redirect('/login');
+//   }
+// });
+
+// router.get('/dashboard/facturas', (req, res) => {
+//   if (req.session && req.session.userId) {
+//     vistaFacturas(req, res);
+//   } else {
+//     res.redirect('/login');
+//   }
+// });
 
 
 
@@ -310,7 +418,7 @@ async function registro(req, res) {
 
     // Insertar el nuevo usuario en la base de datos utilizando Prisma
     await prisma.admin.create({
-      data: {
+      data: { 
         dni: dni,
         username: username,
         email: email,

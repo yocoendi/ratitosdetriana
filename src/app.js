@@ -7,11 +7,12 @@ import bodyParser from 'body-parser';
 import indexRoutes from './routes/router.js';
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient(); //Instancias prisma para 
+const prisma = new PrismaClient();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 dotenv.config();
+
 app.use(
   session({
     secret: '123456',
@@ -19,6 +20,7 @@ app.use(
     saveUninitialized: true
   })
 );
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -28,7 +30,12 @@ app.use(express.static(join(__dirname, 'public')));
 
 app.use(indexRoutes);
 
-
+// Middleware para configurar cookies
+app.use((req, res, next) => {
+  // Configura una cookie llamada "miCookie" con un valor
+  res.cookie('miCookie', 'valorDeCookie', { maxAge: 900000, httpOnly: true });
+  next();
+});
 
 app.get('/visita', (req, res) => {
   req.session.usuario = 'Jorge';
