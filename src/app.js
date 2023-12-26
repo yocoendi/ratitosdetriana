@@ -30,12 +30,12 @@ app.use(express.static(join(__dirname, 'public')));
 
 app.use(indexRoutes);
 
-// Middleware para configurar cookies
-app.use((req, res, next) => {
-  // Configura una cookie llamada "miCookie" con un valor
-  res.cookie('miCookie', 'valorDeCookie', { maxAge: 900000, httpOnly: true });
-  next();
-});
+// // Middleware para configurar cookies
+// app.use((req, res, next) => {
+//   // Configura una cookie llamada "miCookie" con un valor
+//   res.cookie('miCookie', 'valorDeCookie', { maxAge: 900000, httpOnly: true });
+//   next();
+// });
 
 app.get('/visita', (req, res) => {
   req.session.usuario = 'Jorge';

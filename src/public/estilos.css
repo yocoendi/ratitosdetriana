@@ -45,7 +45,9 @@ h1,h2 {
       font-size: 80%; /* Ajusta el tamaño de fuente para pantallas pequeñas */
     }
   }
-  
+
+
+
 
 h3, p, a{
     font-family: var(--parrafos);
