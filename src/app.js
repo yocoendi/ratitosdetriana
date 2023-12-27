@@ -2,16 +2,12 @@ import express from 'express';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import session from 'express-session';
-import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import indexRoutes from './routes/router.js';
-import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
-
-dotenv.config();
 
 app.use(
   session({
@@ -30,12 +26,12 @@ app.use(express.static(join(__dirname, 'public')));
 
 app.use(indexRoutes);
 
-// // Middleware para configurar cookies
-// app.use((req, res, next) => {
-//   // Configura una cookie llamada "miCookie" con un valor
-//   res.cookie('miCookie', 'valorDeCookie', { maxAge: 900000, httpOnly: true });
-//   next();
-// });
+// Middleware para configurar cookies
+app.use((req, res, next) => {
+  // Configura una cookie llamada "miCookie" con un valor
+  res.cookie('miCookie', 'valorDeCookie', { maxAge: 900000, httpOnly: true });
+  next();
+});
 
 app.get('/visita', (req, res) => {
   req.session.usuario = 'Jorge';
@@ -47,7 +43,7 @@ app.get('/visita', (req, res) => {
 });
 
 // Crear el servidor
-const port = process.env.PORT || 2000;
+const port = 2000;
 app.listen(port, () => {
   console.log(`El servidor escucha en http://localhost:${port}`);
 });
