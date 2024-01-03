@@ -1,4 +1,4 @@
-const menu = document.querySelector('.hamburguesa');
+
 const navegacion = document.querySelector('.navegacion');
 const imagenes = document.querySelectorAll('img');
 const btnTodos = document.querySelector('.todos');
@@ -87,7 +87,7 @@ const platos = () =>{
 
 }
 
-const mostrarPlatos = (tapasfrias, guisoss, chacinass,mariscos, postres, todos) =>{
+const mostrarPlatos = (tapasfrias, guisoss, chacinass,mariscos, postres) =>{
     btntapasfrias.addEventListener('click', ()=>{
         limpiarHtml(contenedorPlatos);
         tapasfrias.forEach(tapasfria=> contenedorPlatos.appendChild(tapasfria));
@@ -110,10 +110,7 @@ const mostrarPlatos = (tapasfrias, guisoss, chacinass,mariscos, postres, todos) 
         limpiarHtml(contenedorPlatos);
         postres.forEach(postre=> contenedorPlatos.appendChild(postre));
     });
-    btnTodos.addEventListener('click',()=>{
-        limpiarHtml(contenedorPlatos);
-        todos.forEach(todo=> contenedorPlatos.appendChild(todo));
-    });
+
 }
 
 const limpiarHtml = (contenedor) =>{

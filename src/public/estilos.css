@@ -437,6 +437,18 @@ video{
     color: var(--azul);
 
 }
+/* Agrega estilos para las imágenes dentro de la sección de platos */
+.plato img {
+    width: 100%; /* Establece el ancho al 100% del contenedor */
+    height: auto; /* Ajusta automáticamente la altura para mantener la proporción */
+    max-width: 100%; /* Establece el ancho máximo al 100% */
+    display: block; /* Elimina el espacio adicional debajo de las imágenes */
+    margin: 0 auto; /* Centra las imágenes dentro de su contenedor */
+    object-fit: cover; /* Ajusta la imagen para que cubra completamente el contenedor */
+    max-height: 200px; /* Establece una altura máxima para todas las imágenes */
+  }
+  
+
 .precio{
     display: flex;
     justify-content: space-between;
