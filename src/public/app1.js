@@ -3,7 +3,7 @@ const navegacion = document.querySelector('.navegacion');
 const imagenes = document.querySelectorAll('img');
 const btnTodos = document.querySelector('.todos');
 const btntapasfrias = document.querySelector('.tapasfrias');
-const btntmariscos = document.querySelector('.mariscos');
+const btntmariscos = document.querySelector('.marisco');
 const btnguisos = document.querySelector('.guisos');
 const btnchacinas = document.querySelector('.chacinas');
 const btnPostres = document.querySelector('.postres');
@@ -23,23 +23,23 @@ const abrirMenu = () =>{
      botonCerrar();
 }
 
-const botonCerrar = () =>{
-    const btnCerrar = document.createElement('p');
-    const overlay  = document.createElement('div');
-    overlay.classList.add('pantalla-completa');
-    const body = document.querySelector('body');
-    if(document.querySelectorAll('.pantalla-completa').length > 0) return;
-    body.appendChild(overlay);
-    btnCerrar.textContent = 'x';
-    btnCerrar.classList.add('btn-cerrar');
+// const botonCerrar = () =>{
+//     const btnCerrar = document.createElement('p');
+//     const overlay  = document.createElement('div');
+//     overlay.classList.add('pantalla-completa');
+//     const body = document.querySelector('body');
+//     if(document.querySelectorAll('.pantalla-completa').length > 0) return;
+//     body.appendChild(overlay);
+//     btnCerrar.textContent = 'x';
+//     btnCerrar.classList.add('btn-cerrar');
 
-/*     while(navegacion.children[5]){
-     navegacion.removeChild(navegacion.children[5]);
-     } */
-    navegacion.appendChild(btnCerrar);   
-    cerrarMenu(btnCerrar,overlay);
+// /*     while(navegacion.children[5]){
+//      navegacion.removeChild(navegacion.children[5]);
+//      } */
+//     navegacion.appendChild(btnCerrar);   
+//     cerrarMenu(btnCerrar,overlay);
     
-}
+// }
 
 const observer = new IntersectionObserver((entries, observer)=>{
         entries.forEach(entry=>{

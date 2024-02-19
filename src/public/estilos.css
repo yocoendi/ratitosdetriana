@@ -521,6 +521,12 @@ Este el div separador
     height: 350px; /* Ajusta la altura según tus necesidades */
 }
 
+#price .texto-encabezado h2 {
+    color: #f3e8c9;
+    font-size: 100px;
+  }
+  
+
 
   /* FinalSeccion Price*/
 

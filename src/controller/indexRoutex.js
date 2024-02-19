@@ -4,22 +4,10 @@ export const vistaHome = (req, res) => {
     res.render('index', {title: 'Home'})
 }
 
-
-
-//VISTA PARA SUSCRIBIRSE
-export const vistaCvnews = (req, res) => {
-    res.render('cvnews', {title: 'Cvnews'})
-}
-
-
 //VISTA PARA LA GALERIA
 export const vistaGallery = (req, res) => {
     res.render('gallery', {title: 'Gallery'})
 }
-
-
-
-
 
 export const postMetodo = async (req, res) => {
     const [result] = await pool1.query('SELECT 1+1 as result')
