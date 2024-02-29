@@ -28,7 +28,12 @@
 .nav.nav-pills li.nav-item a.nav-link {
   text-decoration: none; /* Quita la decoración de enlace subrayado */
   font-size: 16px; /* Cambia el tamaño de fuente según tus preferencias */
-  color:  #191970; /* Cambia el color de texto según tus preferencias */
+  color:  #3d3d49; /* Cambia el color de texto según tus preferencias */
   /* Otros estilos personalizados aquí */
+}
+
+.nav-pills li:not(:last-child) {
+  border-right: 1px solid #ccc; /* Ajusta el estilo del separador según tus preferencias */
+  padding-right: 10px; /* Ajusta el espacio entre los elementos según tus preferencias */
 }
 

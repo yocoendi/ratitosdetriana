@@ -25,92 +25,16 @@ body{
     box-sizing: inherit;
 }
 /*globales*/
-.contenedor{
-    max-width: 120rem;
-    margin: 0 auto;
-    width: 95%;
-}
-/* h1,h2{
-
-    font-size: var(--titulos-size);
-    
-} */
-/* Tamaño de fuente predeterminado para h2 */
-h1,h2 {
-    font-size: var(--titulos-size);
-  }
-/* Media Query para pantallas pequeñas (ejemplo: dispositivos móviles) */
-@media (max-width: 768px) {
-    h2 {
-      font-size: 80%; /* Ajusta el tamaño de fuente para pantallas pequeñas */
-    }
-  }
-
-
-
-
-h3, p, a{
-    font-family: var(--parrafos);
+.contenedor {
+  max-width: 140rem;
+  margin: 15px auto 0; /* Agrega 20px de margen superior */
+  width: 90%;
 }
 
-img{
+
+img {
     max-width: 100%;
-}
-.verde{
-    color: var(--verde);
-}
-.rojo{
-    color: var(--rojo);
-}
-.azul{
-    color: var(--azul);
-}
-.ocultar{
-    display: none;
-    
-}
-.botones-cerrar{
-    font-size: 3rem;
-    font-weight: bold;
-    color: var(--azul);
-    position: absolute;
-    top: 0;
-    right: 50px;
-    user-select: none;
-
-}
-.btn-cerrar{
-    font-size: 3rem;
-    font-weight: bold;
-    color: var(--azul);
-    position: absolute;
-    top: 0;
-    right: 50px;
-    user-select: none;
-
-}
-.pantalla-completa{
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-color: rgba(0,0,0,.5);  
-    z-index: 4;
-}
-
-@keyframes desplazamiento {
-    0%{
-        transform: translateX(100%);
-    }
-
-    100%{
-        transform:translateX(0);
-    }
-}
-
-.botones-cerrar:hover{
-    cursor: pointer;
+    height: auto;
 }
 
 .botones{
@@ -124,41 +48,8 @@ img{
     justify-content: center;
 }
 
-.botones-verde:hover {
-    color: white;
-  }
-@media(min-width: 768px) {
-    .botones{
-        font-size: 2.2rem;
-    }
-}
-.bordes{
-    border: 3px solid var(--blanco);
-}
-@media(min-width: 768px) {
-    .bordes{
-        border: 4px solid var(--blanco);
-    }
-}
 
-.bordes:hover{
-    color: var(--verde);
-    background-color: var(--blanco);
-    text-decoration: none;
-}
-.botones-rojo{
-    background-color: var(--azul);
-    font-weight: bold;
-    display: inline-block;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-.botones-rojo:hover{
-    background-color: var(--azulclaro);
-    text-decoration: none;
-    color: white;
-}
-.botones-verde{
+.botones-azul{
     background-color: var(--azul);
     border: none;
     display: inline-block;
@@ -166,8 +57,8 @@ img{
     font-family: var(--parrafos);
     
 }
-.botones-evento:hover{
-    background-color: var(--eventohover);
+.botones-azul:hover{
+    background-color: var(--azulclaro);
     text-decoration: none;
 }
 
@@ -179,10 +70,12 @@ img{
     font-family: var(--parrafos);
     
 }
-.botones-verde:hover{
-    background-color: var(--azulclaro);
+
+.botones-evento:hover{
+    background-color: var(--eventohover);
     text-decoration: none;
 }
+
  
 /* encabezado */
 .contenedor-navegacion {
@@ -317,54 +210,6 @@ img{
       }
   
 
-/* sobre nosotros */
-.contenedor-nosotros{
-    padding: 5rem 0;
-    align-items: center;
-    
-}
-@media(min-width: 768px) {
-    .contenedor-nosotros{
-        display: flex;
-         justify-content: space-between;
-    }   
-}
-.texto-nosotros .imagenes-nosotros{
-   
-    flex: 0 0 calc(60% - 2rem) ;
-}
-.texto-nosotros .bienvenida{
-    font-size: 4rem;
-    color: var(--verde);
-    text-align: center;
-}
-@media(min-width: 768px) {
-    .texto-nosotros .bienvenida{
-        text-align: left;
-    }
-}
-.texto-nosotros h1{
-    font-size: 5rem;
-    text-align: left;
-}
-@media(min-width: 768px) {
-    .texto-nosotros h1{
-        text-align: left;
-    }
-}
-.texto-nosotros p{
-    font-size: 2rem;
-    text-align: left;
-}
-@media(min-width: 768px) {
-    .texto-nosotros p{
-        text-align: left;
-        
-    }
-}
-
-
-
 
 
 
@@ -389,149 +234,6 @@ img{
     margin-bottom: 1rem;
 }
 
-
-
-
-
-
-
-
-
-
-.menu{
-    padding: 5rem 0;
-}
-/*platos*/
-.texto-platos{
-    text-align: center;
-    font-size: 5rem;
-    color: var(--azul);
-}
-
-.botones-platos{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-
-    
-}
-.botones-platos button{
-    flex: 0 0 calc(50% - 1rem);
-    padding: 1rem 3rem;
-    justify-content: center;
-    margin-right: 1rem;
-}
-.botones-platos button:last-child {
-  margin-right: 0; /* No se aplica margen al último botón */
-}
-@media(min-width: 768px) {
-    .botones-platos{
-        display: flex;
-        justify-content: center;
-        align-items:center;
-    }
-    .botones-platos button{
-     justify-content: center;
-        flex: unset;
-    }
-}
-@media(min-width: 768px) {
-    .platos{
-        display: flex;
-        justify-content: space-between;
-        flex-wrap:wrap;
-    }
-}
-.platos-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-/* Establece los estilos para cada plato */
-.plato {
-    flex: 0 0 calc(33.3% - 1rem);
-    border: 1px solid #e1e1e1;
-    padding: 2rem;
-    border-radius: 5px;
-    margin-bottom: 1rem; /* Añade un margen inferior para separar los platos */
-  }
-.plato h2{
-    text-align: center;
-    padding: 1rem;
-    color: var(--azul);
-}
-.plato p{
-    font-size: 1.8rem;
-    color: var(--azul);
-
-}
-/* Agrega estilos para las imágenes dentro de la sección de platos */
-.plato img {
-    width: 100%; /* Establece el ancho al 100% del contenedor */
-    height: auto; /* Ajusta automáticamente la altura para mantener la proporción */
-    max-width: 100%; /* Establece el ancho máximo al 100% */
-    display: block; /* Elimina el espacio adicional debajo de las imágenes */
-    margin: 0 auto; /* Centra las imágenes dentro de su contenedor */
-    object-fit: cover; /* Ajusta la imagen para que cubra completamente el contenedor */
-    max-height: 200px; /* Establece una altura máxima para todas las imágenes */
-  }
-  
-
-.precio{
-    display: flex;
-    justify-content: space-between;
-}
-.precio p{
-    font-weight: bold;
-    font-size: 2rem;
-    color: var(--azul);
-   
-}
-
-
-
-
-/*
-Este el div separador
-*/
-
-/*Seccion Separador*/
-
-#separadorSection {
-    background: url(../img/brindis.png) no-repeat center;
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 500px; /* Ajusta la altura según tus necesidades */
-     
-}
-#separadorSection .texto-encabezado {
-    max-width: 100%;
-    padding: 20px;
-  }
-  
-  #separadorSection .texto-encabezado h2 {
-    color: #70683c;
-    font-size: 100px;
-  }
-  
-  #separadorSection .texto-encabezado p {
-    font-size: 4rem;
-    color: #70683c;
-  }
-  
-  #separadorSection .botones {
-    display: inline-block;
-    margin-top: 20px;
-    color: white;
-  }
 
   /*Final de Seccion Separador */
 
@@ -582,7 +284,6 @@ Este el div separador
       height: 200px;
     }
   }
-  
   
   
 
@@ -644,118 +345,39 @@ Este el div separador
     }
   }
   
-  /*Final de seccion Separador 2*/
 
-  /*Seccion Price*/
-  #priceSection {
-    background: url(../img/86261947792.jpg) no-repeat center;
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
+/* Estilos para la sección Chef */
+@media (min-width: 768px) {
+  .contenido-chef {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    text-align: center;
-    height: 500px; /* Ajusta la altura según tus necesidades */
-}
-#priceSection .texto-encabezado {
-    max-width: 100%;
-    padding: 20px;
-  }
-  
-  #priceSection .texto-encabezado h2 {
-    font-size: 100px;
-  }
-  
-  #priceSection .texto-encabezado p {
-    font-size: 4rem;
-  }
-  
-  #priceSection .botones {
-    display: inline-block;
-    margin-top: 20px;
   }
 
-  /* FinalSeccion Price*/
+  .texto-chef {
+    flex: 0 0 calc(60% - 2rem); /* Ajusta el espacio del texto-chef y el margen derecho */
+    margin-right: 2rem;
+    padding: 4rem 0; /* Ajusta el relleno para pantallas más pequeñas */
+  }
 
-
-.separador::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,.3);
-    z-index: -1;
-}
-
-.contenido-separador{
-    margin: 0 auto;
-    padding: 8rem 0;
-    align-items: center;
-    justify-content: center;
-    
-}
-
-.contenido-separador h2{
-    font-size: 4rem;
-    color: var(--blanco);
-    
-}
-@media(min-width: 768px) {
-    .contenido-separador h2{
-        text-align: center;
-        font-size: 5rem;
-        color: var(--blanco);
-    }
-}
-.contenido-separador p{
-    color: var(--blanco);
-    font-size: 3rem;
-    text-align: center;
-}
-@media(min-width: 768px) {
-    .contenido-separador p{
-        text-align: center;
-    }
-}
-
-/*seccion del chef*/
-
-
-
-@media(min-width: 768px) {
-    .contenido-chef{
-        display: flex;
-        justify-content: space-between;
-        
-    }
-}
-
-.texto-chef {
-    flex: 0 0 calc(60% - 1rem);
-    margin-right: 1rem; /* Ajusta el margen derecho del elemento texto-chef */
-    padding: 8rem 0;
-}
-
-.imagen-chef{
-   
-    flex: 0 0 calc(40% - 1rem);
+  .imagen-chef {
+    flex: 0 0 calc(40% - 2rem); /* Ajusta el espacio de la imagen-chef y el margen izquierdo */
+    margin-left: 2rem;
     max-width: 100%; /* Ajustar el tamaño máximo de la imagen al contenedor */
     height: auto;
-    padding: 4rem 0;
+    padding: 4rem 0; /* Ajusta el relleno para pantallas más pequeñas */
+  }
 
-}
-.texto-chef h3{
-    font-size: 3rem;
+  .texto-chef h3 {
+    font-size: 2.5rem; /* Ajusta el tamaño de la fuente para pantallas más pequeñas */
+  }
 
+  .texto-chef p {
+    font-size: 1.8rem; /* Ajusta el tamaño de la fuente para pantallas más pequeñas */
+  }
 }
-.texto-chef p{
-    font-size: 2rem;
-    
-}
+
 /*formulario contacto*/
 .formulario-contacto{
     padding: 5rem 0;
@@ -872,10 +494,3 @@ Este el div separador
     margin-top: 10px;
   }
 
-.footer{
-    text-align: center;
-    background-color: var(--oscuro);
-    color: var(--blanco);
-    padding: 2rem;
-    font-size: 2rem;
-}
