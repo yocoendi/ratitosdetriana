@@ -183,35 +183,32 @@ img{
     background-color: var(--azulclaro);
     text-decoration: none;
 }
- /*encabezado*/
-.contenedor-navegacion{
+ 
+/* encabezado */
+.contenedor-navegacion {
     background-color: var(--blanco);
     position: relative;
     z-index: 5;
     padding: 2rem 0;
+  }
   
-}
-.contenido-navegacion{
+  .contenido-navegacion {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
-   
-}
-.logo h2, .navegacion a {
-  color: var(--azul);
-  text-decoration: none;
+  }
   
+  .logo h2, .navegacion a {
+    color: var(--azul);
+    text-decoration: none;
+  }
   
-}
-.logo h2{
+  .logo h2 {
     font-size: 2rem;
-    /*Esto aumentará el tamaño de la letra en un 20% sin afectar el tamaño del div */
     transform: scale(2.9);
-    
-    
-}
-.navegacion a{
+  }
+  
+  .navegacion a {
     text-decoration: none;
     font-size: 2.2rem;
     padding: 1.5rem;
@@ -219,65 +216,54 @@ img{
     display: block;
     transition: color .3s ease-in-out;
     text-align: center;
-}
-
-@media(min-width: 768px) {
-    .navegacion a{
-        text-align: left;
+  }
+  
+  @media (min-width: 768px) {
+    .navegacion a {
+      text-align: left;
     }
-}
-
-
-.navegacion a:nth-child(even):hover{
+  }
+  
+  .navegacion a:nth-child(even):hover {
     color: var(--rojo);
-}
-.navegacion a:nth-child(odd):hover{
+  }
+  
+  .navegacion a:nth-child(odd):hover {
     color: var(--verde);
-   
-}
-.navegacion a:first-of-type{
+  }
+  
+  .navegacion a:first-of-type {
     margin-top: 5rem;
-}
-.navegacion{
+  }
+  
+  .navegacion {
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
-    height: 100vh;
-    width: 40rem;
-    padding: 3rem 4rem;
+    height: 100%;
+    width: 100%; /* Ajusta el ancho al 100% para pantallas más pequeñas */
+    max-width: 40rem;
+    padding: 3rem 2rem; /* Ajusta el relleno para pantallas más pequeñas */
     background-color: var(--blanco);
     animation: desplazamiento 1s ease-in-out;
-}
-
-.hamburguesa:hover{
-    cursor: pointer;
-}
-
-.hamburguesa span{
-    background-color: var(--azul);
-    display: block;
-    width: 5rem;
-    height: .5rem;
-    margin-bottom: .5rem;
-} 
-
-/*video*/
-.contenido-header{
+  }
+  
+  /* video */
+  .contenido-header {
     position: relative;
-}
-
-.contenido-header::before{
+  }
+  
+  .contenido-header::before {
     content: '';
     position: absolute;
-    top:0;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    
-}
-
-.texto-encabezado {
+  }
+  
+  .texto-encabezado {
     position: absolute;
     z-index: 2;
     width: 100%;
@@ -286,31 +272,52 @@ img{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-.texto-encabezado h2 {
+  }
+  
+  .texto-encabezado h2 {
     color: var(--blanco);
-    font-size: 12rem;
-}
-
-.texto-encabezado p {
+    font-size: 8rem;
+  }
+  
+  .texto-encabezado p {
     color: var(--blanco);
     font-size: 5rem;
-}
+  }
 
-@media (min-width: 768px) {
-    .texto-encabezado h2 {
-        font-size: 8rem; /* Ajusta el tamaño de fuente para pantallas más grandes */
-    }
-}
-
-
-video{
+  video {
     width: 100%;
     height: 100%;
-}
+  }
 
-/*sobre nosotros*/
+    /* Media queries para hacer la sección Price responsive */
+    @media (max-width: 1024px) {
+        #contenedor-encabezado .texto-encabezado h2 {
+          font-size: 80px;
+        }
+      }
+      
+      @media (max-width: 768px) {
+        #contenedor-encabezado .texto-encabezado h2 {
+          font-size: 60px;
+        }
+      
+        .contenedor-encabezado {
+          height: 250px;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        #contenedor-encabezado .texto-encabezado h2 {
+          font-size: 40px;
+        }
+      
+        .contenedor-encabezado {
+          height: 200px;
+        }
+      }
+  
+
+/* sobre nosotros */
 .contenedor-nosotros{
     padding: 5rem 0;
     align-items: center;
@@ -355,6 +362,19 @@ video{
         
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 .imagenes-nosotros{
     display: flex;
     justify-content: space-between;
@@ -368,6 +388,16 @@ video{
 .imagenes2 img{
     margin-bottom: 1rem;
 }
+
+
+
+
+
+
+
+
+
+
 .menu{
     padding: 5rem 0;
 }
@@ -507,8 +537,8 @@ Este el div separador
 
   
 
-  /*Seccion Price*/
-  .price {
+/* Seccion Price */
+.price {
     background: url(../img/86261947792.jpg) no-repeat center;
     background-attachment: fixed;
     background-size: cover;
@@ -519,12 +549,41 @@ Este el div separador
     align-items: center;
     text-align: center;
     height: 350px; /* Ajusta la altura según tus necesidades */
-}
-
-#price .texto-encabezado h2 {
+  }
+  
+  #price .texto-encabezado h2 {
     color: #f3e8c9;
     font-size: 100px;
   }
+  
+  /* Media queries para hacer la sección Price responsive */
+  @media (max-width: 1024px) {
+    #price .texto-encabezado h2 {
+      font-size: 80px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    #price .texto-encabezado h2 {
+      font-size: 60px;
+    }
+  
+    .price {
+      height: 250px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #price .texto-encabezado h2 {
+      font-size: 40px;
+    }
+  
+    .price {
+      height: 200px;
+    }
+  }
+  
+  
   
 
 
