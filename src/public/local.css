@@ -1,0 +1,56 @@
+/* Estilos para la sección local */
+@media (min-width: 768px) {
+  .contenedor-local {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem; /* Ajusta el margen superior según tus necesidades */
+  }
+
+  .texto-local {
+    flex: 0 0 calc(60% - 2rem); /* Ajusta el espacio del texto-local y el margen derecho */
+    margin-right: 2rem;
+    text-align: left;
+  }
+
+  .imagenes-local {
+    flex: 0 0 calc(40% - 2rem); /* Ajusta el espacio de las imágenes-local y el margen izquierdo */
+    margin-left: 2rem;
+    text-align: right;
+  }
+
+  .texto-local h1 {
+    font-size: 4.5rem; /* Ajusta el tamaño de la fuente para pantallas más pequeñas */
+  }
+
+  .texto-local p {
+    font-size: 1.8rem; /* Ajusta el tamaño de la fuente para pantallas más pequeñas */
+  }
+
+  .botones-azul {
+    font-size: 1.6rem; /* Ajusta el tamaño de la fuente para pantallas más pequeñas */
+    padding: 1rem 2rem;
+  }
+}
+
+.imagenes-local {
+  display: flex;
+  justify-content: space-between;
+}
+
+.imagenes-local img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.imagen1,
+.imagenes2 {
+  flex: 0 0 calc(50% - 1rem);
+}
+
+.imagenes2 img {
+  margin-bottom: 1rem;
+}

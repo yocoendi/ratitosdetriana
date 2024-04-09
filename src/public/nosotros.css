@@ -1,0 +1,35 @@
+/* Estilos para la sección Chef */
+@media (min-width: 768px) {
+    .contenido-chef {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .texto-chef {
+      flex: 0 0 calc(60% - 2rem); /* Ajusta el espacio del texto-chef y el margen derecho */
+      margin-right: 2rem;
+      padding: 4rem 0; /* Ajusta el relleno para pantallas más pequeñas */
+    }
+  
+    .imagen-chef {
+      flex: 0 0 calc(40% - 2rem); /* Ajusta el espacio de la imagen-chef y el margen izquierdo */
+      margin-left: 2rem;
+      max-width: 100%; /* Ajustar el tamaño máximo de la imagen al contenedor */
+      height: auto;
+      padding: 4rem 0; /* Ajusta el relleno para pantallas más pequeñas */
+    }
+  
+    .texto-chef h3 {
+      font-size: 2.5rem; /* Ajusta el tamaño de la fuente para pantallas más pequeñas */
+    }
+  
+    .texto-chef p {
+      font-size: 1.8rem; /* Ajusta el tamaño de la fuente para pantallas más pequeñas */
+    }
+  }
+
+  
+  
+  

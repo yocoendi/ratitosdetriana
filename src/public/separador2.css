@@ -1,0 +1,86 @@
+/* Seccion Separador2*/
+.separador2 {
+    background-image: url(../img/unchef.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 2rem 0;
+  }
+  
+  .separador2 .formulario-contacto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .separador2 .informacion-contacto,
+  .separador2 .container {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .separador2 .informacion-contacto h3,
+  .separador2 .informacion-contacto p {
+    text-align: left;
+  }
+  
+  .separador2 .redes-sociales {
+    text-align: left;
+  }
+  
+  /* Estilos para pantallas grandes */
+  @media screen and (min-width: 992px) {
+    .separador2 .formulario-contacto {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    
+    .separador2 .informacion-contacto {
+      flex: 0 0 50%;
+    }
+    
+    .separador2 .container {
+      flex: 0 0 50%;
+    }
+    
+    .separador2 .formulario-contacto .form-floating {
+      width: 100%;
+    }
+  }
+  
+  .informacion-contacto{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.informacion-contacto, .formulario{
+    flex: 0 0 calc(50% - 1rem);
+}
+.informacion-contacto{
+    background-color: inherit;
+    padding: 2rem;
+}
+
+.informacion-contacto h3, .informacion-contacto p, .redes-sociales i{
+    color: var(--blanco);
+}
+.informacion-contacto h3{
+    font-size: 4rem;
+    font-family: var(--titulos);
+}
+
+.informacion-contacto p{
+    font-size: 2.2rem;
+  
+}
+.informacion-contacto i{
+    margin-right: 1rem;
+}

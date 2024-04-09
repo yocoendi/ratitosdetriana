@@ -1,0 +1,51 @@
+
+/* Seccion Price */
+#price {
+    background: url(../img/86261947792.jpg) no-repeat center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 350px; /* Ajusta la altura según tus necesidades */
+  }
+  
+  #price .texto-encabezado h2 {
+    color: #f3e8c9;
+    font-size: 100px;
+  }
+  
+  /* Media queries para hacer la sección Price responsive */
+  @media (max-width: 1024px) {
+    #price .texto-encabezado h2 {
+      font-size: 80px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    #price .texto-encabezado h2 {
+      font-size: 60px;
+    }
+  
+    .price {
+      height: 250px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #price .texto-encabezado h2 {
+      font-size: 40px;
+    }
+  
+    .price {
+      height: 200px;
+    }
+  }
+  
+  
+
+
+  /* FinalSeccion Price*/
