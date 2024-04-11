@@ -25,7 +25,7 @@
   }
 
   .texto-local p {
-    font-size: 1.8rem; /* Ajusta el tamaño de la fuente para pantallas más pequeñas */
+    font-size: 2rem; /* Ajusta el tamaño de la fuente para pantallas más pequeñas */
   }
 
   .botones-azul {
@@ -53,4 +53,20 @@
 
 .imagenes2 img {
   margin-bottom: 1rem;
+}
+
+/* Consultas de medios para hacer la sección responsive en pantallas pequeñas */
+@media (max-width: 767px) {
+  .texto-local h1 {
+    font-size: 3rem; /* Aumenta el tamaño de la fuente para pantallas más pequeñas */
+  }
+
+  .texto-local p {
+    font-size: 1.5rem; /* Aumenta el tamaño de la fuente para pantallas más pequeñas */
+  }
+
+  .botones-azul {
+    font-size: 1.3rem; /* Aumenta el tamaño de la fuente para pantallas más pequeñas */
+    padding: 0.8rem 1.5rem;
+  }
 }

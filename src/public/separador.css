@@ -19,7 +19,7 @@
 
 #separadorSection .texto-separador h2 {
   color: #70683c;
-  font-size: 3vw; /* Utiliza unidades de viewport para hacer el tamaño de fuente responsive */
+  font-size: 5vw; /* Utiliza unidades de viewport para hacer el tamaño de fuente responsive */
   margin-bottom: 20px; /* Espacio inferior entre el título y el párrafo */
 }
 
