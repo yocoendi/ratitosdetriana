@@ -13,23 +13,23 @@
   padding: 50px 20px; /* Ajusta el espaciado interno según tus necesidades */
 }
 
-#separadorSection .texto-encabezado {
+#separadorSection .texto-separador {
   max-width: 800px; /* Ajusta el ancho máximo del contenido según tus necesidades */
 }
 
-#separadorSection .texto-encabezado h2 {
+#separadorSection .texto-separador h2 {
   color: #70683c;
-  font-size: 6vw; /* Utiliza unidades de viewport para hacer el tamaño de fuente responsive */
+  font-size: 3vw; /* Utiliza unidades de viewport para hacer el tamaño de fuente responsive */
   margin-bottom: 20px; /* Espacio inferior entre el título y el párrafo */
 }
 
-#separadorSection .texto-encabezado p {
-  font-size: 2.5vw; /* Utiliza unidades de viewport para hacer el tamaño de fuente responsive */
+#separadorSection .texto-separador p {
+  font-size: 2vw; /* Utiliza unidades de viewport para hacer el tamaño de fuente responsive */
   color: #70683c;
   margin-bottom: 20px; /* Espacio inferior entre el párrafo y el botón */
 }
 
-#separadorSection .botones {
+#separadorSection .botones-evento {
   display: inline-block;
   padding: 10px 20px;
   background-color: #70683c;
@@ -40,11 +40,11 @@
 
 /* Consultas de medios para hacer la sección responsive */
 @media (max-width: 768px) {
-  #separadorSection .texto-encabezado h2 {
-    font-size: 8vw; /* Ajusta el tamaño de fuente del título para pantallas más pequeñas */
+  #separadorSection .texto-separador h2 {
+    font-size: 12vw; /* Ajusta el tamaño de fuente del título para pantallas más pequeñas */
   }
 
-  #separadorSection .texto-encabezado p {
-    font-size: 4vw; /* Ajusta el tamaño de fuente del párrafo para pantallas más pequeñas */
+  #separadorSection .texto-separador p {
+    font-size: 5vw; /* Ajusta el tamaño de fuente del párrafo para pantallas más pequeñas */
   }
 }
