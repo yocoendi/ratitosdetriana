@@ -4,21 +4,15 @@ import { fileURLToPath } from 'url';
 import session from 'express-session';
 import bodyParser from 'body-parser';
 import indexRoutes from './routes/router.js';
-import cookieParser from 'cookie-parser'; // Importa cookieParser
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const port = 4000;
 
-
-app.use(cookieParser()); // Usa cookieParser
-// Middleware para configurar cookies solo si la cookie no está presente
+// Middleware para configurar cookies
 app.use((req, res, next) => {
-  // Verificar si la cookie 'miCookie' ya está presente
-  if (!req.cookies.miCookie) {
-    // Configurar una cookie llamada 'miCookie' con un valor
-    res.cookie('miCookie', 'valorDeCookie', { maxAge: 900000, httpOnly: true });
-  }
+  // Configura una cookie llamada "miCookie" con un valor
+  res.cookie('miCookie', 'valorDeCookie', { maxAge: 900000, httpOnly: true });
   next();
 });
 
@@ -39,18 +33,13 @@ app.use(express.static(join(__dirname, 'public')));
 
 app.use(indexRoutes);
 
-// Ruta para servir la página con la ventana emergente (modal)
-app.get('/popup', (req, res) => {
-  res.render('partials/popup'); // Renderiza el archivo popup.ejs en lugar de enviar un archivo estático
-});
-
 app.get('/', (req, res) => {
   req.session.usuario = 'Jorge';
   req.session.rol = 'Administrador';
   req.session.visitas = req.session.visitas ? ++req.session.visitas : 1;
-  console.log(req.session);
+  console.log(req.session)
   res.send(
-    `El usuario <Strong>${req.session.usuario}</Strong> con el privilegio de <Strong>${req.session.rol}</Strong> ha visitado la web <Strong>${req.session.visitas}</Strong>. <a href="/popup">Abrir ventana emergente</a>`
+    `El usuario <Strong>${req.session.usuario}</Strong> con el privilegio de <Strong>${req.session.rol}</Strong> ha visitado la web <Strong>${req.session.visitas}</Strong>`
   );
 });
 
@@ -63,3 +52,4 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
   console.log(`El servidor escucha en http://localhost:${port}`);
 });
+
