@@ -39,10 +39,6 @@ app.use(express.static(join(__dirname, 'public')));
 
 app.use(indexRoutes);
 
-// Ruta para servir la página con la ventana emergente (modal)
-app.get('/popup', (req, res) => {
-  res.render('partials/popup'); // Renderiza el archivo popup.ejs en lugar de enviar un archivo estático
-});
 
 app.get('/', (req, res) => {
   req.session.usuario = 'Jorge';
