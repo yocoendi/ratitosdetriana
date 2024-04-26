@@ -1,5 +1,5 @@
 import express from "express";
-import { vistaHome,postMetodo,vistaGallery} from "../controller/indexRoutex.js";
+import { vistaHome,postMetodo,vistaGallery,vistaPrivacy} from "../controller/indexRoutex.js";
 import bcryptjs from "bcryptjs";
 import nodemailer from "nodemailer";
 import multer from "multer"; // Importar multer
@@ -32,6 +32,7 @@ const upload = multer({ storage: storage });
 // Crear nuestras rutas para las diferentes páginas
 router.get("/", vistaHome);
 router.get("/gallery", vistaGallery);
+router.get("/privacy-policy/", vistaPrivacy);
 router.post("/", postMetodo);
 
 //VISITAS
