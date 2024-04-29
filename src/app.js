@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser'; // Importa cookieParser
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
-const port = 4000;
+const port = 3000;
 
 
 app.use(cookieParser()); // Usa cookieParser
