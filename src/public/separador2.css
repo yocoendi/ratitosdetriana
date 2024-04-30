@@ -84,3 +84,44 @@
 .informacion-contacto i{
     margin-right: 1rem;
 }
+
+.file-input-container {
+  position: relative;
+  width: 200px;
+  margin: 20px auto;
+}
+
+.file-input-container input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-input-label {
+  display: block;
+  background-color: #4CAF50; /* Color de fondo */
+  color: white; /* Color del texto */
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.file-input-label:hover {
+  background-color: #45a049; /* Cambiar el color de fondo al pasar el ratón */
+}
+
+/* Estilos para el campo de entrada de archivo */
+#fileInput {
+  color: white; /* Color del texto cuando no hay archivo seleccionado */
+}
+
+/* Estilos para el texto "Archivo" */
+label[for="fileInput"] {
+  color: white; /* Color del texto "Archivo" */
+}

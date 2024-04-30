@@ -6,6 +6,9 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 2rem; /* Ajusta el margen superior según tus necesidades */
+    max-width: 1200px; /* Limita el ancho máximo del contenedor */
+    margin-left: auto; /* Centra el contenedor en pantallas grandes */
+    margin-right: auto; /* Centra el contenedor en pantallas grandes */
   }
 
   .texto-local {
@@ -57,16 +60,32 @@
 
 /* Consultas de medios para hacer la sección responsive en pantallas pequeñas */
 @media (max-width: 767px) {
+  .contenedor-local {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .texto-local {
+    text-align: center; /* Centra el texto en pantallas pequeñas */
+    margin-right: 0; /* Elimina el margen derecho */
+    margin-bottom: 2rem; /* Añade un margen inferior */
+  }
+
+  .imagenes-local {
+    text-align: center; /* Centra las imágenes en pantallas pequeñas */
+    margin-left: 0; /* Elimina el margen izquierdo */
+  }
+
   .texto-local h1 {
-    font-size: 3rem; /* Aumenta el tamaño de la fuente para pantallas más pequeñas */
+    font-size: 3rem; /* Aumenta el tamaño del título para pantallas más pequeñas */
   }
 
   .texto-local p {
-    font-size: 1.5rem; /* Aumenta el tamaño de la fuente para pantallas más pequeñas */
+    font-size: 1.5rem; /* Aumenta el tamaño del párrafo para pantallas más pequeñas */
   }
 
   .botones-azul {
-    font-size: 1.3rem; /* Aumenta el tamaño de la fuente para pantallas más pequeñas */
+    font-size: 1.3rem; /* Aumenta el tamaño del botón para pantallas más pequeñas */
     padding: 0.8rem 1.5rem;
   }
 }

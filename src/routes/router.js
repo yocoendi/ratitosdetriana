@@ -38,14 +38,14 @@ router.post("/", postMetodo);
 //VISITAS
 
 // GET: Renderizar VISITAS
-router.get("/visita", (req, res) => {
-  req.session.usuario = "Jorge";
-  req.session.rol = "Administrador";
-  req.session.visitas = req.session.visitas ? ++req.session.visitas : 1;
-  res.send(
-    `El usuario <Strong>${req.session.usuario}</Strong> con el privilegio de <Strong>${req.session.rol}</Strong> ha visitado la web <Strong>${req.session.visitas}</Strong>`
-  );
-});
+// router.get("/visita", (req, res) => {
+//   req.session.usuario = "Jorge";
+//   req.session.rol = "Administrador";
+//   req.session.visitas = req.session.visitas ? ++req.session.visitas : 1;
+//   res.send(
+//     `El usuario <Strong>${req.session.usuario}</Strong> con el privilegio de <Strong>${req.session.rol}</Strong> ha visitado la web <Strong>${req.session.visitas}</Strong>`
+//   );
+// });
 
 //POT PARA MANDAR CV CON ARCHIVO ADJUTO
 

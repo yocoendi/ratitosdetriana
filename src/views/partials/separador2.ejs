@@ -1,50 +1,46 @@
 <section class="separador2">
   <div id="cv" class="formulario-contacto contenedor">
     <div class="informacion-contacto">
-        <h3>¿QUIERES TRABAJAR CON NOSOTROS?</h3>
-        <p>
-            <i class='fas fa-map-marker-alt' style='font-size:24px'></i>
-          Si deseas compartir la experiencia de trabajar en uno de los mejores
-          Bares de Sevilla, rellena el siguiente
-          formulario y envíanos tus datos de contacto, hablamos sobre tí:
-          tu formación, experiencia…etc.
-          ¡Estaremos encantados de recibirte!
-        </p>  
-      </div>
-      <div class="container px-5 my-5">
-        <form action="/cv" method="POST" enctype="multipart/form-data">
-          <fieldset>
-            <legend class="form-legend" style="color: white;">Envianos tu CV </legend>
-            <!-- Campo de entrada para la dirección de correo electrónico -->
-            <div class="">
-              <input class="form-control" id="floatingInput" type="email" name="emailAddress" placeholder="Email Address"/>
-              <label for="floatingInput">Email Address</label>
-              <div class="invalid-feedback">Please enter a valid email address.</div>
-            </div>
-            <!-- Campo de entrada para el mensaje -->
-            <div class="">
-              <textarea class="form-control" id="floatingInput" name="message" placeholder="Message" style="height: 10rem;" required></textarea>
-              <label for="floatingInput">Message</label>
-              <div class="invalid-feedback">Please enter a message.</div>
-            </div>
-            <!-- Campo de entrada para el archivo adjunto -->
-            <div class="">
-              <input id="fileInput" type="file" name="file" />
-              <label for="fileInput">Archivo</label>
-            </div>
-            <!-- Mensajes de éxito y error (ocultos por defecto) -->
-            <div class="d-none" id="submitSuccessMessage">
-              <div class="text-center mb-3">
-                <div class="fw-bolder">Form submission successful!</div>
-              </div>
-            </div>
-            <div class="d-none" id="submitErrorMessage">
-              <div class="text-center text-danger mb-3">Error sending message!</div>
-            </div>
-            <!-- Botón de envío del formulario -->
-            <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Enviar</button>
-          </fieldset>
-        </form>
-      </div>
+      <h3>¿QUIERES TRABAJAR CON NOSOTROS?</h3>
+      <p>
+        <i class='fas fa-map-marker-alt' style='font-size:24px'></i>
+        Si deseas compartir la experiencia de trabajar en uno de los mejores Bares de Sevilla, rellena el siguiente formulario y envíanos tus datos de contacto, hablamos sobre tí: tu formación, experiencia…etc. ¡Estaremos encantados de recibirte!
+      </p>  
     </div>
-  </section>
+    <div class="container px-5 my-5">
+      <form action="/cv" method="POST" enctype="multipart/form-data">
+        <fieldset>
+          <legend class="form-legend" style="color: white;">Envíanos tu CV</legend>
+          <!-- Campo de entrada para la dirección de correo electrónico -->
+          <div class="mb-3">
+            <input class="form-control" id="floatingInput" type="email" name="emailAddress" placeholder="Email Address" required/>
+            <label for="floatingInput" style="color: white;"></label>
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+          </div>
+          <!-- Campo de entrada para el mensaje -->
+          <div class="mb-3">
+            <textarea class="form-control" id="floatingInput" name="message" placeholder="Message" style="height: 10rem;" required></textarea>
+            <label for="floatingInput" style="color: white;"></label>
+            <div class="invalid-feedback">Please enter a message.</div>
+          </div>
+          <!-- Campo de entrada para el archivo adjunto -->
+          <div class="mb-3">
+            <input id="fileInput" type="file" name="file" />
+            <!-- <label for="fileInput" style="color: white;">Archivo</label> -->
+          </div>
+          <!-- Mensajes de éxito y error (ocultos por defecto) -->
+          <div class="d-none" id="submitSuccessMessage">
+            <div class="text-center mb-3">
+              <div class="fw-bolder">Form submission successful!</div>
+            </div>
+          </div>
+          <div class="d-none" id="submitErrorMessage">
+            <div class="text-center text-danger mb-3">Error sending message!</div>
+          </div>
+          <!-- Botón de envío del formulario -->
+          <button class="btn btn-primary btn-lg mt-4" id="submitButton" type="submit">Enviar</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</section>
