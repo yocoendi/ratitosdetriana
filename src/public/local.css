@@ -21,6 +21,7 @@
     flex: 0 0 calc(40% - 2rem); /* Ajusta el espacio de las imágenes-local y el margen izquierdo */
     margin-left: 2rem;
     text-align: right;
+    padding: 1rem; /* Añade padding a la sección de imágenes */
   }
 
   .texto-local h1 {
@@ -40,12 +41,14 @@
 .imagenes-local {
   display: flex;
   justify-content: space-between;
+  gap: 1rem; /* Añade un espacio entre las imágenes */
 }
 
 .imagenes-local img {
   max-width: 100%;
   height: auto;
   border-radius: 5px;
+  padding: 1rem; /* Añade padding a cada imagen */
   margin-bottom: 1rem;
 }
 
@@ -74,6 +77,7 @@
   .imagenes-local {
     text-align: center; /* Centra las imágenes en pantallas pequeñas */
     margin-left: 0; /* Elimina el margen izquierdo */
+    padding: 1rem; /* Añade padding a la sección de imágenes en pantallas pequeñas */
   }
 
   .texto-local h1 {
@@ -87,5 +91,9 @@
   .botones-azul {
     font-size: 1.3rem; /* Aumenta el tamaño del botón para pantallas más pequeñas */
     padding: 0.8rem 1.5rem;
+  }
+
+  .imagenes-local img {
+    padding: 1rem; /* Añade padding a cada imagen en pantallas pequeñas */
   }
 }

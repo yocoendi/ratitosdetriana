@@ -54,7 +54,7 @@
   padding-right: 10px; /* Ajusta el espacio entre los elementos según tus preferencias */
 }
 
-.video-container {
+/* .video-container {
   position: relative;
   width: 100%;
   height: 100%;
@@ -64,7 +64,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
+} */
 
 .texto-ratitos {
   position: absolute;
@@ -95,3 +95,47 @@
     font-size: 6rem; /* Tamaño de fuente más grande para pantallas grandes (versión web) */
   }
 }
+
+
+/* Estilo general para el contenedor de video */
+.video-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+}
+
+/* El video se ajustará al tamaño del contenedor */
+.video-fondo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+
+/* Ajustes para el texto sobre el video */
+.texto-ratitos {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+}
+
+/* Asegurarse de que el contenedor de video tenga una altura adecuada en diferentes dispositivos */
+@media (max-width: 768px) {
+  .video-container {
+    height: 600px;
+  }
+}
+
+@media (min-width: 769px) {
+  .video-container {
+    height: 800px;
+  }
+}
+
