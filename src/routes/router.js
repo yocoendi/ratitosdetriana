@@ -72,8 +72,8 @@ router.post("/cv", upload.single("file"), async (req, res) => {
       port: 587, // Configura el puerto de correo electrónico aquí
       secure: false, // Si el servidor utiliza SSL/TLS, cambia a true
       auth: {
-        user: "losratitosdetriana@gmail.com", // Tu dirección de correo electrónico
-        pass: "ncg quy xke pfr exsv", // Tu contraseña de correo electrónico
+        user:  // Tu dirección de correo electrónico
+        pass: // Tu contraseña de correo electrónico
       },
     });
 
