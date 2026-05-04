@@ -1,62 +1,62 @@
-import 'dotenv/config'; 
+import 'dotenv/config';
 import express from 'express';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
 import session from 'express-session';
-import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import indexRoutes from './routes/router.js';
-import cookieParser from 'cookie-parser'; // Importa cookieParser
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
+// 1. Configuraciones y Motor de Plantillas
+app.set('view engine', 'ejs');
+app.set('views', join(process.cwd(), 'src/views')); // process.cwd() es más limpio que __dirname
 
-app.use(cookieParser()); // Usa cookieParser
-// Middleware para configurar cookies solo si la cookie no está presente
+// 2. Middlewares base
+app.use(express.static(join(process.cwd(), 'src/public')));
+// Esto hace que si el HTML busca "logo.png", Express lo busque dentro de "public/img" automáticamente
+app.use(express.static(join(process.cwd(), 'src/public/css')));
+app.use(express.static(join(process.cwd(), 'src/public/img')));
+app.use(express.static(join(process.cwd(), 'src/public/js')));
+app.use(express.static(join(process.cwd(), 'src/public/video')));
+app.use(express.json()); // Sustituye a body-parser
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+// 3. Sesiones y Cookies personalizadas
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'secreto-por-defecto', // Mejor usar .env
+  resave: false,
+  saveUninitialized: true
+}));
+
 app.use((req, res, next) => {
-  // Verificar si la cookie 'miCookie' ya está presente
   if (!req.cookies.miCookie) {
-    // Configurar una cookie llamada 'miCookie' con un valor
     res.cookie('miCookie', 'valorDeCookie', { maxAge: 900000, httpOnly: true });
   }
   next();
 });
 
-app.use(
-  session({
-    secret: '123456',
-    resave: false,
-    saveUninitialized: true
-  })
-);
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.set('view engine', 'ejs');
-app.set('views', join(__dirname, 'views'));
-app.use(express.static(join(__dirname, 'public')));
-
+// 4. Rutas
 app.use(indexRoutes);
 
-
+// Ruta de prueba (Sugerencia: Muévela a tu archivo de rutas luego)
 app.get('/', (req, res) => {
   req.session.usuario = 'Jorge';
   req.session.rol = 'Administrador';
-  req.session.visitas = req.session.visitas ? ++req.session.visitas : 1;
-  console.log(req.session);
-  res.send(
-    `El usuario <Strong>${req.session.usuario}</Strong> con el privilegio de <Strong>${req.session.rol}</Strong> ha visitado la web <Strong>${req.session.visitas}</Strong>. <a href="/popup">Abrir ventana emergente</a>`
-  );
+  req.session.visitas = (req.session.visitas || 0) + 1;
+  
+  res.send(`
+    El usuario <strong>${req.session.usuario}</strong> (${req.session.rol}) 
+    ha visitado la web <strong>${req.session.visitas}</strong> veces. 
+    <a href="/popup">Abrir ventana emergente</a>
+  `);
 });
 
-// Manejo de errores
+// 5. Manejo de errores simplificado
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something went wrong!');
+  res.status(500).send('¡Algo salió mal!');
 });
 
-app.listen(port, () => {
-  console.log(`El servidor escucha en puerto ${port}`);
-});
+app.listen(PORT, () => console.log(`🚀 Servidor en: http://localhost:${PORT}`));
