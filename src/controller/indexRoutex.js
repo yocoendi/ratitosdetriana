@@ -1,28 +1,10 @@
-import nodemailer from "nodemailer";
 import fs from 'fs';
+import { Resend } from 'resend';
 
-// 1. Configuración de Nodemailer (Usamos solo el 'import' de arriba)
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true, 
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false 
-  }
-});
+// 1. Configuración de Resend
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Prueba de conexión rápida
-transporter.verify((error) => {
-  if (error) {
-    console.log("❌ Error en Railway:", error.message);
-  } else {
-    console.log("🚀 ¡Servidor de correo listo!");
-  }
-});
+console.log("🚀 Resend configurado para Railway");
 
 // --- VISTAS ---
 export const vistaHome = (req, res) => res.render('index', { title: 'Home' });
@@ -34,7 +16,7 @@ export const postMetodo = (req, res) => {
     res.json({ mensaje: "Formulario recibido correctamente" });
 };
 
-// --- FUNCIÓN DE ENVÍO ---
+// --- FUNCIÓN DE ENVÍO CON RESEND ---
 export const enviarCV = async (req, res) => {
   const file = req.file;
 
@@ -45,18 +27,23 @@ export const enviarCV = async (req, res) => {
   try {
     const { emailAddress, message } = req.body;
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      replyTo: emailAddress,
+    // Usamos resend en lugar de transporter.sendMail
+    await resend.emails.send({
+      from: 'onboarding@resend.dev', // Resend requiere este remitente por defecto al inicio
       to: "losratitosdetriana@gmail.com",
       subject: "CV recibido - Confirmación de recepción",
-      text: `Mensaje de: ${emailAddress}\n\n${message}`,
-      attachments: [{ filename: file.originalname, path: file.path }],
+      html: `<p><strong>Mensaje de:</strong> ${emailAddress}</p><p>${message}</p>`,
+      attachments: [
+        {
+          filename: file.originalname,
+          content: fs.readFileSync(file.path), // Leemos el archivo para enviarlo
+        },
+      ],
     });
 
     res.send('<script>alert("CV enviado con éxito"); window.location.href="/";</script>');
   } catch (error) {
-    console.error("Error en el envío:", error);
+    console.error("Error en el envío con Resend:", error);
     res.send('<script>alert("Error al enviar el correo"); window.location.href="/";</script>');
   } finally {
     if (file && fs.existsSync(file.path)) {
