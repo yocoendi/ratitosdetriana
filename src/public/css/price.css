@@ -1,49 +1,54 @@
 /* Sección Price */
 #price {
-  background: url(../img/86261947792.jpg) no-repeat center;
-  background-attachment: fixed;
+  /* Simplificamos el fondo */
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), /* Capa oscura opcional para leer mejor el texto */
+              url(../img/86261947792.jpg) no-repeat center center;
   background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+  
+  /* IMPORTANTE: El 'fixed' suele fallar en móviles, lo desactivamos en pantallas pequeñas más abajo */
+  background-attachment: fixed; 
+  
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  height: 350px; /* Ajusta la altura según tus necesidades */
+  
+  /* Usamos min-height y vh para que sea proporcional */
+  min-height: 40vh; 
+  padding: 2rem;
 }
 
-#price .texto-price { /* Corregido el nombre de la clase */
-  max-width: 800px; /* Ajusta el ancho máximo del contenido según tus necesidades */
+#price .texto-price {
+  width: 90%;
+  max-width: 800px;
 }
 
-#price .texto-price h2 { /* Corregido el nombre de la clase */
+#price .texto-price h2 {
   color: #f3e8c9;
-  font-size: 100px;
+  /* Usamos 'vw' (viewport width) para que el texto crezca con la pantalla */
+  font-size: clamp(2.5rem, 8vw, 6rem); 
+  margin: 0;
+  line-height: 1.1;
 }
 
-/* Media queries para hacer la sección Price responsive */
-@media (max-width: 1024px) {
-  #price .texto-price h2 {
-      font-size: 80px;
-  }
-}
+/* --- AJUSTES RESPONSIVE --- */
 
 @media (max-width: 768px) {
-  #price .texto-price h2 {
-      font-size: 60px;
-  }
-
   #price {
-      height: 250px; /* Corregido el ajuste de altura */
+    /* Desactivamos el fixed en móvil para evitar saltos y fallos de imagen */
+    background-attachment: scroll; 
+    min-height: 30vh;
   }
 }
 
 @media (max-width: 480px) {
-  #price .texto-price h2 {
-      font-size: 40px;
-  }
-
   #price {
-      height: 200px; /* Corregido el ajuste de altura */
+    min-height: 200px;
+    padding: 1rem;
+  }
+  
+  #price .texto-price h2 {
+    /* Un tamaño más seguro para móviles muy pequeños */
+    font-size: 2.2rem;
   }
 }

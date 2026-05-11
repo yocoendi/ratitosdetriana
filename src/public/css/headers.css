@@ -1,122 +1,48 @@
-/* encabezado */
+/* --- ENCABEZADO Y NAVEGACIÓN --- */
 .contenedor-navegacion {
   background-color: var(--blanco);
-  padding: 2rem 0;
+  padding: 1rem 0; /* Reducido un poco para ahorrar espacio */
 }
 
 .contenido-navegacion {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
-
-.texto-encabezado {
-  position: absolute;
-  z-index: 2;
-  width: 100%;
-  height: 80%;
-  display: flex; /* Hacer que el contenedor sea un flexbox */
-  flex-direction: column;
-  align-items: center; /* Centrar horizontalmente */
-  justify-content: center; /* Centrar verticalmente */
-}
-
-.texto-encabezado h2 {
-  color: var(--blanco);
-  font-size: 6rem;
-}
-
-/* Estilos para pantallas más pequeñas */
-@media screen and (max-width: 768px) {
-  .contenido-navegacion {
-    flex-direction: column; /* Cambiar a disposición de columna en pantallas pequeñas */
-    align-items: center; /* Centrar elementos en el eje X */
-  }
-
-
-
-  .texto-encabezado p {
-    font-size: 3rem; /* Ajusta el tamaño de fuente en pantallas más pequeñas */
-  }
-  
-
-}
-
 
 .nav.nav-pills li.nav-item a.nav-link {
-  text-decoration: none; /* Quita la decoración de enlace subrayado */
-  font-size: 16px; /* Cambia el tamaño de fuente según tus preferencias */
-  color:  #3d3d49; /* Cambia el color de texto según tus preferencias */
-  /* Otros estilos personalizados aquí */
+  text-decoration: none;
+  font-size: 16px;
+  color: #3d3d49;
 }
 
 .nav-pills li:not(:last-child) {
-  border-right: 1px solid #ccc; /* Ajusta el estilo del separador según tus preferencias */
-  padding-right: 10px; /* Ajusta el espacio entre los elementos según tus preferencias */
+  border-right: 1px solid #ccc;
+  padding-right: 10px;
 }
 
-/* .video-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.video-fondo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-} */
-
-.texto-ratitos {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.texto-ratitos h2 {
-  color: white; /* Ajusta el color del texto según el fondo del video */
-  font-size: 3rem; /* Ajusta el tamaño de la fuente según tus preferencias */
-}
-
-
-/* Estilos para pantallas más pequeñas */
-@media screen and (max-width: 768px) {
-  /* Otros estilos para pantallas pequeñas */
-  .texto-ratitos h2 {
-    font-size: 2.5rem; /* Tamaño de fuente más pequeño para pantallas pequeñas */
-  }
-}
-
-/* Estilos para pantallas más grandes (versión web) */
-@media screen and (min-width: 769px) {
-  /* Otros estilos para pantallas grandes (versión web) */
-  .texto-ratitos h2 {
-    font-size: 6rem; /* Tamaño de fuente más grande para pantallas grandes (versión web) */
-  }
-}
-
-
-/* Estilo general para el contenedor de video */
+/* --- CONTENEDOR DE VÍDEO (RESPONSIVE) --- */
 .video-container {
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: auto;
+  /* Altura fluida: 50% de la pantalla en móvil, 80% en PC */
+  height: 50vh; 
+  min-height: 300px; /* Para que no se vea demasiado pequeño */
 }
 
-/* El video se ajustará al tamaño del contenedor */
 .video-fondo {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Cubre el área sin deformar */
   transform: translate(-50%, -50%);
+  z-index: 1;
 }
 
-/* Ajustes para el texto sobre el video */
+/* --- TEXTO SOBRE EL VÍDEO --- */
 .texto-ratitos {
   position: absolute;
   top: 50%;
@@ -124,18 +50,41 @@
   transform: translate(-50%, -50%);
   color: white;
   text-align: center;
+  z-index: 2; /* Por encima del vídeo */
+  width: 90%; /* Para que no toque los bordes en móvil */
 }
 
-/* Asegurarse de que el contenedor de video tenga una altura adecuada en diferentes dispositivos */
-@media (max-width: 768px) {
+/* --- MEDIA QUERIES (AJUSTES POR DISPOSITIVO) --- */
+
+/* MÓVIL (Pantallas hasta 768px) */
+@media screen and (max-width: 768px) {
+  .contenido-navegacion {
+    flex-direction: column; 
+    gap: 1rem;
+  }
+
   .video-container {
-    height: 600px;
+    height: 40vh; /* Un poco más bajo en móviles para que no desplace todo el contenido */
+  }
+
+  .texto-ratitos h2 {
+    font-size: 2.2rem; /* Tamaño legible en móvil */
+    line-height: 1.2;
+  }
+
+  .nav-pills li:not(:last-child) {
+    border-right: none; /* Quitamos separadores en móvil para que no se vea amontonado */
+    padding-right: 0;
   }
 }
 
-@media (min-width: 769px) {
+/* ESCRITORIO (Pantallas grandes) */
+@media screen and (min-width: 769px) {
   .video-container {
-    height: 800px;
+    height: 80vh; /* Altura elegante para web */
+  }
+
+  .texto-ratitos h2 {
+    font-size: 6rem; /* Tamaño impacto para web */
   }
 }
-

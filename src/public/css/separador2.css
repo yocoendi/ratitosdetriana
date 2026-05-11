@@ -1,127 +1,115 @@
-/* Seccion Separador2*/
+/* Seccion Separador2 */
 .separador2 {
-    background-image: url(../img/unchef.jpg);
-    background-attachment: fixed;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../img/unchef.jpg);
     background-size: cover;
-    background-position: center center;
+    background-position: center;
     background-repeat: no-repeat;
-    background-color: transparent;
+    background-attachment: fixed; /* Se desactiva en móvil abajo */
     position: relative;
     z-index: 2;
     width: 100%;
-    padding: 2rem 0;
-  }
-  
-  .separador2 .formulario-contacto {
+    padding: 4rem 0;
+    min-height: 60vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
-  }
-  
-  .separador2 .informacion-contacto,
-  .separador2 .container {
-    width: 100%;
-    max-width: 600px;
-  }
-  
-  .separador2 .informacion-contacto h3,
-  .separador2 .informacion-contacto p {
-    text-align: left;
-  }
-  
-  .separador2 .redes-sociales {
-    text-align: left;
-  }
-  
-  /* Estilos para pantallas grandes */
-  @media screen and (min-width: 992px) {
-    .separador2 .formulario-contacto {
-      flex-direction: row;
-      justify-content: space-between;
-    }
+}
 
-    
-    .separador2 .informacion-contacto {
-      flex: 0 0 50%;
-    }
-    
-    .separador2 .container {
-      flex: 0 0 50%;
-    }
-    
-    .separador2 .formulario-contacto .form-floating {
-      width: 100%;
-    }
-  }
-  
-  .informacion-contacto{
+.separador2 .formulario-contacto {
+    display: flex;
+    flex-direction: column; /* Por defecto en móvil: uno debajo de otro */
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+}
+
+.informacion-contacto {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.informacion-contacto, .formulario{
-    flex: 0 0 calc(50% - 1rem);
-}
-.informacion-contacto{
-    background-color: inherit;
+    text-align: center;
     padding: 2rem;
+    width: 100%;
+    max-width: 600px;
 }
 
-.informacion-contacto h3, .informacion-contacto p, .redes-sociales i{
+.informacion-contacto h3 {
     color: var(--blanco);
-}
-.informacion-contacto h3{
-    font-size: 4rem;
     font-family: var(--titulos);
+    font-size: clamp(2.5rem, 6vw, 4rem); /* Fluido */
+    margin-bottom: 1rem;
 }
 
-.informacion-contacto p{
-    font-size: 2.2rem;
-  
-}
-.informacion-contacto i{
-    margin-right: 1rem;
+.informacion-contacto p {
+    color: var(--blanco);
+    font-size: clamp(1.2rem, 3vw, 1.8rem); /* Fluido */
 }
 
+.separador2 .container {
+    width: 100%;
+    max-width: 600px;
+}
+
+/* --- ESTILOS INPUT FILE --- */
 .file-input-container {
-  position: relative;
-  width: 200px;
-  margin: 20px auto;
-}
-
-.file-input-container input[type="file"] {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
+    position: relative;
+    width: 100%;
+    max-width: 250px;
+    margin: 20px auto;
 }
 
 .file-input-label {
-  display: block;
-  background-color: #4CAF50; /* Color de fondo */
-  color: white; /* Color del texto */
-  padding: 10px 20px;
-  border-radius: 5px;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
+    display: block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
 }
 
-.file-input-label:hover {
-  background-color: #45a049; /* Cambiar el color de fondo al pasar el ratón */
+.file-input-container input[type="file"] {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0;
+    cursor: pointer;
 }
 
-/* Estilos para el campo de entrada de archivo */
-#fileInput {
-  color: white; /* Color del texto cuando no hay archivo seleccionado */
+/* --- MEDIA QUERIES --- */
+
+/* Pantallas Grandes (Escritorio) */
+@media screen and (min-width: 992px) {
+    .separador2 .formulario-contacto {
+        flex-direction: row; /* Uno al lado del otro */
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+    
+    .informacion-contacto {
+        text-align: left;
+        align-items: flex-start;
+        flex: 0 0 45%;
+    }
+    
+    .separador2 .container {
+        flex: 0 0 45%;
+    }
 }
 
-/* Estilos para el texto "Archivo" */
-label[for="fileInput"] {
-  color: white; /* Color del texto "Archivo" */
+/* Ajustes para Móvil */
+@media screen and (max-width: 768px) {
+    .separador2 {
+        background-attachment: scroll; /* Evita fallos de imagen en móvil */
+        padding: 2rem 1rem;
+    }
+
+    .informacion-contacto h3 {
+        font-size: 2.5rem;
+    }
+
+    .informacion-contacto p {
+        font-size: 1.2rem;
+    }
 }

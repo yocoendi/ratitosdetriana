@@ -1,50 +1,72 @@
 /* Seccion Separador */
 #separadorSection {
-  background: url(../img/brindis.png) no-repeat center;
-  background-attachment: fixed;
+  background: url(../img/brindis.png) no-repeat center center;
   background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+  /* El efecto fixed se desactiva en móviles en el media query de abajo */
+  background-attachment: fixed; 
+  
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  min-height: 450px; /* Ajusta la altura mínima según tus necesidades */
-  padding: 50px 20px; /* Ajusta el espaciado interno según tus necesidades */
+  
+  /* Altura proporcional a la pantalla */
+  min-height: 50vh; 
+  padding: 4rem 1rem;
 }
 
 #separadorSection .texto-separador {
-  max-width: 800px; /* Ajusta el ancho máximo del contenido según tus necesidades */
+  width: 100%;
+  max-width: 800px;
+  background: rgba(255, 255, 255, 0.1); /* Opcional: un toque sutil para legibilidad */
+  padding: 20px;
+  border-radius: 10px;
 }
 
 #separadorSection .texto-separador h2 {
   color: #70683c;
-  font-size: 5vw; /* Utiliza unidades de viewport para hacer el tamaño de fuente responsive */
-  margin-bottom: 20px; /* Espacio inferior entre el título y el párrafo */
+  /* clamp: mínimo 2rem, ideal 5vw, máximo 4.5rem */
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
 }
 
 #separadorSection .texto-separador p {
-  font-size: 2vw; /* Utiliza unidades de viewport para hacer el tamaño de fuente responsive */
   color: #70683c;
-  margin-bottom: 20px; /* Espacio inferior entre el párrafo y el botón */
+  /* clamp: mínimo 1rem, ideal 1.5vw, máximo 1.5rem */
+  font-size: clamp(1rem, 1.8vw, 1.5rem);
+  margin-bottom: 2rem;
 }
 
 #separadorSection .botones-evento {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 12px 30px;
   background-color: #70683c;
   color: white;
   text-decoration: none;
   border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
-/* Consultas de medios para hacer la sección responsive */
+#separadorSection .botones-evento:hover {
+  background-color: #5a5330;
+}
+
+/* --- AJUSTES PARA MÓVILES --- */
 @media (max-width: 768px) {
+  #separadorSection {
+    /* Desactivamos fixed para evitar que la imagen se vea borrosa o estirada */
+    background-attachment: scroll;
+    min-height: 40vh; 
+    padding: 3rem 1.5rem;
+  }
+
   #separadorSection .texto-separador h2 {
-    font-size: 12vw; /* Ajusta el tamaño de fuente del título para pantallas más pequeñas */
+    font-size: 2.2rem; /* Tamaño fijo de seguridad para móvil */
   }
 
   #separadorSection .texto-separador p {
-    font-size: 5vw; /* Ajusta el tamaño de fuente del párrafo para pantallas más pequeñas */
+    font-size: 1.1rem; /* Tamaño fijo de seguridad para móvil */
   }
 }
