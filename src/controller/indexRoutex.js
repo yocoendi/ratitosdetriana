@@ -3,16 +3,16 @@ import fs from 'fs';
 
 // 1. Configuración de Email (Cámbialo por tus credenciales de Gmail)
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false, // false para usar STARTTLS en puerto 587
-  requireTLS: true, // Forzar TLS para evitar bloqueos
+  host: "smtp.gmail.com", // <--- REVISA ESTO: Que no tenga http:// ni ://
+  port: 465,
+  secure: true, 
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS, // Asegúrate que sea la contraseña de aplicación de 16 caracteres
+    pass: process.env.EMAIL_PASS,
   },
-  connectionTimeout: 10000, // Aumentar el tiempo de espera a 10s
 });
+
+
 
 
 // --- VISTAS ---
