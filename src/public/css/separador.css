@@ -1,8 +1,9 @@
 /* Seccion Separador */
 #separadorSection {
-  background: url(../img/brindis.png) no-repeat center center;
+  /* Añadimos un degradado oscuro semitransparente sobre la imagen para que el texto resalte */
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+              url(../img/brindis.png) no-repeat center center;
   background-size: cover;
-  /* El efecto fixed se desactiva en móviles en el media query de abajo */
   background-attachment: fixed; 
   
   display: flex;
@@ -10,7 +11,6 @@
   align-items: center;
   text-align: center;
   
-  /* Altura proporcional a la pantalla */
   min-height: 50vh; 
   padding: 4rem 1rem;
 }
@@ -18,23 +18,19 @@
 #separadorSection .texto-separador {
   width: 100%;
   max-width: 800px;
-  background: rgba(255, 255, 255, 0.1); /* Opcional: un toque sutil para legibilidad */
   padding: 20px;
-  border-radius: 10px;
 }
 
 #separadorSection .texto-separador h2 {
-  color: #70683c;
-  /* clamp: mínimo 2rem, ideal 5vw, máximo 4.5rem */
+  color: #f3e8c9; /* Un tono crema claro para que resalte sobre el fondo oscuro */
   font-size: clamp(2rem, 5vw, 4.5rem);
   margin-bottom: 1.5rem;
   line-height: 1.2;
 }
 
 #separadorSection .texto-separador p {
-  color: #70683c;
-  /* clamp: mínimo 1rem, ideal 1.5vw, máximo 1.5rem */
-  font-size: clamp(1rem, 1.8vw, 1.5rem);
+  color: #ffffff; /* Blanco puro para el párrafo aseguro legibilidad */
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
   margin-bottom: 2rem;
 }
 
@@ -49,24 +45,22 @@
   transition: background-color 0.3s ease;
 }
 
-#separadorSection .botones-evento:hover {
-  background-color: #5a5330;
-}
-
-/* --- AJUSTES PARA MÓVILES --- */
+/* --- AJUSTES ESPECÍFICOS PARA MÓVILES --- */
 @media (max-width: 768px) {
   #separadorSection {
-    /* Desactivamos fixed para evitar que la imagen se vea borrosa o estirada */
-    background-attachment: scroll;
-    min-height: 40vh; 
+    background-attachment: scroll; /* Evita que la imagen desaparezca o se rompa en móvil */
+    min-height: 35vh; 
     padding: 3rem 1.5rem;
   }
 
+  /* Forzamos que los textos mantengan el contraste en pantallas pequeñas */
   #separadorSection .texto-separador h2 {
-    font-size: 2.2rem; /* Tamaño fijo de seguridad para móvil */
+    font-size: 2.5rem; 
+    color: #ffffff !important; 
   }
 
   #separadorSection .texto-separador p {
-    font-size: 1.1rem; /* Tamaño fijo de seguridad para móvil */
+    font-size: 1.2rem;
+    color: #f3e8c9 !important;
   }
 }
