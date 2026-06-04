@@ -1,31 +1,43 @@
-/* Sección Price */
 #price {
-  /* Simplificamos el fondo */
-  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), /* Capa oscura opcional para leer mejor el texto */
-              url(../img/IMG_4305.jpg) no-repeat center center;
-  background-size: cover;
-  
-  /* IMPORTANTE: El 'fixed' suele fallar en móviles, lo desactivamos en pantallas pequeñas más abajo */
-  background-attachment: fixed; 
-  
+  position: relative;
+  min-height: 40vh; 
+  padding: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   
-  /* Usamos min-height y vh para que sea proporcional */
-  min-height: 40vh; 
-  padding: 2rem;
+  /* Crea la ventana de recorte para que el fondo no se salga de aquí */
+  clip-path: inset(0 0 0 0); 
+}
+
+#price::before {
+  content: "";
+  /* Se estira al tamaño completo de la pantalla */
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  
+  /* Tu fondo */
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+              url(../img/IMG_4305.jpg) no-repeat center center;
+  background-size: cover;
+  
+  /* Se queda detrás del texto */
+  z-index: -1; 
 }
 
 #price .texto-price {
+  position: relative;
+  z-index: 1;
   width: 90%;
   max-width: 800px;
 }
 
 #price .texto-price h2 {
   color: #f3e8c9;
-  /* Usamos 'vw' (viewport width) para que el texto crezca con la pantalla */
   font-size: clamp(2.5rem, 8vw, 6rem); 
   margin: 0;
   line-height: 1.1;
@@ -35,8 +47,6 @@
 
 @media (max-width: 768px) {
   #price {
-    /* Desactivamos el fixed en móvil para evitar saltos y fallos de imagen */
-    background-attachment: scroll; 
     min-height: 30vh;
   }
 }
@@ -48,7 +58,6 @@
   }
   
   #price .texto-price h2 {
-    /* Un tamaño más seguro para móviles muy pequeños */
     font-size: 2.2rem;
   }
 }
