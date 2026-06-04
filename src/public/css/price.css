@@ -2,7 +2,7 @@
 #price {
   /* Simplificamos el fondo */
   background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), /* Capa oscura opcional para leer mejor el texto */
-              url(../img/86261947792.jpg) no-repeat center center;
+              url(../img/IMG_4305.jpg) no-repeat center center;
   background-size: cover;
   
   /* IMPORTANTE: El 'fixed' suele fallar en móviles, lo desactivamos en pantallas pequeñas más abajo */

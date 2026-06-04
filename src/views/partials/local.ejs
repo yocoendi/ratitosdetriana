@@ -1,7 +1,7 @@
 <section id="local" class="local">
   <div class="contenedor-local contenedor">
     <div class="texto-local">
-      <p class="bienvenida"></p>
+      <!-- Eliminado el párrafo vacío de bienvenida -->
       <h1>Ratitos de Triana</h1>
       <p>
         <i class='fas fa-map-marker-alt' style='font-size:30px'></i>
@@ -15,15 +15,19 @@
         excelentes vinos y un ambiente agradable, has venido al lugar
         correcto. ¡Te esperamos con los brazos abiertos!
       </p>
-      <button name="button" onclick="window.open('https://goo.gl/maps/aUthpGFw2i3nAmw46?coh=178571&entry=tt', '_blank')" class="botones botones-azul">UBICACIÓN</button>
+      <!-- Cambiado button por enlace 'a' para mejor accesibilidad y SEO -->
+      <a href="https://goo.gl/maps/aUthpGFw2i3nAmw46?coh=178571&entry=tt" target="_blank" rel="noopener noreferrer" class="botones botones-azul">
+        Cómo llegar
+      </a>
     </div>
     <div class="imagenes-local">
       <div class="imagen1">
-        <img src="../img/tirador.jpg" alt="" />
+        <!-- Añadidos textos 'alt' descriptivos -->
+        <img src="../img/tirador.jpg" alt="Tirador de cerveza fría en la barra de Ratitos de Triana">
       </div>
       <div class="imagenes2">
-        <img src="../img/lugar.jpg" alt="" />
-        <img src="../img/cuadro2.jpg" alt="" />
+        <img src="../img/lugar.jpg" alt="Interior del salón del restaurante acogedor">
+        <img src="../img/cuadro2.jpg" alt="Detalle de la decoración del local en Triana">
       </div>
     </div>
   </div>
