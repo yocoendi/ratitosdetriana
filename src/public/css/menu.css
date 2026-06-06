@@ -23,10 +23,14 @@
   }
   
   .plato img {
-    width: 100%;
-    height: 200px;
-    margin-bottom: 15px; /* Ajusta el margen inferior entre la imagen y el texto */
-  }
+  width: 100%;
+  height: 200px;
+  object-fit: cover;       /* ÉSTA ES LA LÍNEA MÁGICA: evita que se deformen */
+  object-position: center; /* Opcional: centra el plato en el recorte */
+  margin-bottom: 15px; 
+  border-radius: 8px;      /* Opcional: un toque estético para redondear esquinas */
+}
+
   
   /* Media queries para hacerlo responsive */
   @media (max-width: 1024px) {
