@@ -1,7 +1,8 @@
 #price {
   position: relative;
-  min-height: 40vh; 
-  padding: 2rem;
+  /* CAMBIO: De 40vh a 60vh para que sea más alto y visual */
+  min-height: 60vh; 
+  padding: 4rem 2rem; /* Aumentado el padding vertical para dar más aire */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,8 +22,8 @@
   height: 100vh;
   
   /* Tu fondo */
-  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-              url(../img/IMG_4305.jpg) no-repeat center center;
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), /* Un pelín más oscuro para mejorar contraste */
+              url(../img/5556.JPG) no-repeat center center;
   background-size: cover;
   
   /* Se queda detrás del texto */
@@ -47,14 +48,16 @@
 
 @media (max-width: 768px) {
   #price {
-    min-height: 30vh;
+    /* CAMBIO: De 30vh a 45vh para mantener la proporción en tablets */
+    min-height: 45vh;
   }
 }
 
 @media (max-width: 480px) {
   #price {
-    min-height: 200px;
-    padding: 1rem;
+    /* CAMBIO: De 200px a 350px para que no quede enano en móviles */
+    min-height: 350px;
+    padding: 2rem 1rem;
   }
   
   #price .texto-price h2 {
