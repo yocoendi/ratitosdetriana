@@ -22,7 +22,7 @@
   height: 100vh;
   
   /* Imagen original LIMPIA (sin el degradado oscuro de antes) */
-  background: url(../img/5556.JPG) no-repeat center center;
+  background: url(../img/photo1jpg.jpg) no-repeat center center;
   background-size: cover;
   
   z-index: -1; /* Se queda detrás de tus textos */
