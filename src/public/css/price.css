@@ -1,66 +1,56 @@
 #price {
   position: relative;
-  /* CAMBIO: De 40vh a 60vh para que sea más alto y visual */
-  min-height: 60vh; 
-  padding: 4rem 2rem; /* Aumentado el padding vertical para dar más aire */
+  /* Tamaños exactos de tu sección favorita */
+  min-height: 50vh; 
+  padding: 4rem 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   
-  /* Crea la ventana de recorte para que el fondo no se salga de aquí */
+  /* Evita que la foto con position:fixed se desborde de esta sección */
   clip-path: inset(0 0 0 0); 
 }
 
+/* Aquí es donde metemos el POSITION FIXED real */
 #price::before {
   content: "";
-  /* Se estira al tamaño completo de la pantalla */
-  position: fixed; 
+  position: fixed; /* Posición fija real para congelar la foto */
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
   
-  /* Tu fondo */
-  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), /* Un pelín más oscuro para mejorar contraste */
-              url(../img/5556.JPG) no-repeat center center;
+  /* Imagen original LIMPIA (sin el degradado oscuro de antes) */
+  background: url(../img/5556.JPG) no-repeat center center;
   background-size: cover;
   
-  /* Se queda detrás del texto */
-  z-index: -1; 
+  z-index: -1; /* Se queda detrás de tus textos */
 }
 
 #price .texto-price {
   position: relative;
   z-index: 1;
-  width: 90%;
+  width: 100%;
   max-width: 800px;
 }
 
 #price .texto-price h2 {
   color: #f3e8c9;
-  font-size: clamp(2.5rem, 8vw, 6rem); 
-  margin: 0;
-  line-height: 1.1;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
 }
 
-/* --- AJUSTES RESPONSIVE --- */
-
+/* --- AJUSTES ESPECÍFICOS PARA MÓVILES (Con tamaños reducidos) --- */
 @media (max-width: 768px) {
   #price {
-    /* CAMBIO: De 30vh a 45vh para mantener la proporción en tablets */
-    min-height: 45vh;
+    /* El contenedor reduce su tamaño exactamente a 35vh en el móvil */
+    min-height: 35vh;
+    padding: 3rem 1.5rem;
   }
-}
 
-@media (max-width: 480px) {
-  #price {
-    /* CAMBIO: De 200px a 350px para que no quede enano en móviles */
-    min-height: 350px;
-    padding: 2rem 1rem;
-  }
-  
   #price .texto-price h2 {
-    font-size: 2.2rem;
+    font-size: 2.5rem; 
   }
 }

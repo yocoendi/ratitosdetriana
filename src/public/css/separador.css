@@ -1,35 +1,52 @@
-/* Seccion Separador */
+/* Seccion Separador - Con position:fixed real y brillo original */
 #separadorSection {
-  /* Añadimos un degradado oscuro semitransparente sobre la imagen para que el texto resalte */
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-              url(../img/brindis.png) no-repeat center center;
-  background-size: cover;
-  background-attachment: fixed; 
-  
+  position: relative;
+  min-height: 50vh; 
+  padding: 4rem 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   
-  min-height: 50vh; 
-  padding: 4rem 1rem;
+  /* Crea la ventana de recorte para congelar el fondo dentro de la sección */
+  clip-path: inset(0 0 0 0); 
+}
+
+/* Capa virtual para el POSITION FIXED real */
+#separadorSection::before {
+  content: "";
+  position: fixed; /* Mantiene el fondo congelado al hacer scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  
+  /* Imagen original limpia (sin capas oscuras ni degradados) */
+  background: url(../img/brindis.png) no-repeat center center;
+  background-size: cover;
+  
+  z-index: -1; /* Se posiciona detrás del contenido */
 }
 
 #separadorSection .texto-separador {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 800px;
   padding: 20px;
 }
 
 #separadorSection .texto-separador h2 {
-  color: #f3e8c9; /* Un tono crema claro para que resalte sobre el fondo oscuro */
+  color:#ffffff; 
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Sombra para que destaque sobre la foto original */
   font-size: clamp(2rem, 5vw, 4.5rem);
   margin-bottom: 1.5rem;
   line-height: 1.2;
 }
 
 #separadorSection .texto-separador p {
-  color: #ffffff; /* Blanco puro para el párrafo aseguro legibilidad */
+  color:#ffffff; 
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.8); /* Sombra suave para que el texto blanco sea legible */
   font-size: clamp(1.1rem, 1.8vw, 1.5rem);
   margin-bottom: 2rem;
 }
@@ -45,22 +62,21 @@
   transition: background-color 0.3s ease;
 }
 
-/* --- AJUSTES ESPECÍFICOS PARA MÓVILES --- */
+/* --- AJUSTES ESPECÍFICOS PARA MÓVILES (Manteniendo el efecto fijo) --- */
 @media (max-width: 768px) {
   #separadorSection {
-    background-attachment: scroll; /* Evita que la imagen desaparezca o se rompa en móvil */
+    /* Mantiene los tamaños reducidos que te gustan */
     min-height: 35vh; 
     padding: 3rem 1.5rem;
   }
 
-  /* Forzamos que los textos mantengan el contraste en pantallas pequeñas */
+  /* Ajustes de tamaño de texto para pantallas pequeñas */
   #separadorSection .texto-separador h2 {
     font-size: 2.5rem; 
-    color: #ffffff !important; 
+    color: #ffffff !important; /* Fuerza el dorado también en móviles */
   }
 
   #separadorSection .texto-separador p {
-    font-size: 1.2rem;
-    color: #f3e8c9 !important;
+    font-size: 2.2rem;
   }
 }
